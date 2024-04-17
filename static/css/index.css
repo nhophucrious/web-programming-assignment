@@ -1,0 +1,19 @@
+html, body {
+    font-family: 'Nunito Sans', sans-serif !important;
+    margin: 0;
+    padding: 0;
+}
+
+.hero {
+    background-color: grey;
+    background-size: cover;
+    padding: 1em 2em;
+    height: 100vh;
+}
+
+.hero h1 {
+    font-size: 3em;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+}
