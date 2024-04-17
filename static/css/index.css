@@ -12,8 +12,28 @@ html, body {
 }
 
 .hero h1 {
-    font-size: 3em;
+    font-size: 5em;
     font-weight: bold;
     color: white;
     margin: 0;
+}
+
+.hero p {
+    font-size: 1.5em;
+    color: white;
+}
+
+#explore-btn {
+    background-color: black;
+    color: white;
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#explore-btn:hover {
+    background-color: white;
+    color: black;
 }
