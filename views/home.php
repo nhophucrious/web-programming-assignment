@@ -4,15 +4,17 @@
     require_once 'includes/header.php';
 ?>
 
-<div class="hero container-fluid text-center d-flex flex-column justify-content-center align-items-center">
-    <h1>Welcome to HiredCMUT!</h1>
-    <p>Find a job in an instant!</p>
-    <!-- button to explore now, scrolls down to new section -->
-    <a id="explore-btn" href="#explore">Explore Now</a>
+<div class="hero py-5 container-fluid text-center d-flex flex-column justify-content-center align-items-center">
+    <div class="hero-content container py-5" style="width: 100% !important">
+        <h1>Get employed with HiredCMUT!</h1>
+        <p>Find a job in an instant!</p>
+        <!-- button to explore now, scrolls down to new section -->
+        <a id="explore-btn" href="#explore">Explore Now</a>
+    </div>
 </div>
 
 <div id="explore" class="container my-5">
-    <h2 class="text-center">Popular Jobs</h2>
+    <h2 class="text-center">New Jobs</h2>
     <div class="row">
 </div>
 </div>

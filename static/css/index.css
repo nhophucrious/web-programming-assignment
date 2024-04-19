@@ -1,18 +1,24 @@
 html, body {
     font-family: 'Nunito Sans', sans-serif !important;
+    /* font-family: 'Consolas', monospace !important; */
     margin: 0;
     padding: 0;
 }
 
 .hero {
-    background-color: grey;
+    /* background-color: white; */
+    background: url("../img/hero-bg.jpg");
     background-size: cover;
-    padding: 1em 2em;
     height: 100vh;
 }
 
+.hero-content {
+    background-color: black;
+    border-radius: 10px;
+}
+
 .hero h1 {
-    font-size: 5em;
+    font-size: 3em;
     font-weight: bold;
     color: white;
     margin: 0;
@@ -24,8 +30,8 @@ html, body {
 }
 
 #explore-btn {
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
     padding: 0.5em 1em;
     border: none;
     border-radius: 50px;
@@ -34,6 +40,6 @@ html, body {
 }
 
 #explore-btn:hover {
-    background-color: white;
+    background-color: #f2f2f2;
     color: black;
 }
