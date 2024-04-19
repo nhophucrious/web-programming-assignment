@@ -1,8 +1,12 @@
 <!DOCTYPE html>
+<?php
+    // get the current URI for highlighting the active link
+    $uri = $_SERVER['REQUEST_URI'];
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>HiredCMUT</title>
     <link rel="stylesheet" href="/web-programming-assignment/static/css/index.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,14 +54,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
+                <li class="nav-item <?= $uri === '/web-programming-assignment/index' ? 'active' : '' ?>">
+                    <a class="nav-link" href="/web-programming-assignment/index">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                <li class="nav-item <?= $uri === '/web-programming-assignment/about' ? 'active' : '' ?>">
+                    <a class="nav-link" href="/web-programming-assignment/about">About</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                <li class="nav-item <?= $uri === '/web-programming-assignment/contact' ? 'active' : '' ?>">
+                    <a class="nav-link" href="/web-programming-assignment/contact">Contact</a>
                 </li>
                 <li class="nav-item">
                     <form class="form-inline my-2 my-lg-0">

@@ -19,6 +19,7 @@ $request = str_replace('/web-programming-assignment', '', $_SERVER['REQUEST_URI'
 // Handle the request based on the URI
 switch ($request) {
     case '/' :
+    case '/index' :
         $controller->home();
         break;
     case '/about' :
