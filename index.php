@@ -13,5 +13,19 @@ spl_autoload_register(function ($class_name) {
 // Create a new instance of the main controller
 $controller = new Controller();
 
-// Handle the request
-$controller->handleRequest();
+// Get the current URI
+$request = str_replace('/web-programming-assignment', '', $_SERVER['REQUEST_URI']);
+
+// Handle the request based on the URI
+switch ($request) {
+    case '/' :
+        $controller->home();
+        break;
+    case '/about' :
+        $controller->about();
+        break;
+    default:
+        http_response_code(404);
+        echo "Page not found";
+        break;
+}
