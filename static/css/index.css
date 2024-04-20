@@ -69,6 +69,13 @@ html, body {
     color: white;
 }
 
+.error-hero {
+    background: url("../img/404-hero.jpg");
+    background-size: cover;
+    width: 100vw;
+    height: 70vh;
+}
+
 .about-hero::before {
     content: "";
     position: absolute;

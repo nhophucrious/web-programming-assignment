@@ -26,7 +26,8 @@ switch ($request) {
         $controller->about();
         break;
     default:
-        http_response_code(404);
-        echo "Page not found";
+        // http_response_code(404);
+        // echo "Page not found";
+        $controller->page_not_found();
         break;
 }
