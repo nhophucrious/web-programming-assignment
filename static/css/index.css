@@ -50,3 +50,36 @@ html, body {
     background-color: #FFBF00;
     margin: 1em 0;
 }
+
+.about-hero {
+    position: relative;
+    background: url("../img/about-hero.jpg");
+    background-size: cover;
+    height: 100vh;
+}
+
+.about-hero h1 {
+    font-size: 3em;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+}
+
+.about-hero p {
+    color: white;
+}
+
+.about-hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.about-hero > * {
+    position: relative;
+    z-index: 1;
+}

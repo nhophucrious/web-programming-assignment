@@ -12,6 +12,10 @@
     <p>🤝 Whether you are a student looking for a part-time job or an employer looking for interns or full-time employees, HiredCMUT is the place for you. Join us now and start your journey to success!</p>
 
 </div>
+<div class="container-fluid about-hero p-5 d-flex flex-column justify-content-center align-items-center">
+    <h1>😌 Easy for companies and candidates</h1>
+    <p>Create an account and begin your search in no time.</p>
+</div>
 
 <div class="container p-3">
     <div class="row">
