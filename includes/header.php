@@ -59,6 +59,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item <?= $uri === '/web-programming-assignment/' ? 'active' : '' ?>">
+                    <a class="nav-link" href="/web-programming-assignment/">Home</a>
+                </li>
                 <li class="nav-item <?= $uri === '/web-programming-assignment/jobs' ? 'active' : '' ?>">
                     <a class="nav-link" href="/web-programming-assignment/jobs">Jobs</a>
                 </li>
@@ -71,8 +74,8 @@
                 <li class="nav-item <?= $uri === '/web-programming-assignment/signup' ? 'active' : '' ?>">
                     <a class="nav-link" href="/web-programming-assignment/signup">Sign Up</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/web-programming-assignment/signin">Sign In</a>
+                <li class="nav-item <?= $uri === '/web-programming-assignment/signin' ? 'active' : '' ?>">
+                    <a class="nav-link" href="/web-programming-assignment/signup">Sign In</a>
                 </li>
             </ul>
         </div>
