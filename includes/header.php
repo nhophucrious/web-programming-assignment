@@ -44,33 +44,35 @@
             color: #000 !important; /* Black text for button */
             border-color: #fff !important; /* White border for button */
         }
+
+        .navbar.navbar-expand-lg .navbar-nav .active .nav-link {
+            background-color: #FFBF00 !important; /* Yellow background when active */
+            border-radius: 10px !important; /* Circular border */
+        }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-dark text-white sticky-top">
-        <a class="navbar-brand" href="#">HiredCMUT</a>
+        <a class="navbar-brand" href="/web-programming-assignment/">HiredCMUT</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item <?= $uri === '/web-programming-assignment/index' ? 'active' : '' ?>">
-                    <a class="nav-link" href="/web-programming-assignment/index">Home</a>
+                <li class="nav-item <?= $uri === '/web-programming-assignment/jobs' ? 'active' : '' ?>">
+                    <a class="nav-link" href="/web-programming-assignment/jobs">Jobs</a>
                 </li>
                 <li class="nav-item <?= $uri === '/web-programming-assignment/about' ? 'active' : '' ?>">
                     <a class="nav-link" href="/web-programming-assignment/about">About</a>
                 </li>
-                <li class="nav-item <?= $uri === '/web-programming-assignment/contact' ? 'active' : '' ?>">
-                    <a class="nav-link" href="/web-programming-assignment/contact">Contact</a>
+                <li class="nav-item <?= $uri === '/web-programming-assignment/employers' ? 'active' : '' ?>">
+                    <a class="nav-link" href="/web-programming-assignment/employers">For Employers</a>
                 </li>
                 <li class="nav-item">
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
+                    <a class="nav-link" href="/web-programming-assignment/signup">Sign Up</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
+                    <a class="nav-link" href="/web-programming-assignment/signin">Sign In</a>
                 </li>
             </ul>
         </div>
