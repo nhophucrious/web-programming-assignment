@@ -7,7 +7,7 @@ html, body {
 
 .hero {
     /* background-color: white; */
-    background: url("../img/hero-bg.jpg");
+    background: url("../img/home-hero-bg.jpg");
     background-size: cover;
     height: 100vh;
 }
@@ -15,6 +15,9 @@ html, body {
 .hero-content {
     background-color: black;
     border-radius: 10px;
+    box-shadow: 0px 14px 10px 5px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 14px 10px 5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 14px 10px 5px rgba(0,0,0,0.75);
 }
 
 .hero h1 {
@@ -56,6 +59,22 @@ html, body {
 
 .hiredcmut-button:hover {
     background-color: #FFBF00;
+    color: black;
+    text-decoration: none;
+}
+
+.hiredcmut-button-light {
+    background-color: #FFBF00;
+    color: black;
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.hiredcmut-button-light:hover {
+    background-color: #d39e00;
     color: black;
     text-decoration: none;
 }
