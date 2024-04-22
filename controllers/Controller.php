@@ -14,6 +14,10 @@ class Controller {
         $this->showSignupPage();
     }
 
+    public function signin() {
+        $this->showSigninPage();
+    }
+
     public function page_not_found() {
         $this->showPageNotFound();
     }
@@ -28,6 +32,10 @@ class Controller {
 
     private function showSignupPage() {
         include 'views/signup.php';
+    }
+
+    private function showSigninPage() {
+        include 'views/signin.php';
     }
 
     public function showPageNotFound() {

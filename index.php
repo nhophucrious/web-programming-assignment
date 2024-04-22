@@ -28,6 +28,9 @@ switch ($request) {
     case '/signup' :
         $controller->signup();
         break;
+    case '/signin' :
+        $controller->signin();
+        break;
     default:
         // http_response_code(404);
         // echo "Page not found";
