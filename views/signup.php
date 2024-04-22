@@ -5,7 +5,7 @@
 <div class="container-fluid p-5 " style="min-height: 100vh;">
     <div class="row align-items-center">
         <div class="col-md-6 col-sm-12">
-            <h3 style="font-weight: bold;">👋 Welcome to HiredCMUT</h3>
+            <h3 style="font-weight: bold;">Welcome to HiredCMUT!</h3>
             <hr>
             <form action="signup_process.php" method="post">
                 <div class="form-group">
@@ -30,7 +30,7 @@
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" id="privacy" name="privacy" required>
                     <label class="form-check-label" for="privacy">By signing up, you agree to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</label>                </div>
-                <button type="submit" class="hiredcmut-button-light">🚀 Sign Up</button>
+                <button type="submit" class="hiredcmut-button-light">Sign Up</button>
             </form>
             <!-- already have an account? -->
             <hr>
@@ -40,15 +40,15 @@
             <div class="signup-info-panel p-3">
                 <h4>As a job seeker</h4>
                 <ul style="list-style: none">
-                    <li>🧑 Personalized job recommendations</li>
-                    <li>👆 Apply to jobs in just one click</li>
-                    <li>💡 Get notified when new jobs are posted</li>
+                    <li>Personalized job recommendations</li>
+                    <li>Apply to jobs in just one click</li>
+                    <li>Get notified when new jobs are posted</li>
                 </ul>
                 <h4>As an employer</h4>
                 <ul style="list-style: none">
-                    <li>📌 Post jobs and reach out to candidates</li>
-                    <li>📊 Manage job postings</li>
-                    <li>📈 Track job applications</li>
+                    <li>Post jobs and reach out to candidates</li>
+                    <li>Manage job postings</li>
+                    <li>Track job applications</li>
                 </ul>
             </div>            
         </div>

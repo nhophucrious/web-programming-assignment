@@ -14,7 +14,7 @@
             <input type="text" class="form-control rounded mr-2" placeholder="Search with keywords, title, company..." name="q">
             <div class="input-group-append">
                 <!-- submit button in a tag and style hiredcmut-button -->
-                <button type="submit" class="hiredcmut-button-light">🔍&nbsp;Search</button>
+                <button type="submit" class="hiredcmut-button-light">Search</button>
             </div>
         </div>
     </form>

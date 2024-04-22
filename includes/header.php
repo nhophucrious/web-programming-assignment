@@ -75,7 +75,7 @@
                     <a class="nav-link" href="/web-programming-assignment/signup">Sign Up</a>
                 </li>
                 <li class="nav-item <?= $uri === '/web-programming-assignment/signin' ? 'active' : '' ?>">
-                    <a class="nav-link" href="/web-programming-assignment/signup">Sign In</a>
+                    <a class="nav-link" href="/web-programming-assignment/signin">Sign In</a>
                 </li>
             </ul>
         </div>
