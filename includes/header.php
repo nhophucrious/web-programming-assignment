@@ -68,7 +68,7 @@
                 <li class="nav-item <?= $uri === '/web-programming-assignment/employers' ? 'active' : '' ?>">
                     <a class="nav-link" href="/web-programming-assignment/employers">For Employers</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item <?= $uri === '/web-programming-assignment/signup' ? 'active' : '' ?>">
                     <a class="nav-link" href="/web-programming-assignment/signup">Sign Up</a>
                 </li>
                 <li class="nav-item">

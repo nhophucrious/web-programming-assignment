@@ -25,6 +25,9 @@ switch ($request) {
     case '/about' :
         $controller->about();
         break;
+    case '/signup' :
+        $controller->signup();
+        break;
     default:
         // http_response_code(404);
         // echo "Page not found";
