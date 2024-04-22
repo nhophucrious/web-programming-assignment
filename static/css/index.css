@@ -44,6 +44,22 @@ html, body {
     color: black;
 }
 
+.hiredcmut-button {
+    background-color: white;
+    color: black;
+    padding: 0.5em 1em;
+    border: 2px solid #FFBF00;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.hiredcmut-button:hover {
+    background-color: #FFBF00;
+    color: black;
+    text-decoration: none;
+}
+
 .my-separator {
     width: 30%;
     height: 2px;
