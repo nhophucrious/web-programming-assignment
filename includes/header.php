@@ -45,6 +45,14 @@
             border-color: #fff !important; /* White border for button */
         }
 
+        .navbar.navbar-brand {
+            font-weight: bold !important; /* Bold text */
+        }
+
+        .navbar.navbar-expand-lg .navbar-nav .nav-link {
+            font-weight: bold !important; /* Bold text */
+        }
+
         .navbar.navbar-expand-lg .navbar-nav .active .nav-link {
             background-color: #FFBF00 !important; /* Yellow background when active */
             border-radius: 10px !important; /* Circular border */
