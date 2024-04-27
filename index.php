@@ -25,6 +25,9 @@ switch ($request) {
     case '/about' :
         $controller->about();
         break;
+    case '/profile' :
+        $controller->profile();
+        break;
     case '/admin' :
         $controller->admin();
         break;

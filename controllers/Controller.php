@@ -10,6 +10,10 @@ class Controller {
         $this->showAboutPage();
     }
 
+    public function profile() {
+        $this->showProfilePage();
+    }
+
     public function signup() {
         $this->showSignupPage();
     }
@@ -32,6 +36,10 @@ class Controller {
 
     private function showAboutPage() {
         include 'views/about.php';
+    }
+
+    private function showProfilePage() {
+        include 'views/profile.php';
     }
 
     private function showSignupPage() {
