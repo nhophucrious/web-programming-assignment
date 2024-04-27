@@ -18,6 +18,10 @@ class Controller {
         $this->showSigninPage();
     }
 
+    public function admin() {
+        $this->showAdminPage();
+    }
+
     public function page_not_found() {
         $this->showPageNotFound();
     }
@@ -36,6 +40,10 @@ class Controller {
 
     private function showSigninPage() {
         include 'views/signin.php';
+    }
+
+    private function showAdminPage() {
+        include 'views/admin.php';
     }
 
     public function showPageNotFound() {

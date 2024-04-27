@@ -134,3 +134,24 @@ html, body {
     border: 2px solid #FFBF00;
     box-sizing: border-box;
 }
+
+/* admin page */
+
+.list-group-item.active {
+    background-color: black !important;
+    border-color: transparent !important;
+}
+
+.tab-pane {
+    background-color: #f0f5f9;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.badge {
+    background-color: #FFBF00 !important;
+}
