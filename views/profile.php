@@ -8,7 +8,7 @@ $applications = array();
     <div class="row">
         <div class="col-md-3">
             <!-- profile section with links -->
-            <div class="list-group" id="sticky-sidebar">
+            <div class="list-group sticky-sidebar">
                 <a href="#profile-overview" class="list-group-item list-group-item-action active" data-toggle="tab">
                     Profile Overview
                 </a>

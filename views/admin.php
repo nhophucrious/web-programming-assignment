@@ -8,10 +8,10 @@ $pendingJobPostingsCount = 0; // Just a placeholder
 ?>
 
 
-<div class="container pt-2" style="min-height: 100vh">
+<div class="container pt-5" style="min-height: 100vh">
     <div class="row">
         <div class="col-md-3">
-            <div class="list-group">
+            <div class="list-group sticky-sidebar">
                 <a href="#verify-job-posters" class="list-group-item list-group-item-action active" data-toggle="tab">
                     Pending employers <span class="badge badge-primary badge-pill"><?php echo $pendingEmployersCount; ?></span>
                 </a>
