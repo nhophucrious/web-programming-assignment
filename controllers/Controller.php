@@ -10,6 +10,10 @@ class Controller {
         $this->showAboutPage();
     }
 
+    public function employer() {
+        $this->showEmployerPage();
+    }
+
     public function profile() {
         $this->showProfilePage();
     }
@@ -36,6 +40,10 @@ class Controller {
 
     private function showAboutPage() {
         include 'views/about.php';
+    }
+
+    private function showEmployerPage() {
+        include 'views/employer.php';
     }
 
     private function showProfilePage() {
