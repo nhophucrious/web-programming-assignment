@@ -13,7 +13,7 @@ $totalJobCount = count($jobs);
 
 <div class="container-fluid py-5" style="background-color: #f0f5f9">
     <div class="container" style="min-height: 100vh;">
-        <div class="row">
+        <div class="row" style="min-height: 100vh">
             <!-- Job list column -->
             <div class="col-md-4">
                 <?php foreach ($jobs as $job): ?>
@@ -37,7 +37,7 @@ $totalJobCount = count($jobs);
             </div>
 
             <!-- Job details column -->
-            <div class="col-md-8" id="jobDetails" style="background-color: white; border-radius: 10px; padding: 20px;">
+            <div class="col-md-8 p-3" id="jobDetails" style="background-color: white; border-radius: 10px;">
                 <!-- Job details will be populated here -->
             </div>
         </div>

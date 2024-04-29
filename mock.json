@@ -72,5 +72,105 @@
         "JobLocation": "Remote",
         "Salary": 1500,
         "DatePosted": "2024-02-01"
+    },
+    {
+        "Company": "Amazon",
+        "Title": "Software Development Engineer",
+        "JobDescription": "Design, develop, and maintain software solutions for Amazon Web Services. Work on projects that drive innovation and impact millions of customers.",
+        "Requirements": [
+            "Bachelor's degree in Computer Science or related field",
+            "2+ years of experience in software development",
+            "Experience with Java, C++, or Python",
+            "Experience with cloud computing",
+            "Experience with Git",
+            "Strong problem-solving skills"
+        ],
+        "Benefits": [
+            "Health, dental, and vision insurance",
+            "401(k) with company match",
+            "Paid time off",
+            "Flexible work hours",
+            "Remote work options"
+        ],
+        "Level": "Intermediate",
+        "JobType": "Full-time",
+        "JobLocation": "On-site",
+        "Salary": 1500,
+        "DatePosted": "2024-02-15"
+    },
+    {
+        "Company": "Microsoft",
+        "Title": "Machine Learning Engineer",
+        "JobDescription": "Develop machine learning models and algorithms to solve complex business problems. Collaborate with data scientists and software engineers to deploy models in production.",
+        "Requirements": [
+            "Master's or Ph.D. in Computer Science, Statistics, or related field",
+            "2+ years of experience in machine learning",
+            "Experience with Python, TensorFlow, and scikit-learn",
+            "Experience with cloud computing",
+            "Experience with Git",
+            "Strong problem-solving skills"
+        ],
+        "Benefits": [
+            "Health, dental, and vision insurance",
+            "401(k) with company match",
+            "Paid time off",
+            "Flexible work hours",
+            "Remote work options"
+        ],
+        "Level": "Intermediate",
+        "JobType": "Full-time",
+        "JobLocation": "On-site",
+        "Salary": 1500,
+        "DatePosted": "2024-03-01"
+    },
+    {
+        "Company": "Apple",
+        "Title": "iOS Developer",
+        "JobDescription": "Design and develop iOS applications for Apple products. Work on projects that showcase your creativity and technical skills.",
+        "Requirements": [
+            "Bachelor's degree in Computer Science or related field",
+            "2+ years of experience in iOS development",
+            "Experience with Swift and Objective-C",
+            "Experience with Git",
+            "Strong problem-solving skills",
+            "Excellent communication skills"
+        ],
+        "Benefits": [
+            "Health, dental, and vision insurance",
+            "401(k) with company match",
+            "Paid time off",
+            "Flexible work hours",
+            "Remote work options"
+        ],
+        "Level": "Intermediate",
+        "JobType": "Full-time",
+        "JobLocation": "On-site",
+        "Salary": 1500,
+        "DatePosted": "2024-03-15"
+    },
+    {
+        "Company": "Netflix",
+        "Title": "Senior Software Engineer",
+        "JobDescription": "Develop scalable and reliable software solutions for Netflix products. Work on projects that impact millions of users worldwide.",
+        "Requirements": [
+            "Bachelor's degree in Computer Science or related field",
+            "5+ years of experience in software development",
+            "Experience with Java, Python, or Scala",
+            "Experience with cloud computing",
+            "Experience with Git",
+            "Strong problem-solving skills"
+        ],
+        "Benefits": [
+            "Health, dental, and vision insurance",
+            "401(k) with company match",
+            "Paid time off",
+            "Flexible work hours",
+            "Remote work options"
+        ],
+        "Level": "Expert",
+        "JobType": "Full-time",
+        "JobLocation": "Remote",
+        "Salary": 2000,
+        "DatePosted": "2024-04-01"
     }
 ]
