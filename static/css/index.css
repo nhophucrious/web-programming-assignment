@@ -194,3 +194,29 @@ html, body {
     border-radius: 5px;
     font-size: 0.8em;
 }
+
+.pagination-link {
+    margin: 0 5px;
+    background-color: white !important;
+    color: black !important;
+    border-radius: 10px;
+    border: 1px solid #FFBF00 !important;
+}
+
+.pagination-link.active {
+    background-color: #FFBF00 !important;
+    color: black;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination-nav {
+    color: black !important;
+    background-color: white !important;
+    border-radius: 10px;
+    border: 2px solid #FFBF00 !important;
+}

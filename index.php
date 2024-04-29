@@ -16,6 +16,9 @@ $controller = new Controller();
 // Get the current URI
 $request = str_replace('/web-programming-assignment', '', $_SERVER['REQUEST_URI']);
 
+// Ignore URL paramters for route matching
+$request = explode('?', $request)[0];
+
 // Handle the request based on the URI
 switch ($request) {
     case '/' :

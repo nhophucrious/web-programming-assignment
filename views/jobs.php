@@ -3,6 +3,12 @@ require_once 'includes/header.php';
 $json = file_get_contents('mock.json');
 $jobs = json_decode($json, true);
 $totalJobCount = count($jobs);
+
+$jobsPerPage = 5;
+$totalPages = ceil($totalJobCount / $jobsPerPage);
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$startIndex = ($page - 1) * $jobsPerPage;
+$jobsForCurrentPage = array_slice($jobs, $startIndex, $jobsPerPage);
 ?>
 
 <div class="container-fluid">
@@ -12,11 +18,22 @@ $totalJobCount = count($jobs);
 </div>
 
 <div class="container-fluid py-5" style="background-color: #f0f5f9">
+    <!-- Pagination -->
+    <div class="pagination text-center m-2">
+        <a href="jobs?page=<?= max(1, $page-1) ?>" class="btn btn-primary pagination-nav">&laquo;</a>
+        <?php
+            for ($i = 1; $i <= $totalPages; $i++) {
+                $activeClass = $i == $page ? 'active' : '';
+                echo "<a href='jobs?page=$i' class='btn btn-primary pagination-link $activeClass'>$i</a>";
+            }
+        ?>
+        <a href="jobs?page=<?= min($totalPages, $page+1) ?>" class="btn btn-primary pagination-nav">&raquo;</a>
+    </div>
     <div class="container" style="min-height: 100vh;">
         <div class="row" style="min-height: 100vh">
             <!-- Job list column -->
             <div class="col-md-4">
-                <?php foreach ($jobs as $job): ?>
+                <?php foreach ($jobsForCurrentPage as $job): ?>
                     <div class="card" onclick="highlightCard(this)" style="margin-bottom: 20px; border-radius: 10px;">
                         <div class="card-body">
                             <h5 class="card-title"><?= $job['Title'] ?></h5>
@@ -41,6 +58,17 @@ $totalJobCount = count($jobs);
                 <!-- Job details will be populated here -->
             </div>
         </div>
+    </div>
+    <!-- Pagination -->
+    <div class="pagination text-center m-2">
+        <a href="jobs?page=<?= max(1, $page-1) ?>" class="btn btn-primary pagination-nav">&laquo;</a>
+        <?php
+            for ($i = 1; $i <= $totalPages; $i++) {
+                $activeClass = $i == $page ? 'active' : '';
+                echo "<a href='jobs?page=$i' class='btn btn-primary pagination-link $activeClass'>$i</a>";
+            }
+        ?>
+        <a href="jobs?page=<?= min($totalPages, $page+1) ?>" class="btn btn-primary pagination-nav">&raquo;</a>
     </div>
 </div>
 
