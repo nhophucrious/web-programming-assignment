@@ -1,0 +1,76 @@
+[
+    {
+        "Company": "Meta",
+        "Title": "Sr. iOS Engineer",
+        "JobDescription": "Work on the iOS app for the Meta platform and help shape the future of social networking on mobile devices.",
+        "Requirements": [
+            "Bachelor's degree in Computer Science or related field",
+            "5+ years of experience in iOS development",
+            "Experience with Swift and Objective-C",
+            "Experience with RESTful APIs",
+            "Experience with Git",
+            "Experience with unit testing"
+        ],
+        "Benefits": [
+            "Health, dental, and vision insurance",
+            "401(k) with company match",
+            "Paid time off",
+            "Flexible work hours",
+            "Remote work options"
+        ],
+        "Level": "Expert",
+        "JobType": "Full-time",
+        "JobLocation": "On-site",
+        "Salary": 2000,
+        "DatePosted": "2024-01-01"
+    },
+    {
+        "Company": "Google",
+        "Title": "Android Developer Intern",
+        "JobDescription": "Develop Android applications for Google products and services. Work on projects that impact millions of users worldwide.",
+        "Requirements": [
+            "Pursuing a Bachelor's or Master's degree in Computer Science or related field",
+            "Experience with Java and Android development",
+            "Experience with Git",
+            "Strong problem-solving skills",
+            "Excellent communication skills"
+        ],
+        "Benefits": [
+            "Competitive salary",
+            "Housing stipend",
+            "Health, dental, and vision insurance",
+            "401(k) with company match",
+            "Paid time off"
+        ],
+        "Level": "Entry-level",
+        "JobType": "Internship",
+        "JobLocation": "On-site",
+        "Salary": 500,
+        "DatePosted": "2024-01-15"
+    },
+    {
+        "Company": "Reddit",
+        "Title": "Mid-Level Backend Engineer",
+        "JobDescription": "Develop and maintain backend services for Reddit products. Collaborate with cross-functional teams to deliver high-quality software solutions.",
+        "Requirements": [
+            "Bachelor's degree in Computer Science or related field",
+            "3+ years of experience in backend development",
+            "Experience with Python, Django, and Flask",
+            "Experience with SQL and NoSQL databases",
+            "Experience with RESTful APIs",
+            "Experience with Git"
+        ],
+        "Benefits": [
+            "Health, dental, and vision insurance",
+            "401(k) with company match",
+            "Paid time off",
+            "Flexible work hours",
+            "Remote work options"
+        ],
+        "Level": "Intermediate",
+        "JobType": "Full-time",
+        "JobLocation": "Remote",
+        "Salary": 1500,
+        "DatePosted": "2024-02-01"
+    }
+]
