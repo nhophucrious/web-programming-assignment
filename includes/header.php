@@ -70,7 +70,7 @@
                 <li class="nav-item <?= $uri === '/web-programming-assignment/' ? 'active' : '' ?>">
                     <a class="nav-link" href="/web-programming-assignment/">Home</a>
                 </li>
-                <li class="nav-item <?= $uri === '/web-programming-assignment/jobs' ? 'active' : '' ?>">
+                <li class="nav-item <?= strpos($uri, '/web-programming-assignment/jobs') === 0 ? 'active' : '' ?>">
                     <a class="nav-link" href="/web-programming-assignment/jobs">Jobs</a>
                 </li>
                 <li class="nav-item <?= $uri === '/web-programming-assignment/about' ? 'active' : '' ?>">

@@ -22,6 +22,7 @@
         "JobType": "Full-time",
         "JobLocation": "On-site",
         "Salary": 2000,
+        "CompanyLocation": "Menlo Park, CA",
         "DatePosted": "2024-01-01"
     },
     {
@@ -46,6 +47,7 @@
         "JobType": "Internship",
         "JobLocation": "On-site",
         "Salary": 500,
+        "CompanyLocation": "Mountain View, CA",
         "DatePosted": "2024-01-15"
     },
     {
@@ -71,6 +73,7 @@
         "JobType": "Full-time",
         "JobLocation": "Remote",
         "Salary": 1500,
+        "CompanyLocation": "San Francisco, CA",
         "DatePosted": "2024-02-01"
     },
     {
@@ -96,6 +99,7 @@
         "JobType": "Full-time",
         "JobLocation": "On-site",
         "Salary": 1500,
+        "CompanyLocation": "Seattle, WA",
         "DatePosted": "2024-02-15"
     },
     {
@@ -121,6 +125,7 @@
         "JobType": "Full-time",
         "JobLocation": "On-site",
         "Salary": 1500,
+        "CompanyLocation": "Redmond, WA",
         "DatePosted": "2024-03-01"
     },
     {
@@ -146,6 +151,7 @@
         "JobType": "Full-time",
         "JobLocation": "On-site",
         "Salary": 1500,
+        "CompanyLocation": "Cupertino, CA",
         "DatePosted": "2024-03-15"
     },
     {
@@ -171,6 +177,7 @@
         "JobType": "Full-time",
         "JobLocation": "Remote",
         "Salary": 2000,
+        "CompanyLocation": "Los Gatos, CA",
         "DatePosted": "2024-04-01"
     }
 ]
