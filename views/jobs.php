@@ -2,6 +2,24 @@
 require_once 'includes/header.php';
 $json = file_get_contents('mock.json');
 $jobs = json_decode($json, true);
+
+$location = isset($_GET['location']) ? $_GET['location'] : '';
+$level = isset($_GET['level']) ? $_GET['level'] : '';
+$city = isset($_GET['city']) ? $_GET['city'] : '';
+$minSalary = isset($_GET['minSalary']) ? $_GET['minSalary'] : '';
+$maxSalary = isset($_GET['maxSalary']) ? $_GET['maxSalary'] : '';
+$type = isset($_GET['type']) ? $_GET['type'] : '';
+
+$jobs = array_filter($jobs, function($job) use ($location, $level, $city, $minSalary, $maxSalary, $type) {
+    return ($location == '' || $job['JobLocation'] == $location) &&
+           ($level == '' || $job['Level'] == $level) &&
+           ($city == '' || $job['CompanyLocation'] == $city) &&
+           ($minSalary == '' || $job['Salary'] >= $minSalary) &&
+           ($maxSalary == '' || $job['Salary'] <= $maxSalary) &&
+           ($type == '' || $job['JobType'] == $type);
+});
+
+
 $totalJobCount = count($jobs);
 
 $jobsPerPage = 5;
@@ -16,6 +34,42 @@ $jobsForCurrentPage = array_slice($jobs, $startIndex, $jobsPerPage);
         echo "<h2 class='text-center py-3'>$totalJobCount jobs in Vietnam</h2>";
     ?>
 </div>
+
+<form id="filterForm" style="position: sticky; top: 0" class="container">
+    <label for="location">Job Location:</label>
+    <select id="location" name="location">
+        <option value="">All</option>
+        <option value="On-site">On-site</option>
+        <option value="Remote">Remote</option>
+    </select>
+
+    <label for="level">Level:</label>
+    <select id="level" name="level">
+        <option value="">All</option>
+        <option value="Entry-level">Entry-level</option>
+        <option value="Intermediate">Intermediate</option>
+        <option value="Expert">Expert</option>
+    </select>
+
+    <label for="city">City:</label>
+    <input type="text" id="city" name="city">
+
+    <label for="minSalary">Minimum Salary:</label>
+    <input type="text" id="minSalary" name="minSalary">
+
+    <label for="maxSalary">Maximum Salary:</label>
+    <input type="text" id="maxSalary" name="maxSalary">
+
+    <label for="type">Type:</label>
+    <select id="type" name="type">
+        <option value="">All</option>
+        <option value="Internship">Internship</option>
+        <option value="Full-time">Full-time</option>
+        <option value="Part-time">Part-time</option>
+    </select>
+
+    <input type="submit" value="Filter">
+</form>
 
 <div class="container-fluid py-5" style="background-color: #f0f5f9">
     <!-- Pagination -->
