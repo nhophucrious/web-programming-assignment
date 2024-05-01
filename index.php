@@ -46,6 +46,9 @@ switch ($request) {
     case '/signin' :
         $controller->signin();
         break;
+    case '/DB':
+        $controller->runDB();
+        break;
     default:
         // http_response_code(404);
         // echo "Page not found";

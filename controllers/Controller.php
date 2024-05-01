@@ -77,4 +77,8 @@ class Controller {
     private function showError($title, $message) {
         include 'views/error.php';
     }
+
+    public function runDB() {
+        include 'database/DB_config.php';
+    }
 }
