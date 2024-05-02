@@ -16,7 +16,7 @@ if (isset($_SESSION['message'])) {
         <div class="col-md-6 col-sm-12">
             <h3 style="font-weight: bold;">Welcome to HiredCMUT!</h3>
             <hr>
-            <form action="signup_process.php" method="post">
+            <form action="/web-programming-assignment/process/process_signin.php" method="post">
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" class="form-control" id="email" name="email" required>

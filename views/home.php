@@ -1,17 +1,22 @@
 <!-- views/home.php -->
 
 <?php 
-    require_once 'includes/header.php';
-    $json = file_get_contents('mock.json');
-    $jobs = json_decode($json, true);
-    // limit home page to 6 jobs
-    $jobs = array_slice($jobs, 0, 6);
+session_start();
+if (isset($_SESSION['full_name'])) {
+    $full_name = $_SESSION['full_name'];
+}
+require_once 'includes/header.php';
+$json = file_get_contents('mock.json');
+$jobs = json_decode($json, true);
+// limit home page to 6 jobs
+$jobs = array_slice($jobs, 0, 6);
 ?>
 
 <div class="hero py-5 container-fluid text-center d-flex flex-column justify-content-center align-items-center">
     <div class="hero-content container py-5" style="width: 100% !important">
         <h1 class="mb-2"><span style="color: black; background-color: #FFBF00; padding: 0 5px; border-radius: 10px;">Get employed</span> with HiredCMUT!</h1>        
         <p>Find a job in an instant!</p>
+        <p>Hello <?= $full_name ?>!</p>
         <?php
             require_once 'includes/search_bar.php';
         ?>
