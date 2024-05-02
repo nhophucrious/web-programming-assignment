@@ -1,4 +1,18 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (isset($_SESSION['full_name'])) {
+    $full_name = $_SESSION['full_name'];
+}
+
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+}
+
+$userController = new UserController();
+$user = $userController->getUserDetails($user_id);
+
 require_once 'includes/header.php';
 $skills = array("Java", "Python", "JavaScript", "Spring Boot", "React", "Angular", "Git", "Docker", "Jenkins");
 $applications = array();
@@ -10,7 +24,7 @@ $applications = array();
             <!-- profile section with links -->
             <div class="list-group sticky-sidebar">
                 <a href="#profile-overview" class="list-group-item list-group-item-action active" data-toggle="tab">
-                    Profile Overview
+                    Profile Overview 
                 </a>
 
                 <a href="#my-application" class="list-group-item list-group-item-action" data-toggle="tab">
@@ -28,7 +42,7 @@ $applications = array();
                                 <img src="https://via.placeholder.com/100" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%;">
                             </div>
                             <div class="col-md-8">
-                                <h2>Nguyen Van A</h2>
+                                <h2><?= $full_name?></h2>
                                 <p>iOS Developer</p>
                             </div>
                         </div>

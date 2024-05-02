@@ -60,6 +60,35 @@ class UserController {
         return null; // Return null if the user doesn't exist or the password is incorrect
     }
 
+    // get user detail by id
+    public function getUserDetails($user_id) {
+        $conn = $this->db->getConnection();
+    
+        $sql = "SELECT * FROM users WHERE user_id = :user_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+        $user = $stmt->fetch();
+    
+        $this->db->closeConnection();
+        return $user;
+    }
+    
+    // update user detail
+    public function updateUserDetails($user_id, $first_name, $last_name, $email) {
+        $conn = $this->db->getConnection();
+    
+        $sql = "UPDATE users SET first_name = :first_name, last_name = :last_name, email_address = :email WHERE user_id = :user_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':first_name', $first_name);
+        $stmt->bindParam(':last_name', $last_name);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+    
+        $this->db->closeConnection();
+    }
+
     // sign out user
     public function signoutUser() {
         session_start();
