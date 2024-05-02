@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <?php
-    // get the current URI for highlighting the active link
-    $uri = $_SERVER['REQUEST_URI'];
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (isset($_SESSION['full-name'])) {
+    $full_name = $_SESSION['full-name'];
+}
+// get the current URI for highlighting the active link
+$uri = $_SERVER['REQUEST_URI'];
 ?>
 <html lang="en">
 <head>
@@ -79,12 +85,21 @@
                 <li class="nav-item <?= $uri === '/web-programming-assignment/employer' ? 'active' : '' ?>">
                     <a class="nav-link" href="/web-programming-assignment/employer">For Employers</a>
                 </li>
-                <li class="nav-item <?= $uri === '/web-programming-assignment/signup' ? 'active' : '' ?>">
-                    <a class="nav-link" href="/web-programming-assignment/signup">Sign Up</a>
-                </li>
-                <li class="nav-item <?= $uri === '/web-programming-assignment/signin' ? 'active' : '' ?>">
-                    <a class="nav-link" href="/web-programming-assignment/signin">Sign In</a>
-                </li>
+                <?php if (isset($_SESSION['full_name'])): ?>
+                    <li class="nav-item <?= $uri === '/web-programming-assignment/profile' ? 'active' : '' ?>">
+                        <a class="nav-link" href="/web-programming-assignment/profile">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/web-programming-assignment/signout">Sign Out</a>
+                    </li>
+                <?php else: ?>
+                    <li class="nav-item <?= $uri === '/web-programming-assignment/signup' ? 'active' : '' ?>">
+                        <a class="nav-link" href="/web-programming-assignment/signup">Sign Up</a>
+                    </li>
+                    <li class="nav-item <?= $uri === '/web-programming-assignment/signin' ? 'active' : '' ?>">
+                        <a class="nav-link" href="/web-programming-assignment/signin">Sign In</a>
+                    </li>
+                <?php endif; ?>
             </ul>
         </div>
     </nav>
