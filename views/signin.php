@@ -1,14 +1,20 @@
 <?php
-session_start();
-require_once 'includes/header.php';
-if (isset($_SESSION['message'])) {
-    if ($_SESSION['message'] == '1') {
-        echo '<div class="alert alert-success" role="alert">User created successfully</div>';
-    } else {
-        echo '<div class="alert alert-danger" role="alert">User already exists</div>';
-    }
-    unset($_SESSION['message']);
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
 }
+require_once 'includes/header.php';
+
+if (isset($_SESSION['message'])) {
+    $message = $_SESSION['message'];
+    if ($message === 'User created successfully. You can now sign in.') {
+        echo '<div class="alert alert-success" role="alert">' . $message . '</div>';
+    } else {
+        echo '<div class="alert alert-danger" role="alert">' . $message . '</div>';
+    }
+}
+
+unset($_SESSION['message']);
+
 ?>
 
 <div class="container-fluid p-5 " style="min-height: 100vh;">
@@ -16,7 +22,7 @@ if (isset($_SESSION['message'])) {
         <div class="col-md-6 col-sm-12">
             <h3 style="font-weight: bold;">Welcome to HiredCMUT!</h3>
             <hr>
-            <form action="/web-programming-assignment/process/process_signin.php" method="post">
+            <form action="/web-programming-assignment/signin-action" method="post">
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" class="form-control" id="email" name="email" required>

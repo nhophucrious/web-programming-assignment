@@ -47,6 +47,20 @@ switch ($request) {
     case '/signin' :
         $controller->signin();
         break;
+    case '/signin-action' :
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userController->signinUser($_POST['email'], $_POST['password']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
+    case '/signup-action' :
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userController->createUser($_POST['email'], $_POST['first_name'], $_POST['last_name'], $_POST['password']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
     case '/signout' :
         $userController->signoutUser();
     default:

@@ -7,7 +7,7 @@
         <div class="col-md-6 col-sm-12">
             <h3 style="font-weight: bold;">Welcome to HiredCMUT!</h3>
             <hr>
-            <form action="/web-programming-assignment/process/process_signup.php" method="post">
+            <form action="/web-programming-assignment/signup-action" method="post">
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" class="form-control" id="email" name="email" required>

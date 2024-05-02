@@ -2,9 +2,9 @@
 
 <?php 
 session_start();
-if (isset($_SESSION['full_name'])) {
+if (isset($_SESSION['user'])) {
     $isSignedIn = true;
-    $full_name = $_SESSION['full_name'];
+    $full_name = $_SESSION['user']['full_name'];
 } else {
     $isSignedIn = false;
 }

@@ -3,8 +3,11 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-if (isset($_SESSION['full-name'])) {
-    $full_name = $_SESSION['full-name'];
+if (isset($_SESSION['user'])) {
+    $isSignedIn = true;
+    $full_name = $_SESSION['user']['full_name'];
+} else {
+    $isSignedIn = false;
 }
 // get the current URI for highlighting the active link
 $uri = $_SERVER['REQUEST_URI'];
@@ -85,7 +88,7 @@ $uri = $_SERVER['REQUEST_URI'];
                 <li class="nav-item <?= $uri === '/web-programming-assignment/employer' ? 'active' : '' ?>">
                     <a class="nav-link" href="/web-programming-assignment/employer">For Employers</a>
                 </li>
-                <?php if (isset($_SESSION['full_name'])): ?>
+                <?php if (isset($_SESSION['user'])): ?>
                     <li class="nav-item <?= $uri === '/web-programming-assignment/profile' ? 'active' : '' ?>">
                         <a class="nav-link" href="/web-programming-assignment/profile">Profile</a>
                     </li>

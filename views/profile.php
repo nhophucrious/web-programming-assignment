@@ -10,9 +10,6 @@ if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 }
 
-$userController = new UserController();
-$user = $userController->getUserDetails($user_id);
-
 require_once 'includes/header.php';
 $skills = array("Java", "Python", "JavaScript", "Spring Boot", "React", "Angular", "Git", "Docker", "Jenkins");
 $applications = array();
