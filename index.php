@@ -12,6 +12,7 @@ spl_autoload_register(function ($class_name) {
 
 // Create a new instance of the main controller
 $controller = new Controller();
+$userController = new UserController();
 
 // Get the current URI
 $request = str_replace('/web-programming-assignment', '', $_SERVER['REQUEST_URI']);
@@ -46,6 +47,8 @@ switch ($request) {
     case '/signin' :
         $controller->signin();
         break;
+    case '/signout' :
+        $userController->signoutUser();
     default:
         // http_response_code(404);
         // echo "Page not found";

@@ -1,6 +1,6 @@
 <?php
-require_once '../database/Database.php';
-require_once '../models/User.php';
+require_once __DIR__ . '/../database/Database.php';
+require_once __DIR__ . '/../models/User.php';
 
 class UserController {
     private $db;
@@ -58,5 +58,13 @@ class UserController {
 
         $this->db->closeConnection();
         return null; // Return null if the user doesn't exist or the password is incorrect
+    }
+
+    // sign out user
+    public function signoutUser() {
+        session_start();
+        session_unset();
+        session_destroy();
+        header('Location: /web-programming-assignment/signin');
     }
 }
