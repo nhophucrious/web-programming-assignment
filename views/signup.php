@@ -9,10 +9,6 @@
             <hr>
             <form action="signup_process.php" method="post">
                 <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
-                </div>
-                <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" class="form-control" id="email" name="email" required>
                 </div>
@@ -21,12 +17,16 @@
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
                 <div class="form-group">
+                    <label for="confirm_password">Confirm Password:</label>
+                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                </div>
+                <!-- <div class="form-group">
                     <label for="role">I am a:</label>
                     <select id="role" name="role" class="form-control">
                       <option value="job_seeker">Job Seeker</option>
-                      <option value="employer">Employer</option>
+                      <option value="employer">Job Poster</option>
                     </select>
-                </div>
+                </div> -->
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" id="privacy" name="privacy" required>
                     <label class="form-check-label" for="privacy">By signing up, you agree to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</label>                </div>
@@ -34,21 +34,15 @@
             </form>
             <!-- already have an account? -->
             <hr>
-            <p>Already have an account? <a href="signin.php">Sign in</a></p>
+            <p>Already have an account? <a href="signin">Sign in</a></p>
         </div>
         <div class="col-md-6 col-sm-12">
             <div class="signup-info-panel p-3">
-                <h4>As a job seeker</h4>
+                <h4>As a job seeker, you get</h4>
                 <ul style="list-style: none">
                     <li>Personalized job recommendations</li>
-                    <li>Apply to jobs in just one click</li>
-                    <li>Get notified when new jobs are posted</li>
-                </ul>
-                <h4>As an employer</h4>
-                <ul style="list-style: none">
-                    <li>Post jobs and reach out to candidates</li>
-                    <li>Manage job postings</li>
-                    <li>Track job applications</li>
+                    <li>One-click job applicationk</li>
+                    <li>Notification for suitable jobs</li>
                 </ul>
             </div>            
         </div>
@@ -58,3 +52,25 @@
 <?php
     require_once 'includes/footer.php';
 ?>
+
+
+<script>
+// validate fields with jQuery
+$('form').submit(function(e) {
+    var email = $('#email').val();
+    var password = $('#password').val();
+    var confirm_password = $('#confirm_password').val();
+    // var role = $('#role').val();
+    var privacy = $('#privacy').is(':checked');
+
+    if (email == '' || password == '' || confirm_password == '' || !privacy) {
+        alert('Please fill in all fields');
+        e.preventDefault();
+    } else if (password != confirm_password) {
+        alert('Passwords do not match');
+        e.preventDefault();
+    }
+    // TODO: add more validation rules here, eg, password length, password complexity, etc.
+});
+
+</script>

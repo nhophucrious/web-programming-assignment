@@ -18,6 +18,13 @@
     </div>
 </div>
 
+<?php
+
+// TODO: if the user is logged in, show jobs that match their skills
+
+?>
+
+
 <div id="explore" class="container my-5" >
     <h2 class="text-center">New Jobs</h2>
 </div>
@@ -43,7 +50,6 @@
             </div>
         <?php endforeach; ?>
     </div>
-
 </div>
 <?php
     require_once 'includes/footer.php';

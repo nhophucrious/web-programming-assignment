@@ -9,8 +9,8 @@
             <hr>
             <form action="signup_process.php" method="post">
                 <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
@@ -21,22 +21,13 @@
             </form>
             <!-- already have an account? -->
             <hr>
-            <p>Do not have an account yet? <a href="signin.php">Sign up</a></p>
+            <p>Do not have an account yet? <a href="signin">Sign up</a></p>
         </div>
         <div class="col-md-6 col-sm-12">
             <div class="signup-info-panel p-3">
-                <h4>As a job seeker</h4>
-                <ul style="list-style: none">
-                    <li>Personalized job recommendations</li>
-                    <li>Apply to jobs in just one click</li>
-                    <li>Get notified when new jobs are posted</li>
-                </ul>
-                <h4>As an employer</h4>
-                <ul style="list-style: none">
-                    <li>Post jobs and reach out to candidates</li>
-                    <li>Manage job postings</li>
-                    <li>Track job applications</li>
-                </ul>
+                <h4>Welcome back!</h4>
+                <hr>
+                <p>Sign in to access your personalized job recommendations, one-click job application, and notification for suitable jobs.</p>
             </div>            
         </div>
     </div>
@@ -45,3 +36,21 @@
 <?php
     require_once 'includes/footer.php';
 ?>
+
+<script>
+// validate fields with jQuery
+$('form').submit(function(e) {
+    var email = $('#email').val();
+    var password = $('#password').val();
+
+    if (email == '' || password == '') {
+        alert('Please fill in all fields');
+        e.preventDefault();
+    } else if (!email.includes('@')) {
+        alert('Invalid email address');
+        e.preventDefault();
+    }
+    // TODO: Add more validation rules
+});
+
+</script>
