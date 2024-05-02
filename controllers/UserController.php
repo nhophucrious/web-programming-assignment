@@ -44,6 +44,7 @@ class UserController {
     
             // Store user data in session
             $_SESSION['user'] = [
+                'user_id' => $result['user_id'],
                 'email' => $email,
                 'first_name' => $result['first_name'],
                 'last_name' => $result['last_name'],
@@ -56,7 +57,9 @@ class UserController {
             exit();
         } else {
             // Handle failed sign-in
-            // For example, redirect back to sign-in page with an error message
+            // redirect to sign-in page
+            header('Location: /web-programming-assignment/signin');
+
         }
     }
 
@@ -76,5 +79,26 @@ class UserController {
         // Redirect to home
         header('Location: /web-programming-assignment/');
         exit();
+    }
+
+    // get user detail by id
+    public function getUserDetails($user_id) {
+        $user = new User();
+        $result = $user->getUserDetails($user_id);
+        return $result;
+    }
+
+    // update user
+    public function updateUser($user_id, $email, $first_name, $last_name, $password, $title, $phoneNo, $avatar, $gender, $dob, $aboutMe, $addressId, $certificateId) {
+        $user = new User();
+        $result = $user->updateUser($user_id, $email, $first_name, $last_name, $password, $title, $phoneNo, $avatar, $gender, $dob, $aboutMe, $addressId, $certificateId);
+        return $result;
+    } 
+
+    // update about me
+    public function updateAboutMe($user_id, $aboutMe) {
+        $user = new User();
+        $result = $user->updateAboutMe($user_id, $aboutMe);
+        return $result;
     }
 }

@@ -174,5 +174,42 @@ class User {
     }
 
     // update user detail
+    public function updateUser($user_id, $email, $first_name, $last_name, $password, $title, $phoneNo, $avatar, $gender, $dob, $aboutMe, $addressId, $certificateId) {
+        $conn = $this->db->getConnection();
+    
+        $sql = "UPDATE users SET email_address = :email, first_name = :first_name, last_name = :last_name, password = :password, title = :title, phone_no = :phoneNo, avatar = :avatar, gender = :gender, dob = :dob, about_me = :aboutMe, address_id = :addressId, certificate_id = :certificateId WHERE user_id = :user_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':first_name', $first_name);
+        $stmt->bindParam(':last_name', $last_name);
+        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':title', $title);
+        $stmt->bindParam(':phoneNo', $phoneNo);
+        $stmt->bindParam(':avatar', $avatar);
+        $stmt->bindParam(':gender', $gender);
+        $stmt->bindParam(':dob', $dob);
+        $stmt->bindParam(':aboutMe', $aboutMe);
+        $stmt->bindParam(':addressId', $addressId);
+        $stmt->bindParam(':certificateId', $certificateId);
+        $stmt->execute();
+    
+        $this->db->closeConnection();
+        return true;
+    }
+
+    // update about me
+    public function updateAboutMe($user_id, $aboutMe) {
+        $conn = $this->db->getConnection();
+    
+        $sql = "UPDATE users SET about_me = :aboutMe WHERE user_id = :user_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':aboutMe', $aboutMe);
+        $stmt->execute();
+    
+        $this->db->closeConnection();
+        return true;
+    }
     
 }

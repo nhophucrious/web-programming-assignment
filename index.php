@@ -61,6 +61,13 @@ switch ($request) {
             $controller->page_not_found();
         }
         break;
+    case '/update-about-me' :
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userController->updateAboutMe($_POST['user_id'], $_POST['aboutMe']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
     case '/signout' :
         $userController->signoutUser();
     default:
