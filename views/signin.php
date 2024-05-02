@@ -1,5 +1,14 @@
 <?php
-    require_once 'includes/header.php';
+session_start();
+require_once 'includes/header.php';
+if (isset($_SESSION['message'])) {
+    if ($_SESSION['message'] == '1') {
+        echo '<div class="alert alert-success" role="alert">User created successfully</div>';
+    } else {
+        echo '<div class="alert alert-danger" role="alert">User already exists</div>';
+    }
+    unset($_SESSION['message']);
+}
 ?>
 
 <div class="container-fluid p-5 " style="min-height: 100vh;">

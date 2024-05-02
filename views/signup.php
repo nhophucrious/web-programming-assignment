@@ -7,10 +7,18 @@
         <div class="col-md-6 col-sm-12">
             <h3 style="font-weight: bold;">Welcome to HiredCMUT!</h3>
             <hr>
-            <form action="signup_process.php" method="post">
+            <form action="/web-programming-assignment/process/process_signup.php" method="post">
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="first_name">First Name:</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
@@ -20,13 +28,6 @@
                     <label for="confirm_password">Confirm Password:</label>
                     <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
                 </div>
-                <!-- <div class="form-group">
-                    <label for="role">I am a:</label>
-                    <select id="role" name="role" class="form-control">
-                      <option value="job_seeker">Job Seeker</option>
-                      <option value="employer">Job Poster</option>
-                    </select>
-                </div> -->
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" id="privacy" name="privacy" required>
                     <label class="form-check-label" for="privacy">By signing up, you agree to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</label>                </div>
@@ -41,7 +42,7 @@
                 <h4>As a job seeker, you get</h4>
                 <ul style="list-style: none">
                     <li>Personalized job recommendations</li>
-                    <li>One-click job applicationk</li>
+                    <li>One-click job application</li>
                     <li>Notification for suitable jobs</li>
                 </ul>
             </div>            
