@@ -118,6 +118,22 @@ switch ($request) {
             $controller->page_not_found();
         }
         break;
+    case '/add-education' :
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $educationController = new EducationController();
+            $educationController->createEducation($_POST['user_id'], $_POST['degreeName'], $_POST['institutionName'], $_POST['startYear'], $_POST['endYear']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
+    case '/delete-education' :
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $educationController = new EducationController();
+            $educationController->deleteEducation($_POST['education_id']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
     case '/update-skills' :
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController->updateSkills($_POST['user_id'], $_POST['skills']);

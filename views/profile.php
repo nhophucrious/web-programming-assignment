@@ -44,8 +44,10 @@ if ($address_id != '') {
     $address = '';
 }
 
-
-
+// education details
+require_once __DIR__ . '/../controllers/EducationController.php';
+$educationController = new EducationController();
+$educations = $educationController->getEducationByUserId($user_id);
 
 require_once 'includes/header.php';
 // $skills = array("Java", "Python", "JavaScript", "Spring Boot", "React", "Angular", "Git", "Docker", "Jenkins");
@@ -121,21 +123,32 @@ $applications = array();
                     </div>
                     <div id="education" class="content-section">
                         <!-- Content for Education -->
-                        <h3>Education</h3>
+                        <div class="row d-flex align-items-center">
+                            <h3 class="px-3">Education</h3>
+                            <br>
+                            <button type="button" class="icon-button" data-toggle="modal" data-target="#addEducationModal">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
                         <hr>
-                        <!-- <ul>
-                            <li>
-                                <h4>University</h4>
-                                <p>Computer Science</p>
-                                <p>2019 - 2023</p>
-                            </li>
-                            <li>
-                                <h4>High School</h4>
-                                <p>Mathematics</p>
-                                <p>2016 - 2019</p>
-                            </li>
-                        </ul> -->
-                        <p>Education details not available yet.</p>
+                        <?php
+                        if (count($educations) == 0) {
+                            echo '<p>No education details available yet.</p>';
+                        } else {
+                            foreach ($educations as $education) {
+                                echo '<div class="row mb-3">';
+                                echo '<div class="col">';
+                                echo '<p class="font-weight-bold">Degree name: ' . $education['degree_name'] . '</p>';
+                                echo '<p>Institution: ' . $education['institution_name'] . '</p>';
+                                echo '<p>' . $education['start_year'] . ' - ' . $education['end_year'] . '</p>';
+                                echo '</div>';
+                                echo '<div class="col-auto align-self-center">';
+                                echo '<button type="button" class="btn btn-danger" onclick="deleteEducation(' . $education['education_id'] . ')"><i class="fas fa-times"></i></button>';
+                                echo '</div>';
+                                echo '</div>';
+                            }
+                        }
+                        ?>
                     </div>
                     <div id="work-exp" class="content-section">
                         <!-- Content for Work Experience -->
@@ -416,6 +429,38 @@ $applications = array();
     </div>
 </div>
 
+<!-- Add Education Modal -->
+<div class="modal" id="addEducationModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Education</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="degreeName">Degree Name</label>
+                    <input type="text" class="form-control" id="degreeName">
+                </div>
+                <div class="form-group">
+                    <label for="institutionName">Institution Name</label>
+                    <input type="text" class="form-control" id="institutionName">
+                </div>
+                <div class="form-group">
+                    <label for="startYear">Start Year</label>
+                    <input type="number" class="form-control" id="startYear" min="1900" max="2099" step="1">
+                </div>
+                <div class="form-group">
+                    <label for="endYear">End Year</label>
+                    <input type="number" class="form-control" id="endYear" min="1900" max="2099" step="1">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="addEducation()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php
 require_once 'includes/footer.php';
@@ -571,5 +616,47 @@ require_once 'includes/footer.php';
         }
 
         xhr.send('user_id=' + encodeURIComponent(userId) + '&skills=' + encodeURIComponent(skills));
+    }
+
+    // add education
+    function addEducation() {
+        var degreeName = document.getElementById('degreeName').value;
+        var institutionName = document.getElementById('institutionName').value;
+        var startYear = document.getElementById('startYear').value;
+        var endYear = document.getElementById('endYear').value;
+        var userId = <?= json_encode($user_id) ?>; // Assuming $user_id is available in this scope
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", 'web-programming-assignment/add-education', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                alert('Education added successfully');
+                location.reload(); // Reload the page to see the changes
+            }
+        }
+
+        xhr.send('user_id=' + encodeURIComponent(userId) + '&degreeName=' + encodeURIComponent(degreeName) + '&institutionName=' + encodeURIComponent(institutionName) + '&startYear=' + encodeURIComponent(startYear) + '&endYear=' + encodeURIComponent(endYear));
+    }
+    // delete education
+    function deleteEducation(educationId) {
+        // alert the user to confirm if they want to delete the education record
+        if (!confirm('Are you sure you want to delete this education record?')) {
+            return;
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", 'web-programming-assignment/delete-education', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                alert('Education deleted successfully');
+                location.reload(); // Reload the page to see the changes
+            }
+        }
+
+        xhr.send('education_id=' + encodeURIComponent(educationId));
     }
 </script>
