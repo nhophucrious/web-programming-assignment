@@ -95,6 +95,34 @@ class UserController {
         return $result;
     } 
 
+    // update title 
+    public function updateTitle($user_id, $title) {
+        $user = new User();
+        $result = $user->updateTitle($user_id, $title);
+        return $result;
+    }
+
+    // update phone number
+    public function updatePhoneNumber($user_id, $phoneNo) {
+        $user = new User();
+        $result = $user->updatePhoneNumber($user_id, $phoneNo);
+        return $result;
+    }
+
+    // update gender
+    public function updateGender($user_id, $gender) {
+        $user = new User();
+        $result = $user->updateGender($user_id, $gender);
+        return $result;
+    }
+
+    // update dob
+    public function updateDob($user_id, $dob) {
+        $user = new User();
+        $result = $user->updateDob($user_id, $dob);
+        return $result;
+    }
+
     // update address id
     public function updateAddressId($user_id, $addressId) {
         $user = new User();

@@ -77,7 +77,9 @@ $applications = array();
                             </div>
                             <div class="col-md-8">
                                 <h2><?= $full_name?></h2>
-                                <p><?= ($title != '') ? $title : 'No title yet' ?></p>
+                                <p><?= ($title != '') ? $title : 'No title yet' ?> <span><button type="button" class="hiredcmut-button-light" data-toggle="modal" data-target="#titleModal">
+                                Update
+                            </button></span></p>
                             </div>
                             <div class="col-md-2">
                                 <button type="button" class="hiredcmut-button-light" data-toggle="modal" data-target="#updateAddressModal">
@@ -89,12 +91,12 @@ $applications = array();
                         <div class="row">
                             <div class="col-md-6">
                                 <p><i class="fas fa-envelope"></i> <?= $email_address ?></p>
-                                <p><i class="fas fa-phone"></i> <?= ($phone_no != '') ? $phone_no : 'No phone number yet' ?></p>
-                                <p><i class="fas fa-user"></i>  <?= ($gender != '') ? $gender : 'No gender yet' ?></p>
+                                <p><i class="fas fa-phone"></i> <?= ($phone_no != '') ? $phone_no : 'No phone number yet' ?><button class="btn btn-secondary ml-4" data-toggle="modal" data-target="#phoneModal"><i class="fa fa-pen"></i></button></p>
+                                <p><i class="fas fa-user"></i>  <?= ($gender != '') ? ($gender === "1") ? "Female" : "Male" : 'No gender yet' ?><button class="btn btn-secondary ml-4" data-toggle="modal" data-target="#genderModal"><i class="fa fa-pen"></i></button></p>
                             </div>
                             <div class="col-md-6">
-                                <p><i class="fas fa-map-marker-alt"></i> <?= ($address_id != '') ? $address : 'No address yet' ?></p>
-                                <p><i class="fas fa-birthday-cake"></i> <?= ($dob != '') ? $dob : 'No date of birth yet' ?></p>
+                                <p><i class="fas fa-map-marker-alt"></i> <?= ($address_id != '') ? $address : 'No address yet' ?><button class="btn btn-secondary ml-4" data-toggle="modal" data-target="#addressModal"><i class="fa fa-pen"></i></button></p>
+                                <p><i class="fas fa-birthday-cake"></i> <?= ($dob != '') ? $dob : 'No date of birth yet' ?><button class="btn btn-secondary ml-4" data-toggle="modal" data-target="#dobModal"><i class="fa fa-pen"></i></button></p>
                             </div>
                         </div>
                     </div>
@@ -198,6 +200,89 @@ $applications = array();
     </div>
 </div>
 
+<!-- title modal -->
+<div class="modal fade" id="titleModal" tabindex="-1" role="dialog" aria-labelledby="titleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="titleModalLabel">Update Title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="titleForm">
+          <div class="form-group">
+            <label for="titleText">Title</label>
+            <input type="text" class="form-control" id="titleText" value="<?= $title ?>">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="updateTitle()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Phone Number Modal -->
+<div class="modal" id="phoneModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Phone Number</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="phoneInput" value="<?= $phone_no ?>" maxlength="10">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="updatePhoneNumber()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Gender Modal -->
+<div class="modal" id="genderModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Gender</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="radio" id="male" name="gender" value="0" <?= $gender == 0 ? 'checked' : '' ?>>
+                <label for="male">Male</label><br>
+                <input type="radio" id="female" name="gender" value="1" <?= $gender == 1 ? 'checked' : '' ?>>
+                <label for="female">Female</label><br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="updateGender()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Date of Birth Modal -->
+<div class="modal" id="dobModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Date of Birth</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="date" id="dobInput" value="<?= $dob ?>">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="updateDob()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- about me modal -->
 <div class="modal fade" id="aboutMeModal" tabindex="-1" role="dialog" aria-labelledby="aboutMeModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -273,6 +358,77 @@ require_once 'includes/footer.php';
 ?>
 
 <script>
+    function updateTitle() {
+        var title = document.getElementById('titleText').value;
+        var userId = <?= json_encode($user_id) ?>; 
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", 'web-programming-assignment/update-title', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                alert('Title updated successfully');
+                location.reload(); // Reload the page to see the changes
+            }
+        }
+
+        xhr.send('user_id=' + encodeURIComponent(userId) + '&title=' + encodeURIComponent(title));
+    }
+
+    function updatePhoneNumber() {
+        var phoneNo = document.getElementById('phoneInput').value;
+        var userId = <?= json_encode($user_id) ?>; // Assuming $user_id is available in this scope
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", 'web-programming-assignment/update-phone-number', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                alert('Phone number updated successfully');
+                location.reload(); // Reload the page to see the changes
+            }
+        }
+
+        xhr.send('user_id=' + encodeURIComponent(userId) + '&phoneNo=' + encodeURIComponent(phoneNo));
+    }
+
+    function updateGender() {
+        var gender = document.querySelector('input[name="gender"]:checked').value;
+        var userId = <?= json_encode($user_id) ?>; // Assuming $user_id is available in this scope
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", 'web-programming-assignment/update-gender', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                alert('Gender updated successfully');
+                location.reload(); // Reload the page to see the changes
+            }
+        }
+
+        xhr.send('user_id=' + encodeURIComponent(userId) + '&gender=' + encodeURIComponent(gender));
+    }
+
+    function updateDob() {
+        var dob = document.getElementById('dobInput').value;
+        var userId = <?= json_encode($user_id) ?>; // Assuming $user_id is available in this scope
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", 'web-programming-assignment/update-dob', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                alert('Date of birth updated successfully');
+                location.reload(); // Reload the page to see the changes
+            }
+        }
+
+        xhr.send('user_id=' + encodeURIComponent(userId) + '&dob=' + encodeURIComponent(dob));
+    }
+
     function updateAboutMe() {
         var aboutMeText = document.getElementById('aboutMeText').value;
         var userId = <?= json_encode($user_id) ?>; // Assuming $user_id is available in this scope

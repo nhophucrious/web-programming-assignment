@@ -198,6 +198,62 @@ class User {
         return true;
     }
 
+    // update title 
+    public function updateTitle($user_id, $title) {
+        $conn = $this->db->getConnection();
+    
+        $sql = "UPDATE users SET title = :title WHERE user_id = :user_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':title', $title);
+        $stmt->execute();
+    
+        $this->db->closeConnection();
+        return true;
+    }
+
+    // update phone number
+    public function updatePhoneNumber($user_id, $phoneNo) {
+        $conn = $this->db->getConnection();
+    
+        $sql = "UPDATE users SET phone_no = :phoneNo WHERE user_id = :user_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':phoneNo', $phoneNo);
+        $stmt->execute();
+    
+        $this->db->closeConnection();
+        return true;
+    }
+
+    // update gender (gender is a boolean value)
+    public function updateGender($user_id, $gender) {
+        $conn = $this->db->getConnection();
+    
+        $sql = "UPDATE users SET gender = :gender WHERE user_id = :user_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':gender', $gender);
+        $stmt->execute();
+
+        $this->db->closeConnection();
+        return true;
+    }
+
+    // update dob
+    public function updateDob($user_id, $dob) {
+        $conn = $this->db->getConnection();
+    
+        $sql = "UPDATE users SET dob = :dob WHERE user_id = :user_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':dob', $dob);
+        $stmt->execute();
+    
+        $this->db->closeConnection();
+        return true;
+    }
+
     // update address id
     public function updateAddressId($user_id, $addressId) {
         $conn = $this->db->getConnection();

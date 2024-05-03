@@ -73,6 +73,34 @@ switch ($request) {
             $controller->page_not_found();
         }
         break;
+    case '/update-title' :
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userController->updateTitle($_POST['user_id'], $_POST['title']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
+    case '/update-phone-number' :
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userController->updatePhoneNumber($_POST['user_id'], $_POST['phoneNo']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
+    case '/update-gender' :
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userController->updateGender($_POST['user_id'], $_POST['gender']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
+    case '/update-dob' :
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userController->updateDob($_POST['user_id'], $_POST['dob']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
     case '/update-about-me' :
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController->updateAboutMe($_POST['user_id'], $_POST['aboutMe']);
