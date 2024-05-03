@@ -72,31 +72,26 @@ $applications = array();
                     <div id="summary" class="content-section">
                         <!-- Content for Summary -->
                         <div class="row align-items-center">
-                            <div class="col-md-2">
+                            <div class="col-md-4">
                                 <img src="https://via.placeholder.com/100" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%;">
                             </div>
                             <div class="col-md-8">
                                 <h2><?= $full_name?></h2>
-                                <p><?= ($title != '') ? $title : 'No title yet' ?> <span><button type="button" class="hiredcmut-button-light" data-toggle="modal" data-target="#titleModal">
-                                Update
+                                <p><?= ($title != '') ? $title : 'No title yet' ?> <span><button type="button" class="icon-button" data-toggle="modal" data-target="#titleModal">
+                                <i class="fas fa-pen"></i>
                             </button></span></p>
-                            </div>
-                            <div class="col-md-2">
-                                <button type="button" class="hiredcmut-button-light" data-toggle="modal" data-target="#updateAddressModal">
-                                    Update address
-                                </button>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-md-6">
                                 <p><i class="fas fa-envelope"></i> <?= $email_address ?></p>
-                                <p><i class="fas fa-phone"></i> <?= ($phone_no != '') ? $phone_no : 'No phone number yet' ?><button class="btn btn-secondary ml-4" data-toggle="modal" data-target="#phoneModal"><i class="fa fa-pen"></i></button></p>
-                                <p><i class="fas fa-user"></i>  <?= ($gender != '') ? ($gender === "1") ? "Female" : "Male" : 'No gender yet' ?><button class="btn btn-secondary ml-4" data-toggle="modal" data-target="#genderModal"><i class="fa fa-pen"></i></button></p>
+                                <p><i class="fas fa-phone"></i> <?= ($phone_no != '') ? $phone_no : 'No phone number yet' ?><button class="icon-button" data-toggle="modal" data-target="#phoneModal"><i class="fa fa-pen"></i></button></p>
+                                <p><i class="fas fa-user"></i>  <?= ($gender != '') ? ($gender === "1") ? "Female" : "Male" : 'No gender yet' ?><button class="icon-button" data-toggle="modal" data-target="#genderModal"><i class="fa fa-pen"></i></button></p>
                             </div>
                             <div class="col-md-6">
-                                <p><i class="fas fa-map-marker-alt"></i> <?= ($address_id != '') ? $address : 'No address yet' ?><button class="btn btn-secondary ml-4" data-toggle="modal" data-target="#addressModal"><i class="fa fa-pen"></i></button></p>
-                                <p><i class="fas fa-birthday-cake"></i> <?= ($dob != '') ? $dob : 'No date of birth yet' ?><button class="btn btn-secondary ml-4" data-toggle="modal" data-target="#dobModal"><i class="fa fa-pen"></i></button></p>
+                                <p><i class="fas fa-map-marker-alt"></i> <?= ($address_id != '') ? $address : 'No address yet' ?><button class="icon-button" data-toggle="modal" data-target="#updateAddressModal"><i class="fa fa-pen"></i></button></p>
+                                <p><i class="fas fa-birthday-cake"></i> <?= ($dob != '') ? $dob : 'No date of birth yet' ?><button class="icon-button" data-toggle="modal" data-target="#dobModal"><i class="fa fa-pen"></i></button></p>
                             </div>
                         </div>
                     </div>
@@ -105,8 +100,8 @@ $applications = array();
                         <div class="row d-flex align-items-center">
                             <h3 class="px-3">About Me</h3>
                             <br>
-                            <button type="button" class="hiredcmut-button-light" data-toggle="modal" data-target="#aboutMeModal">
-                                Update
+                            <button type="button" class="icon-button" data-toggle="modal" data-target="#aboutMeModal">
+                                <i class="fas fa-pen"></i>
                             </button>
                         </div>
                         <hr>

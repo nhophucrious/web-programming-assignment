@@ -220,3 +220,13 @@ html, body {
     border-radius: 10px;
     border: 2px solid #FFBF00 !important;
 }
+
+.icon-button {
+    margin-left: 1em;
+    background: none;
+    border: none;
+    padding: 0;
+    color: #FFBF00;
+    text-decoration: underline;
+    cursor: pointer;
+}

@@ -102,8 +102,9 @@ class Address {
 
     // update address
     public function updateAddress($address_id) {
+        $conn = $this->db->getConnection();
         $query = 'UPDATE address SET street_number = :street_number, street_name = :street_name, ward = :ward, district = :district, province = :province WHERE address_id = :address_id';
-        $stmt = $this->db->prepare($query);
+        $stmt = $conn->prepare($query);
         $stmt->bindParam(':street_number', $this->streetNo);
         $stmt->bindParam(':street_name', $this->streetName);
         $stmt->bindParam(':ward', $this->ward);
@@ -114,7 +115,7 @@ class Address {
         $stmt->execute();
 
         $this->db->closeConnection();
-        return true;
+        
     }
 }
 
