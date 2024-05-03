@@ -22,7 +22,7 @@ if (isset($_SESSION['user'])) {
     $dob = $user_details['dob'];
     $about_me = $user_details['about_me'];
     $address_id = $user_details['address_id'];
-    $certificate_id = $user_details['certificate_id'];
+    $skills = $user_details['skills'];
 }
 
 // if address_id is not empty, get address details
@@ -159,11 +159,7 @@ $applications = array();
                         <!-- Content for Skills -->
                         <h3>Skills</h3>
                         <hr>
-                        <!-- <div class="skills-container">
-                            <?php foreach ($skills as $skill): ?>
-                                <span class="skill-tag"><?php echo $skill; ?></span>
-                            <?php endforeach; ?>
-                        </div> -->
+                        
                         <p>Skills not available yet.</p>
                     </div>
                     <div id="certificates" class="content-section">

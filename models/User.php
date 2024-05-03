@@ -13,8 +13,7 @@ class User {
     private $dob;
     private $aboutMe;
     private $addressId;
-    private $certificateId;
-
+    private $skills;
     public function __construct() {
         $this->db = new Database();
     }
@@ -107,12 +106,12 @@ class User {
         $this->addressId = $addressId;
     }
 
-    public function getCertificateId() {
-        return $this->certificateId;
+    public function getSkills() {
+        return $this->skills;
     }
 
-    public function setCertificateId($certificateId) {
-        $this->certificateId = $certificateId;
+    public function setSkills($skills) {
+        $this->skills = $skills;
     }
 
     // create user
@@ -174,10 +173,10 @@ class User {
     }
 
     // update user detail
-    public function updateUser($user_id, $email, $first_name, $last_name, $password, $title, $phoneNo, $avatar, $gender, $dob, $aboutMe, $addressId, $certificateId) {
+    public function updateUser($user_id, $email, $first_name, $last_name, $password, $title, $phoneNo, $avatar, $gender, $dob, $aboutMe, $addressId, $skills) {
         $conn = $this->db->getConnection();
     
-        $sql = "UPDATE users SET email_address = :email, first_name = :first_name, last_name = :last_name, password = :password, title = :title, phone_no = :phoneNo, avatar = :avatar, gender = :gender, dob = :dob, about_me = :aboutMe, address_id = :addressId, certificate_id = :certificateId WHERE user_id = :user_id";
+        $sql = "UPDATE users SET email_address = :email, first_name = :first_name, last_name = :last_name, password = :password, title = :title, phone_no = :phoneNo, avatar = :avatar, gender = :gender, dob = :dob, about_me = :aboutMe, address_id = :addressId, skills = :skills WHERE user_id = :user_id";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':user_id', $user_id);
         $stmt->bindParam(':email', $email);
@@ -191,7 +190,7 @@ class User {
         $stmt->bindParam(':dob', $dob);
         $stmt->bindParam(':aboutMe', $aboutMe);
         $stmt->bindParam(':addressId', $addressId);
-        $stmt->bindParam(':certificateId', $certificateId);
+        $stmt->bindParam(':skills', $skills);
         $stmt->execute();
     
         $this->db->closeConnection();
