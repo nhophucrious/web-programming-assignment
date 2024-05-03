@@ -20,6 +20,10 @@ class Address {
         return $this->address_id;
     }
 
+    public function setAddressId($address_id) {
+        $this->address_id = $address_id;
+    }
+    
     public function getStreetNo() {
         return $this->streetNo;
     }
@@ -101,21 +105,23 @@ class Address {
     }
 
     // update address
-    public function updateAddress($address_id) {
+    public function updateAddress($address_id, $streetNo, $streetName, $ward, $district, $province) {
         $conn = $this->db->getConnection();
         $query = 'UPDATE address SET street_number = :street_number, street_name = :street_name, ward = :ward, district = :district, province = :province WHERE address_id = :address_id';
         $stmt = $conn->prepare($query);
-        $stmt->bindParam(':street_number', $this->streetNo);
-        $stmt->bindParam(':street_name', $this->streetName);
-        $stmt->bindParam(':ward', $this->ward);
-        $stmt->bindParam(':district', $this->district);
-        $stmt->bindParam(':province', $this->province);
         $stmt->bindParam(':address_id', $address_id);
+        $stmt->bindParam(':street_number', $streetNo);
+        $stmt->bindParam(':street_name', $streetName);
+        $stmt->bindParam(':ward', $ward);
+        $stmt->bindParam(':district', $district);
+        $stmt->bindParam(':province', $province);
+
+
 
         $stmt->execute();
 
         $this->db->closeConnection();
-        
+
     }
 }
 

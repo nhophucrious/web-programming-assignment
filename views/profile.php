@@ -90,7 +90,19 @@ $applications = array();
                                 <p><i class="fas fa-user"></i>  <?= ($gender != '') ? ($gender === "1") ? "Female" : "Male" : 'No gender yet' ?><button class="icon-button" data-toggle="modal" data-target="#genderModal"><i class="fa fa-pen"></i></button></p>
                             </div>
                             <div class="col-md-6">
-                                <p><i class="fas fa-map-marker-alt"></i> <?= ($address_id != '') ? $address : 'No address yet' ?><button class="icon-button" data-toggle="modal" data-target="#updateAddressModal"><i class="fa fa-pen"></i></button></p>
+                                <p>
+                                    <i class="fas fa-map-marker-alt"></i> 
+                                    <?= ($address_id != '') ? $address : 'No address yet' ?>
+                                    <?php if ($address_id != ''): ?>
+                                        <button class="icon-button" data-toggle="modal" data-target="#updateAddressModal">
+                                            <i class="fa fa-pen"></i>
+                                        </button>
+                                    <?php else: ?>
+                                        <button class="icon-button" data-toggle="modal" data-target="#createAddressModal">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    <?php endif; ?>
+                                </p>
                                 <p><i class="fas fa-birthday-cake"></i> <?= ($dob != '') ? $dob : 'No date of birth yet' ?><button class="icon-button" data-toggle="modal" data-target="#dobModal"><i class="fa fa-pen"></i></button></p>
                             </div>
                         </div>
@@ -304,17 +316,17 @@ $applications = array();
   </div>
 </div>
 
-<div class="modal fade" id="updateAddressModal" tabindex="-1" role="dialog" aria-labelledby="updateAddressModalLabel" aria-hidden="true">
+<div class="modal fade" id="createAddressModal" tabindex="-1" role="dialog" aria-labelledby="createAddressModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="updateAddressModalLabel">Update Address</h5>
+        <h5 class="modal-title" id="createAddressModalLabel">Create Address</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form id="updateAddressForm">
+        <form id="createAddressForm">
           <div class="form-group">
             <label for="streetNumber">Street Number</label>
             <input type="text" class="form-control" id="streetNumber">
@@ -345,7 +357,42 @@ $applications = array();
   </div>
 </div>
 
-
+<!-- Update Address Modal -->
+<div class="modal" id="updateAddressModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Update Address</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="updateStreetNumber">Street Number</label>
+                    <input type="text" class="form-control" id="updateStreetNumber" value="<?= $streetNo ?>">
+                </div>
+                <div class="form-group">
+                    <label for="updateStreetName">Street Name</label>
+                    <input type="text" class="form-control" id="updateStreetName" value="<?= $streetName ?>">
+                </div>
+                <div class="form-group">
+                    <label for="updateWard">Ward</label>
+                    <input type="text" class="form-control" id="updateWard" value="<?= $ward ?>">
+                </div>
+                <div class="form-group">
+                    <label for="updateDistrict">District</label>
+                    <input type="text" class="form-control" id="updateDistrict" value="<?= $district ?>">
+                </div>
+                <div class="form-group">
+                    <label for="updateProvince">Province</label>
+                    <input type="text" class="form-control" id="updateProvince" value="<?= $province ?>">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="updateAddress()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <?php
@@ -461,5 +508,28 @@ require_once 'includes/footer.php';
         }
 
         xhr.send('streetNo=' + encodeURIComponent(streetNumber) + '&streetName=' + encodeURIComponent(streetName) + '&ward=' + encodeURIComponent(ward) + '&district=' + encodeURIComponent(district) + '&province=' + encodeURIComponent(province));
+    }
+
+    function updateAddress() {
+        var streetNumber = document.getElementById('updateStreetNumber').value;
+        var streetName = document.getElementById('updateStreetName').value;
+        var ward = document.getElementById('updateWard').value;
+        var district = document.getElementById('updateDistrict').value;
+        var province = document.getElementById('updateProvince').value;
+        var addressId = <?= json_encode($address_id) ?>; // Assuming $address_id is available in this scope
+        var userId = <?= json_encode($user_id) ?>; // Assuming $user_id is available in this scope
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", 'web-programming-assignment/update-address', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                alert('Address updated successfully');
+                location.reload(); // Reload the page to see the changes
+            }
+        }
+
+        xhr.send('addressId=' + encodeURIComponent(addressId) + '&streetNo=' + encodeURIComponent(streetNumber) + '&streetName=' + encodeURIComponent(streetName) + '&ward=' + encodeURIComponent(ward) + '&district=' + encodeURIComponent(district) + '&province=' + encodeURIComponent(province) + '&user_id=' + encodeURIComponent(userId));
     }
 </script>
