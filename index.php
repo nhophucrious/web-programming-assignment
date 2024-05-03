@@ -118,6 +118,13 @@ switch ($request) {
             $controller->page_not_found();
         }
         break;
+    case '/update-skills' :
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userController->updateSkills($_POST['user_id'], $_POST['skills']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
     case '/signout' :
         $userController->signoutUser();
     default:

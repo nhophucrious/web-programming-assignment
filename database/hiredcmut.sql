@@ -1,5 +1,3 @@
--- Step 1: Create all the tables without foreign key constraints
-
 -- address
 CREATE TABLE `address` (
   `address_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -18,36 +16,11 @@ CREATE TABLE `certificate` (
   `year_issued` VARCHAR(4)
 );
 
--- exp
-CREATE TABLE `exp` (
-  `exp_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-  `exp_name` TEXT,
-  `year_start` VARCHAR(4),
-  `year_end` VARCHAR(4),
-  `user_id` INTEGER
-);
-
--- institution
-CREATE TABLE `institution` (
-  `institution_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-  `institution_name` TEXT
-);
-
--- education
-CREATE TABLE `education` (
-  `education_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-  `user_id` INTEGER,
-  `institution_id` INTEGER,
-  `degree_name` TEXT,
-  `start_year` VARCHAR(4),
-  `end_year` VARCHAR(4)
-);
-
 -- users
 CREATE TABLE `users` (
   `user_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
   `email_address` TEXT NOT NULL,
-  `password` TEXT NOT NULL,
+  `password` CHAR(60) NOT NULL,
   `first_name` TEXT NOT NULL,
   `last_name` TEXT NOT NULL,
   `title` VARCHAR(255),
@@ -65,7 +38,7 @@ CREATE TABLE `users` (
 CREATE TABLE `employers` (
   `employer_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
   `email_address` TEXT NOT NULL,
-  `password` TEXT NOT NULL,
+  `password` CHAR(60) NOT NULL,
   `employer_name` TEXT NOT NULL,
   `address_id` INTEGER,
   `status` BOOL NOT NULL,
@@ -84,6 +57,27 @@ CREATE TABLE `jobs` (
   `job_description` TEXT,
   `date_posted` DATETIME,
   FOREIGN KEY (`employer_id`) REFERENCES `employers` (`employer_id`)
+);
+
+-- education
+CREATE TABLE `education` (
+  `education_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+  `user_id` INTEGER,
+  `degree_name` TEXT,
+  `institution_name` TEXT,
+  `start_year` VARCHAR(4),
+  `end_year` VARCHAR(4),
+  FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+);
+
+-- exp
+CREATE TABLE `exp` (
+  `exp_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+  `exp_name` TEXT,
+  `year_start` VARCHAR(4),
+  `year_end` VARCHAR(4),
+  `user_id` INTEGER,
+  FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 );
 
 -- job_requirements

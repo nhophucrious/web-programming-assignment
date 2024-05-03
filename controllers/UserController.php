@@ -136,4 +136,11 @@ class UserController {
         $result = $user->updateAboutMe($user_id, $aboutMe);
         return $result;
     }
+
+    // update skills
+    public function updateSkills($user_id, $skills) {
+        $user = new User();
+        $result = $user->updateSkills($user_id, $skills);
+        return $result;
+    }
 }

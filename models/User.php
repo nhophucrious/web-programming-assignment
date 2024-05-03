@@ -281,4 +281,17 @@ class User {
         return true;
     }
     
+    // update skills
+    public function updateSkills($user_id, $skills) {
+        $conn = $this->db->getConnection();
+    
+        $sql = "UPDATE users SET skills = :skills WHERE user_id = :user_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':skills', $skills);
+        $stmt->execute();
+    
+        $this->db->closeConnection();
+        return true;
+    }
 }

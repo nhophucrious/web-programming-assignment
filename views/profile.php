@@ -48,7 +48,7 @@ if ($address_id != '') {
 
 
 require_once 'includes/header.php';
-$skills = array("Java", "Python", "JavaScript", "Spring Boot", "React", "Angular", "Git", "Docker", "Jenkins");
+// $skills = array("Java", "Python", "JavaScript", "Spring Boot", "React", "Angular", "Git", "Docker", "Jenkins");
 $applications = array();
 ?>
 
@@ -157,10 +157,16 @@ $applications = array();
                     </div>
                     <div id="skills" class="content-section">
                         <!-- Content for Skills -->
-                        <h3>Skills</h3>
+                        <div class="row d-flex align-items-center">
+                            <h3 class="px-3">Skills</h3>
+                            <br>
+                            <button type="button" class="icon-button" data-toggle="modal" data-target="#skillsModal">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                        </div>
                         <hr>
                         
-                        <p>Skills not available yet.</p>
+                        <p><?= ($skills != '') ? $skills : 'No skills yet' ?></p>
                     </div>
                     <div id="certificates" class="content-section">
                         <!-- Content for Certificates -->
@@ -310,6 +316,26 @@ $applications = array();
       </div>
     </div>
   </div>
+</div>
+
+<!-- Skills Modal -->
+<div class="modal" id="skillsModal">
+    <div class="modal-dialog modal-lg"> <!-- Add modal-lg class to make the modal wider -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Skills</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group"> <!-- Add form-group class for better styling -->
+                    <input type="text" class="form-control" id="skillsInput" value="<?= $skills ?>"> <!-- Add form-control class to make the input field take up the full width of the modal -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="updateSkills()">Save</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="createAddressModal" tabindex="-1" role="dialog" aria-labelledby="createAddressModalLabel" aria-hidden="true">
@@ -527,5 +553,23 @@ require_once 'includes/footer.php';
         }
 
         xhr.send('addressId=' + encodeURIComponent(addressId) + '&streetNo=' + encodeURIComponent(streetNumber) + '&streetName=' + encodeURIComponent(streetName) + '&ward=' + encodeURIComponent(ward) + '&district=' + encodeURIComponent(district) + '&province=' + encodeURIComponent(province) + '&user_id=' + encodeURIComponent(userId));
+    }
+
+    function updateSkills() {
+        var skills = document.getElementById('skillsInput').value;
+        var userId = <?= json_encode($user_id) ?>; // Assuming $user_id is available in this scope
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", 'web-programming-assignment/update-skills', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                alert('Skills updated successfully');
+                location.reload(); // Reload the page to see the changes
+            }
+        }
+
+        xhr.send('user_id=' + encodeURIComponent(userId) + '&skills=' + encodeURIComponent(skills));
     }
 </script>
