@@ -76,6 +76,7 @@ CREATE TABLE `exp` (
   `exp_name` TEXT,
   `year_start` VARCHAR(4),
   `year_end` VARCHAR(4),
+  `exp_description` TEXT,
   `user_id` INTEGER,
   FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 );

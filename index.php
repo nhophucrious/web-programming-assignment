@@ -134,6 +134,22 @@ switch ($request) {
             $controller->page_not_found();
         }
         break;
+    case '/add-exp' :
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $expController = new ExpController();
+            $expController->createExp($_POST['expName'], $_POST['yearStart'], $_POST['yearEnd'], $_POST['expDescription'], $_POST['user_id']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
+    case '/delete-exp' :
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $expController = new ExpController();
+            $expController->deleteExp($_POST['exp_id']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
     case '/update-skills' :
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController->updateSkills($_POST['user_id'], $_POST['skills']);

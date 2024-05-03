@@ -49,8 +49,12 @@ require_once __DIR__ . '/../controllers/EducationController.php';
 $educationController = new EducationController();
 $educations = $educationController->getEducationByUserId($user_id);
 
+// experience details
+require_once __DIR__ . '/../controllers/ExpController.php';
+$expController = new ExpController();
+$experiences = $expController->getExpByUserId($user_id);
+
 require_once 'includes/header.php';
-// $skills = array("Java", "Python", "JavaScript", "Spring Boot", "React", "Angular", "Git", "Docker", "Jenkins");
 $applications = array();
 ?>
 
@@ -138,7 +142,7 @@ $applications = array();
                             foreach ($educations as $education) {
                                 echo '<div class="row mb-3">';
                                 echo '<div class="col">';
-                                echo '<p class="font-weight-bold">Degree name: ' . $education['degree_name'] . '</p>';
+                                echo '<h4 class="font-weight-bold">' . $education['degree_name'] . '</h4>';
                                 echo '<p>Institution: ' . $education['institution_name'] . '</p>';
                                 echo '<p>' . $education['start_year'] . ' - ' . $education['end_year'] . '</p>';
                                 echo '</div>';
@@ -152,21 +156,32 @@ $applications = array();
                     </div>
                     <div id="work-exp" class="content-section">
                         <!-- Content for Work Experience -->
-                        <h3>Work Experience</h3>
+                        <div class="row d-flex align-items-center">
+                            <h3 class="px-3">Work Experience</h3>
+                            <br>
+                            <button type="button" class="icon-button" data-toggle="modal" data-target="#addWorkExpModal">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
                         <hr>
-                        <!-- <ul>
-                            <li>
-                                <h4>Company A</h4>
-                                <p>Software Engineer</p>
-                                <p>2021 - Present</p>
-                            </li>
-                            <li>
-                                <h4>Company B</h4>
-                                <p>Intern</p>
-                                <p>2020 - 2021</p>
-                            </li>
-                        </ul> -->
-                        <p>Work experience details not available yet.</p>
+                        <?php
+                        if (count($experiences) == 0) {
+                            echo '<p>No work experience details available yet.</p>';
+                        } else {
+                            foreach ($experiences as $experience) {
+                                echo '<div class="row mb-3">';
+                                echo '<div class="col">';
+                                echo '<h4 class="font-weight-bold">' . $experience['exp_name'] . '</h4>';
+                                echo '<p>' . $experience['year_start'] . ' - ' . $experience['year_end'] . '</p>';
+                                echo '<p>' . $experience['exp_description'] . '</p>';
+                                echo '</div>';
+                                echo '<div class="col-auto align-self-center">';
+                                echo '<button type="button" class="btn btn-danger" onclick="deleteExp(' . $experience['exp_id'] . ')"><i class="fas fa-times"></i></button>';
+                                echo '</div>';
+                                echo '</div>';
+                            }
+                        }
+                        ?>
                     </div>
                     <div id="skills" class="content-section">
                         <!-- Content for Skills -->
@@ -462,6 +477,46 @@ $applications = array();
     </div>
 </div>
 
+<!-- add work exp modal -->
+<div class="modal fade" id="addWorkExpModal" tabindex="-1" role="dialog" aria-labelledby="addWorkExpModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addWorkExpModalLabel">Add Work Experience</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- form to add work experience -->
+        <form id="addWorkExpForm">
+          <div class="form-group">
+            <label for="expName">Experience Name</label>
+            <input type="text" class="form-control" id="expName">
+          </div>
+          <div class="form-group">
+            <label for="yearStart">Start Year</label>
+            <input type="number" class="form-control" id="yearStart" min="1900" max="2099" step="1">
+          </div>
+          <div class="form-group">
+            <label for="yearEnd">End Year</label>
+            <input type="number" class="form-control" id="yearEnd" min="1900" max="2099" step="1">
+          </div>
+          <div class="form-group">
+            <label for="expDescription">Description</label>
+            <textarea class="form-control" id="expDescription" rows="3"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="addExp()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <?php
 require_once 'includes/footer.php';
 ?>
@@ -658,5 +713,48 @@ require_once 'includes/footer.php';
         }
 
         xhr.send('education_id=' + encodeURIComponent(educationId));
+    }
+
+    // add experience
+    function addExp() {
+        var expName = document.getElementById('expName').value;
+        var yearStart = document.getElementById('yearStart').value;
+        var yearEnd = document.getElementById('yearEnd').value;
+        var expDescription = document.getElementById('expDescription').value;
+        var userId = <?= json_encode($user_id) ?>; // Assuming $user_id is available in this scope
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", 'web-programming-assignment/add-exp', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                alert('Experience added successfully');
+                location.reload(); // Reload the page to see the changes
+            }
+        }
+
+        xhr.send('expName=' + encodeURIComponent(expName) + '&yearStart=' + encodeURIComponent(yearStart) + '&yearEnd=' + encodeURIComponent(yearEnd) + '&expDescription=' + encodeURIComponent(expDescription) + '&user_id=' + encodeURIComponent(userId));
+    }
+
+    // delete experience
+    function deleteExp(expId) {
+        // alert the user to confirm if they want to delete the experience record
+        if (!confirm('Are you sure you want to delete this experience record?')) {
+            return;
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", 'web-programming-assignment/delete-exp', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                alert('Experience deleted successfully');
+                location.reload(); // Reload the page to see the changes
+            }
+        }
+
+        xhr.send('exp_id=' + encodeURIComponent(expId));
     }
 </script>
