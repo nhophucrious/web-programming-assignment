@@ -1,22 +1,42 @@
 <!-- views/home.php -->
 
 <?php 
-    require_once 'includes/header.php';
-    $json = file_get_contents('mock.json');
-    $jobs = json_decode($json, true);
-    // limit home page to 6 jobs
-    $jobs = array_slice($jobs, 0, 6);
+session_start();
+if (isset($_SESSION['user'])) {
+    $isSignedIn = true;
+    $full_name = $_SESSION['user']['full_name'];
+} else {
+    $isSignedIn = false;
+}
+require_once 'includes/header.php';
+$json = file_get_contents('mock.json');
+$jobs = json_decode($json, true);
+// limit home page to 6 jobs
+$jobs = array_slice($jobs, 0, 6);
 ?>
 
 <div class="hero py-5 container-fluid text-center d-flex flex-column justify-content-center align-items-center">
     <div class="hero-content container py-5" style="width: 100% !important">
-        <h1 class="mb-2"><span style="color: black; background-color: #FFBF00; padding: 0 5px; border-radius: 10px;">Get employed</span> with HiredCMUT!</h1>        
-        <p>Find a job in an instant!</p>
+        <h1 class="mb-4"><span style="color: black; background-color: #FFBF00; padding: 0 5px; border-radius: 10px;">Get employed</span> with HiredCMUT!</h1>        
+        <?php
+            if ($isSignedIn) {
+                echo '<p>Welcome back, ' . $full_name . '!</p>';
+            } else {
+                echo '<p>Find a job in an instant!</p>';
+            }
+        ?>
         <?php
             require_once 'includes/search_bar.php';
         ?>
     </div>
 </div>
+
+<?php
+
+// TODO: if the user is logged in, show jobs that match their skills
+
+?>
+
 
 <div id="explore" class="container my-5" >
     <h2 class="text-center">New Jobs</h2>
@@ -43,7 +63,6 @@
             </div>
         <?php endforeach; ?>
     </div>
-
 </div>
 <?php
     require_once 'includes/footer.php';
