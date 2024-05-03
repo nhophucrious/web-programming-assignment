@@ -24,7 +24,28 @@ if (isset($_SESSION['user'])) {
     $address_id = $user_details['address_id'];
     $certificate_id = $user_details['certificate_id'];
 }
-// print_r($user_details);
+
+// if address_id is not empty, get address details
+if ($address_id != '') {
+    require_once __DIR__ . '/../controllers/AddressController.php';
+    $addressController = new AddressController();
+    $addressObject = $addressController->getAddress($address_id);
+
+    // Create variables for each field
+    $streetNo = $addressObject->getStreetNo();
+    $streetName = $addressObject->getStreetName();
+    $ward = $addressObject->getWard();
+    $district = $addressObject->getDistrict();
+    $province = $addressObject->getProvince();
+
+    // Combine them into a single string
+    $address = implode(', ', [$streetNo, $streetName, $ward, $district, $province]);
+} else {
+    $address = '';
+}
+
+
+
 
 require_once 'includes/header.php';
 $skills = array("Java", "Python", "JavaScript", "Spring Boot", "React", "Angular", "Git", "Docker", "Jenkins");
@@ -51,12 +72,17 @@ $applications = array();
                     <div id="summary" class="content-section">
                         <!-- Content for Summary -->
                         <div class="row align-items-center">
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <img src="https://via.placeholder.com/100" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%;">
                             </div>
                             <div class="col-md-8">
                                 <h2><?= $full_name?></h2>
                                 <p><?= ($title != '') ? $title : 'No title yet' ?></p>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="hiredcmut-button-light" data-toggle="modal" data-target="#updateAddressModal">
+                                    Update address
+                                </button>
                             </div>
                         </div>
                         <hr>
@@ -67,7 +93,7 @@ $applications = array();
                                 <p><i class="fas fa-user"></i>  <?= ($gender != '') ? $gender : 'No gender yet' ?></p>
                             </div>
                             <div class="col-md-6">
-                                <p><i class="fas fa-map-marker-alt"></i> <?= ($address_id != '') ? $address_id : 'No address yet' ?></p>
+                                <p><i class="fas fa-map-marker-alt"></i> <?= ($address_id != '') ? $address : 'No address yet' ?></p>
                                 <p><i class="fas fa-birthday-cake"></i> <?= ($dob != '') ? $dob : 'No date of birth yet' ?></p>
                             </div>
                         </div>
@@ -198,6 +224,49 @@ $applications = array();
   </div>
 </div>
 
+<div class="modal fade" id="updateAddressModal" tabindex="-1" role="dialog" aria-labelledby="updateAddressModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateAddressModalLabel">Update Address</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="updateAddressForm">
+          <div class="form-group">
+            <label for="streetNumber">Street Number</label>
+            <input type="text" class="form-control" id="streetNumber">
+          </div>
+          <div class="form-group">
+            <label for="streetName">Street Name</label>
+            <input type="text" class="form-control" id="streetName">
+          </div>
+          <div class="form-group">
+            <label for="ward">Ward</label>
+            <input type="text" class="form-control" id="ward">
+          </div>
+          <div class="form-group">
+            <label for="district">District</label>
+            <input type="text" class="form-control" id="district">
+          </div>
+          <div class="form-group">
+            <label for="province">Province</label>
+            <input type="text" class="form-control" id="province">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="createAddress()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
 <?php
 require_once 'includes/footer.php';
@@ -220,5 +289,26 @@ require_once 'includes/footer.php';
         }
 
         xhr.send('user_id=' + encodeURIComponent(userId) + '&aboutMe=' + encodeURIComponent(aboutMeText));
+    }
+
+    function createAddress() {
+        var streetNumber = document.getElementById('streetNumber').value;
+        var streetName = document.getElementById('streetName').value;
+        var ward = document.getElementById('ward').value;
+        var district = document.getElementById('district').value;
+        var province = document.getElementById('province').value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", 'web-programming-assignment/create-address', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                alert('Address created successfully');
+                location.reload(); // Reload the page to see the changes
+            }
+        }
+
+        xhr.send('streetNo=' + encodeURIComponent(streetNumber) + '&streetName=' + encodeURIComponent(streetName) + '&ward=' + encodeURIComponent(ward) + '&district=' + encodeURIComponent(district) + '&province=' + encodeURIComponent(province));
     }
 </script>

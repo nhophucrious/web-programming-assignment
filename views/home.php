@@ -1,7 +1,11 @@
 <!-- views/home.php -->
 
 <?php 
-session_start();
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 if (isset($_SESSION['user'])) {
     $isSignedIn = true;
     $full_name = $_SESSION['user']['full_name'];

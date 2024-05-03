@@ -1,6 +1,6 @@
 <?php
 // index.php
-
+session_start();
 // Autoload classes
 spl_autoload_register(function ($class_name) {
     if (file_exists('./controllers/' . $class_name . '.php')) {
@@ -57,6 +57,18 @@ switch ($request) {
     case '/signup-action' :
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController->createUser($_POST['email'], $_POST['first_name'], $_POST['last_name'], $_POST['password']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
+    case '/create-address' :
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $addressController = new AddressController();
+            $address_id = $addressController->createAddress($_POST['streetNo'], $_POST['streetName'], $_POST['ward'], $_POST['district'], $_POST['province']);
+            $user_id = $_SESSION['user']['user_id'];
+            var_dump($user_id);
+            var_dump($address_id);
+            $userController->updateAddressId($user_id, $address_id);
         } else {
             $controller->page_not_found();
         }

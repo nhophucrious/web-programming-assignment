@@ -95,6 +95,13 @@ class UserController {
         return $result;
     } 
 
+    // update address id
+    public function updateAddressId($user_id, $addressId) {
+        $user = new User();
+        $result = $user->updateAddressId($user_id, $addressId);
+        return $result;
+    }
+
     // update about me
     public function updateAboutMe($user_id, $aboutMe) {
         $user = new User();

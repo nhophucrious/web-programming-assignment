@@ -198,6 +198,20 @@ class User {
         return true;
     }
 
+    // update address id
+    public function updateAddressId($user_id, $addressId) {
+        $conn = $this->db->getConnection();
+    
+        $sql = "UPDATE users SET address_id = :addressId WHERE user_id = :user_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':addressId', $addressId);
+        $stmt->execute();
+    
+        $this->db->closeConnection();
+        return true;
+    }
+
     // update about me
     public function updateAboutMe($user_id, $aboutMe) {
         $conn = $this->db->getConnection();
