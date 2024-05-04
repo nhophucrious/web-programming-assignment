@@ -150,6 +150,22 @@ switch ($request) {
             $controller->page_not_found();
         }
         break;
+    case '/add-certificate' :
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $certificateController = new CertificateController();
+            $certificateController->createCertificate($_POST['user_id'], $_POST['certificateName'], $_POST['issuer'], $_POST['yearIssued'], $_POST['link']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
+    case '/delete-certificate' :
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $certificateController = new CertificateController();
+            $certificateController->deleteCertificate($_POST['certificate_id']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
     case '/update-skills' :
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController->updateSkills($_POST['user_id'], $_POST['skills']);

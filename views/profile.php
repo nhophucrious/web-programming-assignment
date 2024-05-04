@@ -54,6 +54,11 @@ require_once __DIR__ . '/../controllers/ExpController.php';
 $expController = new ExpController();
 $experiences = $expController->getExpByUserId($user_id);
 
+// certificate details
+require_once __DIR__ . '/../controllers/CertificateController.php';
+$certificateController = new CertificateController();
+$certificates = $certificateController->getCertificatesByUserId($user_id);
+
 require_once 'includes/header.php';
 $applications = array();
 ?>
@@ -198,26 +203,33 @@ $applications = array();
                     </div>
                     <div id="certificates" class="content-section">
                         <!-- Content for Certificates -->
-                        <h3>Certificates</h3>
+                        <div class="row d-flex align-items-center">
+                            <h3 class="px-3">Certificate</h3>
+                            <br>
+                            <button type="button" class="icon-button" data-toggle="modal" data-target="#addCertificateModal">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
                         <hr>
-                        <!-- <ul>
-                            <li>
-                                <h4>Java Programming</h4>
-                                <p>Issued by Oracle</p>
-                                <p>2020</p>
-                            </li>
-                            <li>
-                                <h4>Python Programming</h4>
-                                <p>Issued by Python Software Foundation</p>
-                                <p>2021</p>
-                            </li>
-                            <li>
-                                <h4>IELTS</h4>
-                                <p>Issued by British Council</p>
-                                <p>2022</p>
-                            </li>
-                        </ul> -->
-                        <p>Certificates not available yet.</p>
+                        <?php
+                        if (count($certificates) == 0) {
+                            echo '<p>No certificates available yet.</p>';
+                        } else {
+                            foreach ($certificates as $certificate) {
+                                echo '<div class="row mb-3">';
+                                echo '<div class="col">';
+                                echo '<h4 class="font-weight-bold">' . $certificate['certificate_name'] . '</h4>';
+                                echo '<p> Year issued: ' . $certificate['year_issued'] . '</p>';
+                                echo '<p> Issuer: ' . $certificate['issuer'] . '</p>';
+                                echo '<a href="' . $certificate['link'] . '" target="_blank">View Certificate</a>';
+                                echo '</div>';
+                                echo '<div class="col-auto align-self-center">';
+                                echo '<button type="button" class="btn btn-danger" onclick="deleteCertificate(' . $certificate['certificate_id'] . ')"><i class="fas fa-times"></i></button>';
+                                echo '</div>';
+                                echo '</div>';
+                            }
+                        }
+                        ?>
                     </div>
                 </div>
 
@@ -516,6 +528,39 @@ $applications = array();
   </div>
 </div>
 
+<!-- Add Certificate Modal -->
+<div class="modal" id="addCertificateModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Certificate</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="certificateName">Certificate Name</label>
+                    <input type="text" class="form-control" id="certificateName">
+                </div>
+                <div class="form-group">
+                    <label for="issuingAuthority">Issuing Authority</label>
+                    <input type="text" class="form-control" id="issuingAuthority">
+                </div>
+                <div class="form-group">
+                    <label for="certificateYear">Year</label>
+                    <input type="number" class="form-control" id="certificateYear" min="1900" max="2099" step="1">
+                </div>
+                <div class="form-group">
+                    <label for="certificateLink">Link</label>
+                    <input type="text" class="form-control" id="certificateLink">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="addCertificate()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <?php
 require_once 'includes/footer.php';
@@ -756,5 +801,47 @@ require_once 'includes/footer.php';
         }
 
         xhr.send('exp_id=' + encodeURIComponent(expId));
+    }
+    // add certificate
+    function addCertificate() {
+        var certificateName = document.getElementById('certificateName').value;
+        var issuingAuthority = document.getElementById('issuingAuthority').value;
+        var year = document.getElementById('certificateYear').value;
+        var link = document.getElementById('certificateLink').value;
+        var userId = <?= json_encode($user_id) ?>; // Assuming $user_id is available in this scope
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", 'web-programming-assignment/add-certificate', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                alert('Certificate added successfully');
+                location.reload(); // Reload the page to see the changes
+            }
+        }
+
+        xhr.send('certificateName=' + encodeURIComponent(certificateName) + '&issuer=' + encodeURIComponent(issuingAuthority) + '&yearIssued=' + encodeURIComponent(year) + '&link=' + encodeURIComponent(link) + '&user_id=' + encodeURIComponent(userId));
+    }
+
+    // delete certificate
+    function deleteCertificate(certificateId) {
+        // alert the user to confirm if they want to delete the certificate record
+        if (!confirm('Are you sure you want to delete this certificate record?')) {
+            return;
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", 'web-programming-assignment/delete-certificate', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                alert('Certificate deleted successfully');
+                location.reload(); // Reload the page to see the changes
+            }
+        }
+
+        xhr.send('certificate_id=' + encodeURIComponent(certificateId));
     }
 </script>

@@ -11,9 +11,13 @@ CREATE TABLE `address` (
 -- certificate
 CREATE TABLE `certificate` (
   `certificate_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+  `user_id` INTEGER,
   `certificate_name` TEXT,
   `issuer` TEXT,
-  `year_issued` VARCHAR(4)
+  `year_issued` VARCHAR(4),
+  `link` TEXT,
+
+  FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 );
 
 -- users
