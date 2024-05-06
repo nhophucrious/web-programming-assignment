@@ -8,13 +8,20 @@ $jobs = json_decode($json, true);
 
 require_once __DIR__ . '/../controllers/JobController.php';
 $jobController = new JobController();
-$jobs = $jobController->getAllJobs();
 
+// search query
+$searchQuery = isset($_GET['q']) ? $_GET['q'] : '';
 $location = isset($_GET['location']) ? $_GET['location'] : '';
 $level = isset($_GET['level']) ? $_GET['level'] : '';
 $minSalary = isset($_GET['minSalary']) ? $_GET['minSalary'] : '';
 $maxSalary = isset($_GET['maxSalary']) ? $_GET['maxSalary'] : '';
 $type = isset($_GET['type']) ? $_GET['type'] : '';
+
+if ($searchQuery != '') {
+    $jobs = $jobController->searchJobs($searchQuery);
+} else {
+    $jobs = $jobController->getAllJobs();
+}
 
 $jobs = array_filter($jobs, function($job) use ($location, $level, $minSalary, $maxSalary, $type) {
     return ($location == '' || $job['job_location'] == $location) &&
@@ -35,7 +42,7 @@ $jobsForCurrentPage = array_slice($jobs, $startIndex, $jobsPerPage);
 
 <div class="container-fluid">
     <?php
-        echo "<h2 class='text-center py-3'>$totalJobCount jobs in Vietnam</h2>";
+        echo "<h2 class='text-center py-3'>$totalJobCount jobs in Vietnam" . ($searchQuery ? " for keyword \"$searchQuery\"" : "") . "</h2>";
     ?>
 </div>
 
@@ -152,8 +159,7 @@ window.onload = function() {
         highlightCard(firstCard);
     } else {
         var jobDetails = document.getElementById('jobDetails');
-        jobDetails.innerHTML = '<p class="text-center">Please update your filter!</p>';
-    }
+        jobDetails.innerHTML = '<p class="text-center">Please update your filter or search parameter. <a href="/web-programming-assignment/jobs">Refresh</a></p>';    }
 }
 
 function highlightCard(card) {

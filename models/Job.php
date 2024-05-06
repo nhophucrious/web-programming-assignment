@@ -239,16 +239,12 @@ class Job {
     }
 
     // search jobs
-    public function searchJobs($location, $level, $city, $minSalary, $maxSalary, $type) {
+    public function searchJobs($query) {
         $conn = $this->db->getConnection();
-        $sql = "SELECT * FROM jobs WHERE (:location = '' OR job_location = :location) AND (:level = '' OR job_level = :level) AND (:city = '' OR job_location = :city) AND (:minSalary = '' OR salary >= :minSalary) AND (:maxSalary = '' OR salary <= :maxSalary) AND (:type = '' OR job_type = :type)";
+        $sql = "SELECT * FROM jobs WHERE job_name LIKE :query OR job_type LIKE :query OR job_location LIKE :query OR job_level LIKE :query OR job_description LIKE :query";
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':location', $location);
-        $stmt->bindParam(':level', $level);
-        $stmt->bindParam(':city', $city);
-        $stmt->bindParam(':minSalary', $minSalary);
-        $stmt->bindParam(':maxSalary', $maxSalary);
-        $stmt->bindParam(':type', $type);
+        $queryWithWildcards = "%" . $query . "%";
+        $stmt->bindParam(':query', $queryWithWildcards);
         $stmt->execute();
         $jobs = $stmt->fetchAll();
         $this->db->closeConnection();

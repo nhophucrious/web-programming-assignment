@@ -13,6 +13,12 @@ class JobController {
         return $result;
     }
 
+    public function searchJobs($query) {
+        $job = new Job();
+        $result = $job->searchJobs($query);
+        return $result;
+    }
+
     public function getJobById($job_id) {
         $job = new Job();
         $result = $job->getJobById($job_id);

@@ -53,7 +53,9 @@ $jobs = array_slice($jobs, 0, 6);
             <div class="col-md-4">
                 <div class="card" style="margin-bottom: 20px; border-radius: 10px;">
                     <div class="card-body">
-                        <h5 class="card-title"><?= $job['job_name'] ?></h5>
+                        <h5 class="card-title">
+                            <a href="job_details?id=<?= $job['job_id'] ?>" style="color: black"><?= $job['job_name'] ?></a>
+                        </h5>                        
                         <p class="card-text"><?= $job['employer_id'] ?></p>
                         <p class="card-text">
                             <span class="badge badge-primary"><?= $job['job_level'] ?></span>

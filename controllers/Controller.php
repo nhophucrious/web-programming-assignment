@@ -30,6 +30,10 @@ class Controller {
         $this->showAdminPage();
     }
 
+    public function job_details() {
+        $this->showJobDetails();
+    }
+
     public function page_not_found() {
         $this->showPageNotFound();
     }
@@ -60,6 +64,10 @@ class Controller {
 
     private function showAdminPage() {
         include 'views/admin.php';
+    }
+
+    private function showJobDetails() {
+        include 'views/job_detail.php';
     }
 
     public function showPageNotFound() {
