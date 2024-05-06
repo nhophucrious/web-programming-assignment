@@ -1,32 +1,36 @@
 <?php
 require_once 'includes/header.php';
+/*
 $json = file_get_contents('mock.json');
 $jobs = json_decode($json, true);
+});
+*/
+
+require_once __DIR__ . '/../controllers/JobController.php';
+$jobController = new JobController();
+$jobs = $jobController->getAllJobs();
 
 $location = isset($_GET['location']) ? $_GET['location'] : '';
 $level = isset($_GET['level']) ? $_GET['level'] : '';
-$city = isset($_GET['city']) ? $_GET['city'] : '';
 $minSalary = isset($_GET['minSalary']) ? $_GET['minSalary'] : '';
 $maxSalary = isset($_GET['maxSalary']) ? $_GET['maxSalary'] : '';
 $type = isset($_GET['type']) ? $_GET['type'] : '';
 
-$jobs = array_filter($jobs, function($job) use ($location, $level, $city, $minSalary, $maxSalary, $type) {
-    return ($location == '' || $job['JobLocation'] == $location) &&
-           ($level == '' || $job['Level'] == $level) &&
-           ($city == '' || $job['CompanyLocation'] == $city) &&
-           ($minSalary == '' || $job['Salary'] >= $minSalary) &&
-           ($maxSalary == '' || $job['Salary'] <= $maxSalary) &&
-           ($type == '' || $job['JobType'] == $type);
+$jobs = array_filter($jobs, function($job) use ($location, $level, $minSalary, $maxSalary, $type) {
+    return ($location == '' || $job['job_location'] == $location) &&
+           ($level == '' || $job['job_level'] == $level) &&
+           ($minSalary == '' || $job['salary'] >= $minSalary) &&
+           ($maxSalary == '' || $job['salary'] <= $maxSalary) &&
+           ($type == '' || $job['job_type'] == $type);
 });
 
-
 $totalJobCount = count($jobs);
-
-$jobsPerPage = 5;
+$jobsPerPage = 2;
 $totalPages = ceil($totalJobCount / $jobsPerPage);
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $startIndex = ($page - 1) * $jobsPerPage;
 $jobsForCurrentPage = array_slice($jobs, $startIndex, $jobsPerPage);
+// var_dump($jobs);
 ?>
 
 <div class="container-fluid">
@@ -35,40 +39,51 @@ $jobsForCurrentPage = array_slice($jobs, $startIndex, $jobsPerPage);
     ?>
 </div>
 
-<form id="filterForm" style="position: sticky; top: 0" class="container">
-    <label for="location">Job Location:</label>
-    <select id="location" name="location">
-        <option value="">All</option>
-        <option value="On-site">On-site</option>
-        <option value="Remote">Remote</option>
-    </select>
+<form id="filterForm" class="container py-3 bg-light rounded">
+    <div class="row">
+        <div class="col-md-2">
+            <label for="location">Job Location:</label>
+            <select id="location" name="location" class="form-control">
+                <option value="">All</option>
+                <option value="On-site" <?= isset($_GET['location']) && $_GET['location'] == 'On-site' ? 'selected' : '' ?>>On-site</option>
+                <option value="Remote" <?= isset($_GET['location']) && $_GET['location'] == 'Remote' ? 'selected' : '' ?>>Remote</option>
+            </select>
+        </div>
 
-    <label for="level">Level:</label>
-    <select id="level" name="level">
-        <option value="">All</option>
-        <option value="Entry-level">Entry-level</option>
-        <option value="Intermediate">Intermediate</option>
-        <option value="Expert">Expert</option>
-    </select>
+        <div class="col-md-2">
+            <label for="level">Level:</label>
+            <select id="level" name="level" class="form-control">
+                <option value="">All</option>
+                <option value="Entry-level" <?= isset($_GET['level']) && $_GET['level'] == 'Entry-level' ? 'selected' : '' ?>>Entry-level</option>
+                <option value="Intermediate" <?= isset($_GET['level']) && $_GET['level'] == 'Intermediate' ? 'selected' : '' ?>>Intermediate</option>
+                <option value="Expert" <?= isset($_GET['level']) && $_GET['level'] == 'Expert' ? 'selected' : '' ?>>Expert</option>
+            </select>
+        </div>
 
-    <label for="city">City:</label>
-    <input type="text" id="city" name="city">
+        <div class="col-md-2">
+            <label for="minSalary">Min Salary:</label>
+            <input type="text" id="minSalary" name="minSalary" class="form-control" value="<?= isset($_GET['minSalary']) ? htmlspecialchars($_GET['minSalary']) : '' ?>">
+        </div>
 
-    <label for="minSalary">Minimum Salary:</label>
-    <input type="text" id="minSalary" name="minSalary">
+        <div class="col-md-2">
+            <label for="maxSalary">Max Salary:</label>
+            <input type="text" id="maxSalary" name="maxSalary" class="form-control" value="<?= isset($_GET['maxSalary']) ? htmlspecialchars($_GET['maxSalary']) : '' ?>">
+        </div>
 
-    <label for="maxSalary">Maximum Salary:</label>
-    <input type="text" id="maxSalary" name="maxSalary">
+        <div class="col-md-2">
+            <label for="type">Type:</label>
+            <select id="type" name="type" class="form-control">
+                <option value="">All</option>
+                <option value="Internship" <?= isset($_GET['type']) && $_GET['type'] == 'Internship' ? 'selected' : '' ?>>Internship</option>
+                <option value="Full-time" <?= isset($_GET['type']) && $_GET['type'] == 'Full-time' ? 'selected' : '' ?>>Full-time</option>
+                <option value="Part-time" <?= isset($_GET['type']) && $_GET['type'] == 'Part-time' ? 'selected' : '' ?>>Part-time</option>
+            </select>
+        </div>
 
-    <label for="type">Type:</label>
-    <select id="type" name="type">
-        <option value="">All</option>
-        <option value="Internship">Internship</option>
-        <option value="Full-time">Full-time</option>
-        <option value="Part-time">Part-time</option>
-    </select>
-
-    <input type="submit" value="Filter">
+        <div class="col-md-2 d-flex align-items-end">
+            <input type="submit" value="Filter" class="hiredcmut-button-light w-100">
+        </div>
+    </div>
 </form>
 
 <div class="container-fluid py-5" style="background-color: #f0f5f9">
@@ -87,21 +102,24 @@ $jobsForCurrentPage = array_slice($jobs, $startIndex, $jobsPerPage);
         <div class="row" style="min-height: 100vh">
             <!-- Job list column -->
             <div class="col-md-4">
+                <?php if (count($jobsForCurrentPage) == 0): ?>
+                    <div class="alert alert-warning">No jobs matching the criteria</div>
+                <?php endif; ?>
                 <?php foreach ($jobsForCurrentPage as $job): ?>
                     <div class="card" onclick="highlightCard(this)" style="margin-bottom: 20px; border-radius: 10px;">
                         <div class="card-body">
-                            <h5 class="card-title"><?= $job['Title'] ?></h5>
-                            <p class="card-text"><?= $job['Company'] ?></p> <!-- Uncomment this line to include the company name -->
+                            <h5 class="card-title"><?= $job['job_name'] ?></h5>
+                            <p class="card-text"><?= $job['employer_id'] ?></p> <!-- Uncomment this line to include the company name -->
                             <p class="card-text">
-                                <span class="badge badge-primary"><?= $job['Level'] ?></span>
-                                <span class="badge badge-secondary"><?= $job['JobType'] ?></span>
-                                <span class="badge badge-success"><?= $job['JobLocation'] ?></span>
+                                <span class="badge badge-primary"><?= $job['job_level'] ?></span>
+                                <span class="badge badge-secondary"><?= $job['job_type'] ?></span>
+                                <span class="badge badge-success"><?= $job['job_location'] ?></span>
                             </p>
-                            <p class="card-text" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><?= $job['JobDescription'] ?></p>
+                            <p class="card-text" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><?= $job['job_description'] ?></p>
                             <hr>
-                            <p class="card-text">$<?= $job['Salary'] ?>/mo - <?= $job['DatePosted'] ?></p>
-                            <p class="card-text" style="display: none;"><?= json_encode($job['Requirements']) ?></p>
-                            <p class="card-text" style="display: none;"><?= json_encode($job['Benefits']) ?></p>
+                            <p class="card-text">$<?= $job['salary'] ?>/mo - <?= $job['date_posted'] ?></p>
+                            <p class="card-text" style="display: none;"><?= json_encode($job['job_requirement']) ?></p>
+                            <p class="card-text" style="display: none;"><?= json_encode($job['job_benefit']) ?></p>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -130,7 +148,12 @@ $jobsForCurrentPage = array_slice($jobs, $startIndex, $jobsPerPage);
 <script>
 window.onload = function() {
     var firstCard = document.getElementsByClassName('card')[0];
-    highlightCard(firstCard);
+    if (firstCard) {
+        highlightCard(firstCard);
+    } else {
+        var jobDetails = document.getElementById('jobDetails');
+        jobDetails.innerHTML = '<p class="text-center">Please update your filter!</p>';
+    }
 }
 
 function highlightCard(card) {
@@ -155,15 +178,11 @@ function highlightCard(card) {
         <h3 style="font-weight:bold">Job Description</h3>
         <p>${card.getElementsByClassName('card-text')[2].innerText}</p>
         <hr>
-        <h3 style="font-weight:bold">Skills and Experience</h3>
-        <ul>
-            ${JSON.parse(card.getElementsByClassName('card-text')[4].innerHTML).map(skill => `<li>${skill}</li>`).join('')}
-        </ul>
+        <h3 style="font-weight:bold">Job Requirements</h3>
+        <p>${card.getElementsByClassName('card-text')[4].innerText}</p>
         <hr>
-        <h3 style="font-weight:bold">Benefits</h3>
-        <ul>
-            ${JSON.parse(card.getElementsByClassName('card-text')[5].innerHTML).map(benefit => `<li>${benefit}</li>`).join('')}
-        </ul>
+        <h3 style="font-weight:bold">Job Benefits</h3>
+        <p>${card.getElementsByClassName('card-text')[5].innerText}</p>
     `;
 }
 </script>
