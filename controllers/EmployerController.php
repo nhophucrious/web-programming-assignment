@@ -13,17 +13,16 @@ class EmployerController {
         $address->setWard($ward);
         $address->setDistrict($district);
         $address->setProvince($province);
+        // Create address already return the ID
         $address_result = $address->createAddress();
-
-        $address_id = $address_result->getId();
 
         // Create emplyer
         $employer = new Employer();
         $employer->setEmail($email);
         $employer->setName($name);
         $employer->setPassword(password_hash($password, PASSWORD_DEFAULT));
-        $employer->setAddressId($address_id);
-        $result = $user->createEmployer();
+        $employer->setAddressId($address_result);
+        $result = $employer->createEmployer();
 
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -36,5 +35,7 @@ class EmployerController {
             // Failed to create user
             $_SESSION['message'] = 'Failed to create user. Please try again.';
         }
+        header('Location: /web-programming-assignment/signin');
+        exit;
     }
 }

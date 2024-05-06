@@ -61,6 +61,14 @@ switch ($request) {
             $controller->page_not_found();
         }
         break;
+    case '/employer-signup-action':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $employerController = new EmployerController();
+            $employerController->createEmployer($_POST['email'], $_POST['name'], $_POST['password'], $_POST['streetNo'], $_POST['streetName'], $_POST['ward'], $_POST['district'], $_POST['province']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
     case '/create-address' :
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $addressController = new AddressController();

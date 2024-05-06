@@ -38,10 +38,10 @@ require_once 'includes/header.php';
             <h1 id="slideTitle">Interested in recruiting via HiredCMUT?</h1>
             <button id="getStartedButton" type="button" class="hiredcmut-button-light">Get Started</button>
             <!-- Multi-step form -->
-            <form id="signupForm" action="/web-programming-assignment/signup" method="post" style="display: none;">
+            <form id="signupForm" action="/web-programming-assignment/employer-signup-action" method="post" style="display: none;">
                 <div class="slide" data-title="What is your company name?">
                     <div>
-                        <input type="text" id="companyName" name="companyName" placeholder="Company Name" required>
+                        <input type="text" id="name" name="name" placeholder="Company Name" required>
                     </div>
                     <div class="button-row">
                         <button type="button" class="hiredcmut-button" onclick="nextSlide()">Next</button>
@@ -73,7 +73,7 @@ require_once 'includes/header.php';
                         <input type="text" id="district" name="district" placeholder="District" required>
                     </div>
                     <div>
-                        <input type="text" id="city" name="city" placeholder="City" required>
+                        <input type="text" id="province" name="province" placeholder="Province" required>
                     </div>
                     <div class="button-row">
                         <button type="button" class="hiredcmut-button" onclick="prevSlide()">Back</button>

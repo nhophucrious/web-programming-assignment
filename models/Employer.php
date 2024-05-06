@@ -55,9 +55,9 @@ class Employer {
     }
 
     public function createEmployer(){
-        $conn = this->db->getConnection();
+        $conn = $this->db->getConnection();
 
-        $sql = "SELECT * FROM users WHERE email_address = :email";
+        $sql = "SELECT * FROM employers WHERE email_address = :email";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':email', $this->email);
         $stmt->execute();
