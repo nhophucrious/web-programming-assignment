@@ -6,10 +6,6 @@ class Controller {
         $this->showHomePage();
     }
 
-    public function about() {
-        $this->showAboutPage();
-    }
-
     public function jobs() {
         $this->showJobsPage();
     }
@@ -38,16 +34,16 @@ class Controller {
         $this->showAdminPage();
     }
 
+    public function job_details() {
+        $this->showJobDetails();
+    }
+
     public function page_not_found() {
         $this->showPageNotFound();
     }
 
     private function showHomePage() {
         include 'views/home.php';
-    }
-
-    private function showAboutPage() {
-        include 'views/about.php';
     }
 
     private function showJobsPage() {
@@ -76,6 +72,10 @@ class Controller {
 
     private function showAdminPage() {
         include 'views/admin.php';
+    }
+
+    private function showJobDetails() {
+        include 'views/job_detail.php';
     }
 
     public function showPageNotFound() {

@@ -13,8 +13,9 @@ if (isset($_SESSION['user'])) {
     $isSignedIn = false;
 }
 require_once 'includes/header.php';
-$json = file_get_contents('mock.json');
-$jobs = json_decode($json, true);
+require_once __DIR__ . '/../controllers/JobController.php';
+$jobController = new JobController();
+$jobs = $jobController->getAllJobs();
 // limit home page to 6 jobs
 $jobs = array_slice($jobs, 0, 6);
 ?>
@@ -47,21 +48,23 @@ $jobs = array_slice($jobs, 0, 6);
 </div>
 
 <div class="container-fluid p-5" style="background-color: #f0f5f9">
-    <div class="row">
+    <div class="row p-5">
         <?php foreach ($jobs as $job): ?>
             <div class="col-md-4">
                 <div class="card" style="margin-bottom: 20px; border-radius: 10px;">
                     <div class="card-body">
-                        <h5 class="card-title"><?= $job['Title'] ?></h5>
-                        <p class="card-text"><?= $job['Company'] ?></p>
+                        <h5 class="card-title">
+                            <a href="job_details?id=<?= $job['job_id'] ?>" style="color: black"><?= $job['job_name'] ?></a>
+                        </h5>                        
+                        <p class="card-text"><?= $job['employer_id'] ?></p>
                         <p class="card-text">
-                            <span class="badge badge-primary"><?= $job['Level'] ?></span>
-                            <span class="badge badge-secondary"><?= $job['JobType'] ?></span>
-                            <span class="badge badge-success"><?= $job['JobLocation'] ?></span>
+                            <span class="badge badge-primary"><?= $job['job_level'] ?></span>
+                            <span class="badge badge-secondary"><?= $job['job_type'] ?></span>
+                            <span class="badge badge-success"><?= $job['job_location'] ?></span>
                         </p>
-                        <p class="card-text" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><?= $job['JobDescription'] ?></p>
+                        <p class="card-text" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><?= $job['job_description'] ?></p>
                         <hr>
-                        <p class="card-text">$<?= $job['Salary'] ?>/mo - <span><i class="fa fa-calendar"></i></span> <?= $job['DatePosted'] ?></p>
+                        <p class="card-text">$<?= $job['salary'] ?>/mo - <span><i class="fa fa-calendar"></i></span> <?= $job['date_posted'] ?></p>
                     </div>
                 </div>
             </div>

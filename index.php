@@ -26,9 +26,6 @@ switch ($request) {
     case '/index' :
         $controller->home();
         break;
-    case '/about' :
-        $controller->about();
-        break;
     case '/jobs' :
         $controller->jobs();
         break;
@@ -49,6 +46,9 @@ switch ($request) {
         break;
     case '/signin' :
         $controller->signin();
+        break;
+    case '/job_details' :
+        $controller->job_details();
         break;
     case '/signin-action' :
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

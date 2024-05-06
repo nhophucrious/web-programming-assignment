@@ -81,6 +81,9 @@ $uri = $_SERVER['REQUEST_URI'];
                 <li class="nav-item <?= $uri === '/web-programming-assignment/' ? 'active' : '' ?>">
                     <a class="nav-link" href="/web-programming-assignment/">Home</a>
                 </li>
+                <li class="nav-item <?= strpos($uri, '/web-programming-assignment/jobs') === 0 ? 'active' : '' ?>">
+                    <a class="nav-link" href="/web-programming-assignment/jobs">Jobs</a>
+                </li>
                 <?php if (!isset($_SESSION['employer'])): ?>
                     <li class="nav-item <?= strpos($uri, '/web-programming-assignment/jobs') === 0 ? 'active' : '' ?>">
                         <a class="nav-link" href="/web-programming-assignment/jobs">Jobs</a>
