@@ -59,6 +59,8 @@ CREATE TABLE `jobs` (
   `job_location` TEXT COMMENT 'on-site or remote',
   `salary` INTEGER,
   `job_description` TEXT,
+  `job_requirement` TEXT,
+  `job_benefit` TEXT,
   `date_posted` DATETIME,
   FOREIGN KEY (`employer_id`) REFERENCES `employers` (`employer_id`)
 );
@@ -83,22 +85,6 @@ CREATE TABLE `exp` (
   `exp_description` TEXT,
   `user_id` INTEGER,
   FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-);
-
--- job_requirements
-CREATE TABLE `job_requirements` (
-  `requirement_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-  `requirement_name` TEXT,
-  `job_id` INTEGER,
-  FOREIGN KEY (`job_id`) REFERENCES `jobs` (`job_id`)
-);
-
--- job_benefits
-CREATE TABLE `job_benefits` (
-  `benefit_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-  `benefit_description` TEXT,
-  `job_id` INTEGER,
-  FOREIGN KEY (`job_id`) REFERENCES `jobs` (`job_id`)
 );
 
 -- job_applications
