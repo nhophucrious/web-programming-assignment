@@ -6,10 +6,6 @@ class Controller {
         $this->showHomePage();
     }
 
-    public function about() {
-        $this->showAboutPage();
-    }
-
     public function jobs() {
         $this->showJobsPage();
     }
@@ -40,10 +36,6 @@ class Controller {
 
     private function showHomePage() {
         include 'views/home.php';
-    }
-
-    private function showAboutPage() {
-        include 'views/about.php';
     }
 
     private function showJobsPage() {

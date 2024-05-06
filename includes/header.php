@@ -82,9 +82,6 @@ $uri = $_SERVER['REQUEST_URI'];
                 <li class="nav-item <?= strpos($uri, '/web-programming-assignment/jobs') === 0 ? 'active' : '' ?>">
                     <a class="nav-link" href="/web-programming-assignment/jobs">Jobs</a>
                 </li>
-                <li class="nav-item <?= $uri === '/web-programming-assignment/about' ? 'active' : '' ?>">
-                    <a class="nav-link" href="/web-programming-assignment/about">About</a>
-                </li>
                 <li class="nav-item <?= $uri === '/web-programming-assignment/employer' ? 'active' : '' ?>">
                     <a class="nav-link" href="/web-programming-assignment/employer">For Employers</a>
                 </li>
