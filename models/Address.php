@@ -115,16 +115,10 @@ class Address {
         $stmt->bindParam(':ward', $ward);
         $stmt->bindParam(':district', $district);
         $stmt->bindParam(':province', $province);
-
-
-
         $stmt->execute();
 
         $this->db->closeConnection();
-
+        return true;
     }
 }
-
-
 ?>
-

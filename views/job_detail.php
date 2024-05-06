@@ -30,8 +30,6 @@ if (isset($_GET['id'])) {
     </div>
 </div>
 
-
-
 <?php 
 require_once 'includes/footer.php';
 ?>

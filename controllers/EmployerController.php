@@ -92,4 +92,11 @@ class EmployerController {
         return $result;
     }
 
+    public function updateAboutUs($employer_id, $aboutUs){
+        $employer = new Employer();
+        $employer->setAboutUs($aboutUs);
+        $result = $employer->updateAboutUs($employer_id, $aboutUs);
+        return $result;
+    }
+
 }

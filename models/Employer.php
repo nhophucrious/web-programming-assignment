@@ -10,6 +10,7 @@ class Employer {
     private $status;
     private $StreetNo;
     private $phoneNo;
+    private $aboutUs;
 
     public function __construct() {
         $this->db = new Database();
@@ -61,6 +62,14 @@ class Employer {
 
     public function setPhoneNo($phoneNo) {
         $this->phoneNo = $phoneNo;
+    }
+
+    public function getAboutUs(){
+        return $this->aboutUs;
+    }
+
+    public function setAboutUs($aboutUs) {
+        $this->aboutUs = $aboutUs;
     }
 
     public function createEmployer(){
@@ -130,4 +139,18 @@ class Employer {
         $this->db->closeConnection();
         return true;
     }
+
+    public function updateAboutUs($employer_id, $aboutUs){
+        $conn = $this->db->getConnection();
+
+        $sql = "UPDATE employers SET about_us = :aboutUs WHERE employer_id = :employer_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':aboutUs', $aboutUs);
+        $stmt->bindParam(':employer_id', $employer_id);
+        $stmt->execute();
+
+        $this->db->closeConnection();
+        return true;
+    }
+    
 }

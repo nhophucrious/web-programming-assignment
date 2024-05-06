@@ -3,8 +3,8 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// get user details
-require_once __DIR__ . '/../controllers/UserController.php';
+
+require_once __DIR__ . '/../controllers/EmployerController.php';
 if (isset($_SESSION['employer'])) {
     $employer_id = $_SESSION['employer']['employer_id'];
     $employerController = new EmployerController();
@@ -16,6 +16,7 @@ if (isset($_SESSION['employer'])) {
     $address_id = $employer_details['address_id'];
     $about_us = $employer_details['about_us'];
 }
+
 
 // if address_id is not empty, get address details
 if ($address_id != '') {
@@ -48,10 +49,6 @@ $applications = array();
                 <a href="#profile-overview" class="list-group-item list-group-item-action active" data-toggle="tab">
                     Profile Overview 
                 </a>
-
-                <a href="#my-application" class="list-group-item list-group-item-action" data-toggle="tab">
-                    My Applications <span class="badge badge-primary badge-pill"><?php echo count($applications) ?></span>
-                </a>
             </div>
         </div>
         <div class="col-md-9">
@@ -65,7 +62,6 @@ $applications = array();
                             </div>
                             <div class="col-md-8">
                                 <h2><?= $employer_name?></h2>
-                            </button></span></p>
                             </div>
                         </div>
                         <hr>
@@ -91,12 +87,12 @@ $applications = array();
                             </div>
                         </div>
                     </div>
-                    <div id="about-me" class="content-section">
-                        <!-- Content for About Me -->
+                    <div id="about-us" class="content-section">
+                        <!-- Content for About us -->
                         <div class="row d-flex align-items-center">
                             <h3 class="px-3">About Us</h3>
                             <br>
-                            <button type="button" class="icon-button" data-toggle="modal" data-target="#aboutMeModal">
+                            <button type="button" class="icon-button" data-toggle="modal" data-target="#aboutUsModal">
                                 <i class="fas fa-pen"></i>
                             </button>
                         </div>
@@ -123,32 +119,6 @@ $applications = array();
     </div>
 </div>
 
-<!-- title modal -->
-<div class="modal fade" id="titleModal" tabindex="-1" role="dialog" aria-labelledby="titleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="titleModalLabel">Update Title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="titleForm">
-          <div class="form-group">
-            <label for="titleText">Title</label>
-            <input type="text" class="form-control" id="titleText" value="<?= $title ?>">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="updateTitle()">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Phone Number Modal -->
 <div class="modal" id="phoneModal">
     <div class="modal-dialog">
@@ -167,27 +137,27 @@ $applications = array();
     </div>
 </div>
 
-<!-- about me modal -->
-<div class="modal fade" id="aboutMeModal" tabindex="-1" role="dialog" aria-labelledby="aboutMeModalLabel" aria-hidden="true">
+<!-- about us modal -->
+<div class="modal fade" id="aboutUsModal" tabindex="-1" role="dialog" aria-labelledby="aboutUsModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="aboutMeModalLabel">Update About Me</h5>
+        <h5 class="modal-title" id="aboutUsModalLabel">Update About Us</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form id="aboutMeForm">
+        <form id="aboutUsForm">
           <div class="form-group">
-            <label for="aboutMeText">About Me</label>
-            <textarea class="form-control" id="aboutMeText" rows="3"><?= $about_us ?></textarea>
+            <label for="aboutUsText">About Us</label>
+            <textarea class="form-control" id="aboutUsText" rows="3"><?= $about_us ?></textarea>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="updateAboutMe()">Save changes</button>
+        <button type="button" class="btn btn-primary" onclick="updateAboutUs()">Save changes</button>
       </div>
     </div>
   </div>
@@ -238,7 +208,7 @@ require_once 'includes/footer.php';
 <script>
     function updatePhoneNumber() {
         var phoneNo = document.getElementById('phoneInput').value;
-        var userId = <?= json_encode($employer_id) ?>;
+        var employer_id = <?= json_encode($employer_id) ?>;
 
         var xhr = new XMLHttpRequest();
         xhr.open("POST", 'web-programming-assignment/update-employer-phone-number', true);
@@ -250,38 +220,37 @@ require_once 'includes/footer.php';
                 location.reload(); // Reload the page to see the changes
             }
         }
-        xhr.send('user_id=' + encodeURIComponent(userId) + '&phoneNo=' + encodeURIComponent(phoneNo));
+        xhr.send('employer_id=' + encodeURIComponent(employer_id) + '&phoneNo=' + encodeURIComponent(phoneNo));
     }
 
-    function updateAboutMe() {
-        var aboutMeText = document.getElementById('aboutMeText').value;
-        var userId = <?= json_encode($user_id) ?>; // Assuming $user_id is available in this scope
+    function updateAboutUs() {
+        var aboutUsText = document.getElementById('aboutUsText').value;
+        var employer_id = <?= json_encode($employer_id) ?>;
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", 'web-programming-assignment/update-about-me', true);
+        xhr.open("POST", 'web-programming-assignment/update-employer-about-us', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
         xhr.onreadystatechange = function() {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                alert('About Me updated successfully');
+                alert('About Us updated successfully');
                 location.reload(); // Reload the page to see the changes
             }
         }
 
-        xhr.send('user_id=' + encodeURIComponent(userId) + '&aboutMe=' + encodeURIComponent(aboutMeText));
+        xhr.send('employer_id=' + encodeURIComponent(employer_id) + '&aboutUs=' + encodeURIComponent(aboutUsText));
     }
 
     function updateAddress() {
-        var streetNumber = document.getElementById('updateStreetNumber').value;
+        var streetNo = document.getElementById('updateStreetNumber').value;
         var streetName = document.getElementById('updateStreetName').value;
         var ward = document.getElementById('updateWard').value;
         var district = document.getElementById('updateDistrict').value;
         var province = document.getElementById('updateProvince').value;
-        var addressId = <?= json_encode($address_id) ?>; // Assuming $address_id is available in this scope
-        var userId = <?= json_encode($user_id) ?>; // Assuming $user_id is available in this scope
+        var address_id = <?= json_encode($address_id) ?>;
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", 'web-programming-assignment/update-address', true);
+        xhr.open("POST", 'web-programming-assignment/update-employer-address', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
         xhr.onreadystatechange = function() {
@@ -291,7 +260,6 @@ require_once 'includes/footer.php';
             }
         }
 
-        xhr.send('addressId=' + encodeURIComponent(addressId) + '&streetNo=' + encodeURIComponent(streetNumber) + '&streetName=' + encodeURIComponent(streetName) + '&ward=' + encodeURIComponent(ward) + '&district=' + encodeURIComponent(district) + '&province=' + encodeURIComponent(province) + '&user_id=' + encodeURIComponent(userId));
+        xhr.send('address_id=' + encodeURIComponent(address_id) + '&streetNo=' + encodeURIComponent(streetNo) + '&streetName=' + encodeURIComponent(streetName) + '&ward=' + encodeURIComponent(ward) + '&district=' + encodeURIComponent(district) + '&province=' + encodeURIComponent(province));
     }
-
 </script>

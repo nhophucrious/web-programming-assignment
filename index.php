@@ -13,6 +13,7 @@ spl_autoload_register(function ($class_name) {
 // Create a new instance of the main controller
 $controller = new Controller();
 $userController = new UserController();
+$addressController = new AddressController();
 
 // Get the current URI
 $request = str_replace('/web-programming-assignment', '', $_SERVER['REQUEST_URI']);
@@ -196,6 +197,28 @@ switch ($request) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $employerController = new EmployerController();
             $employerController->updatePhoneNumber($_POST['employer_id'], $_POST['phoneNo']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
+    case '/update-employer-about-us':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $employerController = new EmployerController();
+            $employerController->updateAboutUs($_POST['employer_id'], $_POST['aboutUs']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
+    case '/update-employer-address':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $streetNo = $_POST['streetNo'];
+            $streetName = $_POST['streetName'];
+            $ward = $_POST['ward'];
+            $district = $_POST['district'];
+            $province = $_POST['province'];
+            $address_id = $_POST['address_id'];
+            $addressController = new AddressController();
+            $addressController->updateAddress($address_id, $streetNo, $streetName, $ward, $district, $province);
         } else {
             $controller->page_not_found();
         }
