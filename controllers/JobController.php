@@ -1,0 +1,40 @@
+<?php
+
+class JobController {
+    public function addJob($employer_id, $job_name, $job_level, $job_type, $job_location, $salary, $job_description, $job_requirement, $job_benefit, $date_posted) {
+        $job = new Job();
+        $result = $job->addJob($employer_id, $job_name, $job_level, $job_type, $job_location, $salary, $job_description, $job_requirement, $job_benefit, $date_posted);
+        return $result;
+    }
+
+    public function getAllJobs() {
+        $job = new Job();
+        $result = $job->getAllJobs();
+        return $result;
+    }
+
+    public function getJobById($job_id) {
+        $job = new Job();
+        $result = $job->getJobById($job_id);
+        return $result;
+    }
+
+    public function getJobsByEmployerId($employer_id) {
+        $job = new Job();
+        $result = $job->getJobsByEmployerId($employer_id);
+        return $result;
+    }
+
+    public function updateJob($job_id, $job_name, $job_level, $job_type, $job_location, $salary, $job_description, $job_requirement, $job_benefit, $date_posted) {
+        $job = new Job();
+        $result = $job->updateJob($job_id, $job_name, $job_level, $job_type, $job_location, $salary, $job_description, $job_requirement, $job_benefit, $date_posted);
+        return $result;
+    }
+
+    public function deleteJob($job_id) {
+        $job = new Job();
+        $result = $job->deleteJob($job_id);
+        return $result;
+    }
+
+}
