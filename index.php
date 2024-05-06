@@ -69,6 +69,14 @@ switch ($request) {
             $controller->page_not_found();
         }
         break;
+    case '/employer-signin-action':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $employerController = new EmployerController();
+            $employerController->signinEmployer($_POST['email'], $_POST['password']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
     case '/create-address' :
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $addressController = new AddressController();

@@ -38,4 +38,29 @@ class EmployerController {
         header('Location: /web-programming-assignment/signin');
         exit;
     }
+
+    public function signinEmployer($email, $password) {
+        $employer = new Employer();
+        $employer->setEmail($email);
+        $employer->setPassword($password);
+        $result = $employer->signinEmployer($email, $password);
+
+        if ($result) {
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+
+            $_SESSION['employer'] = [
+                'employer_id' => $result['employer_id'],
+                'email' => $result['email'],
+                'name' => $result['name'],
+            ];
+
+        } else {
+            $_SESSION['message'] = 'Invalid email or password. Please try again.';
+        }
+
+        header('Location: /web-programming-assignment/employer');
+        exit();
+    }
 }

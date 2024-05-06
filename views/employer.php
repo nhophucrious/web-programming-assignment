@@ -7,6 +7,8 @@ if (session_status() == PHP_SESSION_NONE) {
 
 if (isset($_SESSION['user'])) {
     $isUser = true;
+} else if (isset($_SESSION['employer'])) {
+    $isEmployer = true;
 }
 require_once 'includes/header.php';
 ?>
@@ -27,16 +29,27 @@ require_once 'includes/header.php';
     display: flex;
     justify-content: space-between;
 }
+
+#signinForm input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2em;
+}
 </style>
 
 <div class="container d-flex text-center align-items-center justify-content-center" style="min-height: 100vh">
     <?php if ($isUser): ?>
         <p> You need to be signed in as an employer to access this page. </p>
         <p> Did you forget to sign out? <a href="/web-programming-assignment/signout">Sign out</a></p>
+    <?php elseif ($isEmployer): ?>
+        <div>
+            <h1>Welcome employer LMAO</h1>
+        </div>
     <?php else: ?>
         <div class="col">
             <h1 id="slideTitle">Interested in recruiting via HiredCMUT?</h1>
             <button id="getStartedButton" type="button" class="hiredcmut-button-light">Get Started</button>
+            <button id="signinButton" type="button" class="hiredcmut-button-light">Sign In</button>
             <!-- Multi-step form -->
             <form id="signupForm" action="/web-programming-assignment/employer-signup-action" method="post" style="display: none;">
                 <div class="slide" data-title="What is your company name?">
@@ -81,6 +94,18 @@ require_once 'includes/header.php';
                     </div>
                 </div>
             </form>
+
+            <form id="signinForm" action="/web-programming-assignment/employer-signin-action" method="post" style="display: none;">
+                <div>
+                    <input type="text" id="signin-email" name="email" placeholder="Email" required>
+                </div>
+                <div>
+                    <input type="password" id="signin-password" name="password" placeholder="Password" required>
+                </div>
+                <div>
+                    <button type="submit" class="hiredcmut-button">Sign In</button>
+                </div>
+            </form>
         </div>
     <?php endif; ?>
 </div>
@@ -119,6 +144,14 @@ $(document).ready(function() {
             $('#signupForm').fadeIn(400);
             showSlide(0);
         });
+        $('#signinButton').fadeOut(400); // Add this line
+    });
+
+    $('#signinButton').click(function() {
+        $(this).fadeOut(400, function() {
+            $('#signinForm').fadeIn(400);
+        });
+        $('#getStartedButton').fadeOut(400); // Add this line
     });
 
     window.nextSlide = nextSlide;

@@ -76,4 +76,22 @@ class Employer {
         $this->db->closeConnection();
         return true;
     }
+
+    public function signinEmployer($email, $password){
+        $conn = $this->db->getConnection();
+
+        $sql = "SELECT * FROM employers WHERE email_address = :email";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $employer = $stmt->fetch();
+
+        if ($employer && password_verify($password, $employer['password'])) {
+            $this->db->closeConnection();
+            return $employer;
+        } else {
+            $this->db->closeConnection();
+            return null;
+        }
+    }
 }
