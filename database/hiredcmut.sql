@@ -26,7 +26,6 @@ CREATE TABLE `users` (
   FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`)
 );
 
--- employers
 CREATE TABLE `employers` (
   `employer_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
   `email_address` TEXT NOT NULL,
@@ -34,6 +33,8 @@ CREATE TABLE `employers` (
   `employer_name` TEXT NOT NULL,
   `address_id` INTEGER,
   `status` BOOL NOT NULL,
+  `phoneNo` VARCHAR(255) NOT NULL,
+  `about_us` TEXT,
   FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`)
 );
 

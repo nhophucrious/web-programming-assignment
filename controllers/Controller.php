@@ -22,6 +22,10 @@ class Controller {
         $this->showProfilePage();
     }
 
+    public function employerProfile(){
+        $this->showEmployerProfilePage();
+    }
+
     public function signup() {
         $this->showSignupPage();
     }
@@ -56,6 +60,10 @@ class Controller {
 
     private function showProfilePage() {
         include 'views/profile.php';
+    }
+
+    private function showEmployerProfilePage() {
+        include 'views/employer_profile.php';
     }
 
     private function showSignupPage() {

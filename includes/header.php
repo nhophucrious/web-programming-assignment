@@ -100,9 +100,13 @@ $uri = $_SERVER['REQUEST_URI'];
                         <a class="nav-link" href="/web-programming-assignment/signout">Sign Out</a>
                     </li>
                 <?php elseif (isset($_SESSION['employer'])): ?>
+                    <li class="nav-item <?= $uri === '/web-programming-assignment/employer-profile' ? 'active' : '' ?>">
+                        <a class="nav-link" href="/web-programming-assignment/employer-profile">Profile</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/web-programming-assignment/signout">Sign Out</a>
                     </li>
+
                 <?php else: ?>
                     <li class="nav-item <?= $uri === '/web-programming-assignment/signup' ? 'active' : '' ?>">
                         <a class="nav-link" href="/web-programming-assignment/signup">Sign Up</a>

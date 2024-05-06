@@ -4,7 +4,7 @@ require_once __DIR__ . '/../models/Employer.php';
 require_once __DIR__ . '/../models/Address.php';
 
 class EmployerController {
-    public function createEmployer($email, $name, $password, $streetNo, $streetName, $ward, $district, $province){
+    public function createEmployer($email, $name, $password, $streetNo, $streetName, $ward, $district, $province, $phoneNo){
 
         // Create the address first to give address_id in the next step
         $address = new Address();
@@ -22,6 +22,7 @@ class EmployerController {
         $employer->setName($name);
         $employer->setPassword(password_hash($password, PASSWORD_DEFAULT));
         $employer->setAddressId($address_result);
+        $employer->setPhoneNo($phoneNo);
         $result = $employer->createEmployer();
 
         if (session_status() == PHP_SESSION_NONE) {
@@ -53,7 +54,8 @@ class EmployerController {
             $_SESSION['employer'] = [
                 'employer_id' => $result['employer_id'],
                 'email' => $result['email'],
-                'name' => $result['name'],
+                'name' => $result['employer_name'],
+                'address_id' => $result['address_id'],
             ];
 
         } else {
@@ -63,4 +65,31 @@ class EmployerController {
         header('Location: /web-programming-assignment/employer');
         exit();
     }
+
+    public function signoutUser() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+    
+        $_SESSION = [];
+    
+        session_destroy();
+    
+        header('Location: /web-programming-assignment/');
+        exit();
+    }
+
+    public function getEmployerDetails($employer_id) {
+        $employer = new Employer();
+        $result = $employer->getEmployerDetails($employer_id);
+        return $result;
+    }
+
+    public function updatePhoneNumber($employer_id, $phoneNo){
+        $employer = new Employer();
+        $employer->setPhoneNo($phoneNo);
+        $result = $employer->updatePhoneNumber($employer_id, $phoneNo);
+        return $result;
+    }
+
 }

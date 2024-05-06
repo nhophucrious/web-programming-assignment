@@ -38,6 +38,9 @@ switch ($request) {
     case '/profile' :
         $controller->profile();
         break;
+    case '/employer-profile' :
+        $controller->employerProfile();
+        break;
     case '/admin' :
         $controller->admin();
         break;
@@ -64,7 +67,7 @@ switch ($request) {
     case '/employer-signup-action':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $employerController = new EmployerController();
-            $employerController->createEmployer($_POST['email'], $_POST['name'], $_POST['password'], $_POST['streetNo'], $_POST['streetName'], $_POST['ward'], $_POST['district'], $_POST['province']);
+            $employerController->createEmployer($_POST['email'], $_POST['name'], $_POST['password'], $_POST['streetNo'], $_POST['streetName'], $_POST['ward'], $_POST['district'], $_POST['province'], $_POST['phoneNo']);
         } else {
             $controller->page_not_found();
         }
@@ -185,6 +188,14 @@ switch ($request) {
     case '/update-skills' :
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController->updateSkills($_POST['user_id'], $_POST['skills']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
+    case '/update-employer-phone-number':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $employerController = new EmployerController();
+            $employerController->updatePhoneNumber($_POST['employer_id'], $_POST['phoneNo']);
         } else {
             $controller->page_not_found();
         }

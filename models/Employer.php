@@ -9,6 +9,7 @@ class Employer {
     private $addressId;
     private $status;
     private $StreetNo;
+    private $phoneNo;
 
     public function __construct() {
         $this->db = new Database();
@@ -54,6 +55,14 @@ class Employer {
         $this->status = $status;
     }
 
+    public function getPhoneNo(){
+        return $this->phoneNo;
+    }
+
+    public function setPhoneNo($phoneNo) {
+        $this->phoneNo = $phoneNo;
+    }
+
     public function createEmployer(){
         $conn = $this->db->getConnection();
 
@@ -65,12 +74,13 @@ class Employer {
             return false;
         }
 
-        $sql = "INSERT INTO employers (email_address, password, employer_name, address_id) VALUES (:email, :password, :name, :address_id)";
+        $sql = "INSERT INTO employers (email_address, password, employer_name, address_id, phoneNo) VALUES (:email, :password, :name, :address_id, :phoneNo)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':email', $this->email);
         $stmt->bindParam(':password', $this->password);
         $stmt->bindParam(':name', $this->name);
         $stmt->bindParam(':address_id', $this->addressId);
+        $stmt->bindParam(':phoneNo', $this->phoneNo);
         $stmt->execute();
 
         $this->db->closeConnection();
@@ -93,5 +103,31 @@ class Employer {
             $this->db->closeConnection();
             return null;
         }
+    }
+
+    public function getEmployerDetails($employer_id) {
+        $conn = $this->db->getConnection();
+
+        $sql = "SELECT * FROM employers WHERE employer_id = :employer_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':employer_id', $employer_id);
+        $stmt->execute();
+        $employer = $stmt->fetch();
+
+        $this->db->closeConnection();
+        return $employer;
+    }
+
+    public function updatePhoneNumber($employer_id, $phoneNo){
+        $conn = $this->db->getConnection();
+
+        $sql = "UPDATE employers SET phoneNo = :phoneNo WHERE employer_id = :employer_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':phoneNo', $phoneNo);
+        $stmt->bindParam(':employer_id', $employer_id);
+        $stmt->execute();
+
+        $this->db->closeConnection();
+        return true;
     }
 }

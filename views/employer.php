@@ -72,7 +72,7 @@ require_once 'includes/header.php';
                         <button type="button" class="hiredcmut-button-light" onclick="nextSlide()">Next</button>
                     </div>
                 </div>
-                <div class="slide" data-title="Where are you located?">
+                <div class="slide" data-title="Your contact information">
                     <div>
                         <input type="text" id="streetNo" name="streetNo" placeholder="Street No" required>
                     </div>
@@ -87,6 +87,9 @@ require_once 'includes/header.php';
                     </div>
                     <div>
                         <input type="text" id="province" name="province" placeholder="Province" required>
+                    </div>
+                    <div>
+                        <input type="text" id="phoneNo" name="phoneNo" placeholder="Phone Number" required>
                     </div>
                     <div class="button-row">
                         <button type="button" class="hiredcmut-button" onclick="prevSlide()">Back</button>
