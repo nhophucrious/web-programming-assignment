@@ -1,17 +1,6 @@
 <?php
 // Path: models/Employer.php
 
-// -- employers
-// CREATE TABLE `employers` (
-//   `employer_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-//   `email_address` TEXT NOT NULL,
-//   `password` CHAR(60) NOT NULL,
-//   `employer_name` TEXT NOT NULL,
-//   `address_id` INTEGER,
-//   `status` BOOL NOT NULL,
-//   FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`)
-// );
-
 class Employer {
     private $db;
     private $email;
@@ -19,6 +8,7 @@ class Employer {
     private $name;
     private $addressId;
     private $status;
+    private $StreetNo;
 
     public function __construct() {
         $this->db = new Database();
@@ -75,11 +65,12 @@ class Employer {
             return false;
         }
 
-        $sql = "INSERT INTO employers (email_address, password, employer_name) VALUES (:email, :password, :name)";
+        $sql = "INSERT INTO employers (email_address, password, employer_name, address_id) VALUES (:email, :password, :name, :address_id)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':email', $this->email);
         $stmt->bindParam(':password', $this->password);
         $stmt->bindParam(':name', $this->name);
+        $stmt->bindParam(':address_id', $this->addressId);
         $stmt->execute();
 
         $this->db->closeConnection();
