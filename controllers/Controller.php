@@ -30,6 +30,10 @@ class Controller {
         $this->showAdminPage();
     }
 
+    public function user() {
+        $this->showUserPage();
+    }
+
     public function job_details() {
         $this->showJobDetails();
     }
@@ -64,6 +68,10 @@ class Controller {
 
     private function showAdminPage() {
         include 'views/admin.php';
+    }
+
+    private function showUserPage() {
+        include 'views/user.php';
     }
 
     private function showJobDetails() {

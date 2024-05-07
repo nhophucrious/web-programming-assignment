@@ -38,6 +38,9 @@ switch ($request) {
     case '/admin':
         $controller->admin();
         break;
+    case '/user':
+        $controller->user();
+        break;
     case '/signup':
         $controller->signup();
         break;
