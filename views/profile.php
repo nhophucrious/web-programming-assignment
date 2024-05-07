@@ -69,11 +69,12 @@ $applications = array();
             <!-- profile section with links -->
             <div class="list-group sticky-sidebar">
                 <a href="#profile-overview" class="list-group-item list-group-item-action active" data-toggle="tab">
-                    Profile Overview 
+                    Profile Overview
                 </a>
 
                 <a href="#my-application" class="list-group-item list-group-item-action" data-toggle="tab">
-                    My Applications <span class="badge badge-primary badge-pill"><?php echo count($applications) ?></span>
+                    My Applications <span
+                        class="badge badge-primary badge-pill"><?php echo count($applications) ?></span>
                 </a>
             </div>
         </div>
@@ -83,26 +84,46 @@ $applications = array();
                     <div id="summary" class="content-section">
                         <!-- Content for Summary -->
                         <div class="row align-items-center">
-                            <div class="col-md-4">
-                                <img src="https://via.placeholder.com/100" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%;">
+                            <div class="col-md-4 text-center mb-3">
+                                <div class="position-relative d-inline-block">
+                                    <img src="<?php echo $avatar ? $avatar : 'https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3383.jpg?size=338&ext=jpg&ga=GA1.1.553209589.1714262400&semt=ais'; ?>"
+                                        alt="Profile Picture"
+                                        style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid black;">
+                                    <a href="#" class="position-absolute top-0 start-100 translate-middle"
+                                        style="transform: translate(-50%, -50%);" data-toggle="modal"
+                                        data-target="#avatarModal">
+                                        <i class="fas fa-edit"
+                                            style="color: #fff; background-color: #007bff; border-radius: 50%; padding: 8px;"></i>
+                                    </a>
+                                </div>
                             </div>
+
+
+
                             <div class="col-md-8">
-                                <h2><?= $full_name?></h2>
-                                <p><?= ($title != '') ? $title : 'No title yet' ?> <span><button type="button" class="icon-button" data-toggle="modal" data-target="#titleModal">
-                                <i class="fas fa-pen"></i>
-                            </button></span></p>
+                                <h2><?= $full_name ?></h2>
+                                <p><?= ($title != '') ? $title : 'No title yet' ?> <span><button type="button"
+                                            class="icon-button" data-toggle="modal" data-target="#titleModal">
+                                            <i class="fas fa-pen"></i>
+                                        </button></span></p>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-md-6">
                                 <p><i class="fas fa-envelope"></i> <?= $email_address ?></p>
-                                <p><i class="fas fa-phone"></i> <?= ($phone_no != '') ? $phone_no : 'No phone number yet' ?><button class="icon-button" data-toggle="modal" data-target="#phoneModal"><i class="fa fa-pen"></i></button></p>
-                                <p><i class="fas fa-user"></i>  <?= ($gender != '') ? ($gender === "1") ? "Female" : "Male" : 'No gender yet' ?><button class="icon-button" data-toggle="modal" data-target="#genderModal"><i class="fa fa-pen"></i></button></p>
+                                <p><i class="fas fa-phone"></i>
+                                    <?= ($phone_no != '') ? $phone_no : 'No phone number yet' ?><button
+                                        class="icon-button" data-toggle="modal" data-target="#phoneModal"><i
+                                            class="fa fa-pen"></i></button></p>
+                                <p><i class="fas fa-user"></i>
+                                    <?= ($gender != '') ? ($gender === "1") ? "Female" : "Male" : 'No gender yet' ?><button
+                                        class="icon-button" data-toggle="modal" data-target="#genderModal"><i
+                                            class="fa fa-pen"></i></button></p>
                             </div>
                             <div class="col-md-6">
                                 <p>
-                                    <i class="fas fa-map-marker-alt"></i> 
+                                    <i class="fas fa-map-marker-alt"></i>
                                     <?= ($address_id != '') ? $address : 'No address yet' ?>
                                     <?php if ($address_id != ''): ?>
                                         <button class="icon-button" data-toggle="modal" data-target="#updateAddressModal">
@@ -114,7 +135,10 @@ $applications = array();
                                         </button>
                                     <?php endif; ?>
                                 </p>
-                                <p><i class="fas fa-birthday-cake"></i> <?= ($dob != '') ? $dob : 'No date of birth yet' ?><button class="icon-button" data-toggle="modal" data-target="#dobModal"><i class="fa fa-pen"></i></button></p>
+                                <p><i class="fas fa-birthday-cake"></i>
+                                    <?= ($dob != '') ? $dob : 'No date of birth yet' ?><button class="icon-button"
+                                        data-toggle="modal" data-target="#dobModal"><i class="fa fa-pen"></i></button>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -128,14 +152,16 @@ $applications = array();
                             </button>
                         </div>
                         <hr>
-                        <p><?= ($about_me != '') ? $about_me : 'Introduce who you are, what you do, and what experience you have.' ?></p>
+                        <p><?= ($about_me != '') ? $about_me : 'Introduce who you are, what you do, and what experience you have.' ?>
+                        </p>
                     </div>
                     <div id="education" class="content-section">
                         <!-- Content for Education -->
                         <div class="row d-flex align-items-center">
                             <h3 class="px-3">Education</h3>
                             <br>
-                            <button type="button" class="icon-button" data-toggle="modal" data-target="#addEducationModal">
+                            <button type="button" class="icon-button" data-toggle="modal"
+                                data-target="#addEducationModal">
                                 <i class="fas fa-plus"></i>
                             </button>
                         </div>
@@ -164,7 +190,8 @@ $applications = array();
                         <div class="row d-flex align-items-center">
                             <h3 class="px-3">Work Experience</h3>
                             <br>
-                            <button type="button" class="icon-button" data-toggle="modal" data-target="#addWorkExpModal">
+                            <button type="button" class="icon-button" data-toggle="modal"
+                                data-target="#addWorkExpModal">
                                 <i class="fas fa-plus"></i>
                             </button>
                         </div>
@@ -198,7 +225,7 @@ $applications = array();
                             </button>
                         </div>
                         <hr>
-                        
+
                         <p><?= ($skills != '') ? $skills : 'No skills yet' ?></p>
                     </div>
                     <div id="certificates" class="content-section">
@@ -206,7 +233,8 @@ $applications = array();
                         <div class="row d-flex align-items-center">
                             <h3 class="px-3">Certificate</h3>
                             <br>
-                            <button type="button" class="icon-button" data-toggle="modal" data-target="#addCertificateModal">
+                            <button type="button" class="icon-button" data-toggle="modal"
+                                data-target="#addCertificateModal">
                                 <i class="fas fa-plus"></i>
                             </button>
                         </div>
@@ -244,35 +272,58 @@ $applications = array();
                     }
                     ?>
                 </div>
-            </div>            
+            </div>
         </div>
     </div>
 </div>
-
-<!-- title modal -->
-<div class="modal fade" id="titleModal" tabindex="-1" role="dialog" aria-labelledby="titleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="titleModalLabel">Update Title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="titleForm">
-          <div class="form-group">
-            <label for="titleText">Title</label>
-            <input type="text" class="form-control" id="titleText" value="<?= $title ?>">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="updateTitle()">Save changes</button>
-      </div>
+<!-- Avatar Modal -->
+<div class="modal" id="avatarModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Avatar</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <label for="avatarUrl">Avatar URL:</label>
+                <input type="text" id="avatarUrl" name="avatarUrl" value="<?= $avatar ?>">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" style="background-color: #007bff; color: #ffffff;"
+                    data-dismiss="modal">Close</button>
+                <button type="button" class="btn" style="background-color: #007bff; color: #ffffff;"
+                    onclick="updateAvatar()">
+                    <i class="fas fa-user-circle" style="color: #ffffff;"></i> Save
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
+<!-- title modal -->
+<div class="modal fade" id="titleModal" tabindex="-1" role="dialog" aria-labelledby="titleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titleModalLabel">Update Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="titleForm">
+                    <div class="form-group">
+                        <label for="titleText">Title</label>
+                        <input type="text" class="form-control" id="titleText" value="<?= $title ?>">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="updateTitle()">Save changes</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Phone Number Modal -->
@@ -333,29 +384,30 @@ $applications = array();
 </div>
 
 <!-- about me modal -->
-<div class="modal fade" id="aboutMeModal" tabindex="-1" role="dialog" aria-labelledby="aboutMeModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="aboutMeModalLabel">Update About Me</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="aboutMeForm">
-          <div class="form-group">
-            <label for="aboutMeText">About Me</label>
-            <textarea class="form-control" id="aboutMeText" rows="3"><?= $about_me ?></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="updateAboutMe()">Save changes</button>
-      </div>
+<div class="modal fade" id="aboutMeModal" tabindex="-1" role="dialog" aria-labelledby="aboutMeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="aboutMeModalLabel">Update About Me</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="aboutMeForm">
+                    <div class="form-group">
+                        <label for="aboutMeText">About Me</label>
+                        <textarea class="form-control" id="aboutMeText" rows="3"><?= $about_me ?></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="updateAboutMe()">Save changes</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Skills Modal -->
@@ -368,7 +420,8 @@ $applications = array();
             </div>
             <div class="modal-body">
                 <div class="form-group"> <!-- Add form-group class for better styling -->
-                    <input type="text" class="form-control" id="skillsInput" value="<?= $skills ?>"> <!-- Add form-control class to make the input field take up the full width of the modal -->
+                    <input type="text" class="form-control" id="skillsInput" value="<?= $skills ?>">
+                    <!-- Add form-control class to make the input field take up the full width of the modal -->
                 </div>
             </div>
             <div class="modal-footer">
@@ -378,45 +431,46 @@ $applications = array();
     </div>
 </div>
 
-<div class="modal fade" id="createAddressModal" tabindex="-1" role="dialog" aria-labelledby="createAddressModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="createAddressModalLabel">Create Address</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="createAddressForm">
-          <div class="form-group">
-            <label for="streetNumber">Street Number</label>
-            <input type="text" class="form-control" id="streetNumber">
-          </div>
-          <div class="form-group">
-            <label for="streetName">Street Name</label>
-            <input type="text" class="form-control" id="streetName">
-          </div>
-          <div class="form-group">
-            <label for="ward">Ward</label>
-            <input type="text" class="form-control" id="ward">
-          </div>
-          <div class="form-group">
-            <label for="district">District</label>
-            <input type="text" class="form-control" id="district">
-          </div>
-          <div class="form-group">
-            <label for="province">Province</label>
-            <input type="text" class="form-control" id="province">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="createAddress()">Save changes</button>
-      </div>
+<div class="modal fade" id="createAddressModal" tabindex="-1" role="dialog" aria-labelledby="createAddressModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createAddressModalLabel">Create Address</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="createAddressForm">
+                    <div class="form-group">
+                        <label for="streetNumber">Street Number</label>
+                        <input type="text" class="form-control" id="streetNumber">
+                    </div>
+                    <div class="form-group">
+                        <label for="streetName">Street Name</label>
+                        <input type="text" class="form-control" id="streetName">
+                    </div>
+                    <div class="form-group">
+                        <label for="ward">Ward</label>
+                        <input type="text" class="form-control" id="ward">
+                    </div>
+                    <div class="form-group">
+                        <label for="district">District</label>
+                        <input type="text" class="form-control" id="district">
+                    </div>
+                    <div class="form-group">
+                        <label for="province">Province</label>
+                        <input type="text" class="form-control" id="province">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="createAddress()">Save changes</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Update Address Modal -->
@@ -490,42 +544,43 @@ $applications = array();
 </div>
 
 <!-- add work exp modal -->
-<div class="modal fade" id="addWorkExpModal" tabindex="-1" role="dialog" aria-labelledby="addWorkExpModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addWorkExpModalLabel">Add Work Experience</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- form to add work experience -->
-        <form id="addWorkExpForm">
-          <div class="form-group">
-            <label for="expName">Experience Name</label>
-            <input type="text" class="form-control" id="expName">
-          </div>
-          <div class="form-group">
-            <label for="yearStart">Start Year</label>
-            <input type="number" class="form-control" id="yearStart" min="1900" max="2099" step="1">
-          </div>
-          <div class="form-group">
-            <label for="yearEnd">End Year</label>
-            <input type="number" class="form-control" id="yearEnd" min="1900" max="2099" step="1">
-          </div>
-          <div class="form-group">
-            <label for="expDescription">Description</label>
-            <textarea class="form-control" id="expDescription" rows="3"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="addExp()">Save changes</button>
-      </div>
+<div class="modal fade" id="addWorkExpModal" tabindex="-1" role="dialog" aria-labelledby="addWorkExpModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addWorkExpModalLabel">Add Work Experience</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- form to add work experience -->
+                <form id="addWorkExpForm">
+                    <div class="form-group">
+                        <label for="expName">Experience Name</label>
+                        <input type="text" class="form-control" id="expName">
+                    </div>
+                    <div class="form-group">
+                        <label for="yearStart">Start Year</label>
+                        <input type="number" class="form-control" id="yearStart" min="1900" max="2099" step="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="yearEnd">End Year</label>
+                        <input type="number" class="form-control" id="yearEnd" min="1900" max="2099" step="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="expDescription">Description</label>
+                        <textarea class="form-control" id="expDescription" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="addExp()">Save changes</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Add Certificate Modal -->
@@ -567,14 +622,32 @@ require_once 'includes/footer.php';
 ?>
 
 <script>
+    function updateAvatar() {
+        var avatarUrl = document.getElementById('avatarUrl').value;
+        var userId = <?= json_encode($user_id) ?>;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", 'web-programming-assignment/update-avatar', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                alert('Avatar updated successfully');
+                location.reload(); // Reload the page to see the changes
+            }
+        }
+
+        xhr.send('user_id=' + encodeURIComponent(userId) + '&avatar=' + encodeURIComponent(avatarUrl==));
+    }
+
     function updateTitle() {
         var title = document.getElementById('titleText').value;
-        var userId = <?= json_encode($user_id) ?>; 
+        var userId = <?= json_encode($user_id) ?>;
         var xhr = new XMLHttpRequest();
         xhr.open("POST", 'web-programming-assignment/update-title', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 alert('Title updated successfully');
                 location.reload(); // Reload the page to see the changes
@@ -592,7 +665,7 @@ require_once 'includes/footer.php';
         xhr.open("POST", 'web-programming-assignment/update-phone-number', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 alert('Phone number updated successfully');
                 location.reload(); // Reload the page to see the changes
@@ -610,7 +683,7 @@ require_once 'includes/footer.php';
         xhr.open("POST", 'web-programming-assignment/update-gender', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 alert('Gender updated successfully');
                 location.reload(); // Reload the page to see the changes
@@ -628,7 +701,7 @@ require_once 'includes/footer.php';
         xhr.open("POST", 'web-programming-assignment/update-dob', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 alert('Date of birth updated successfully');
                 location.reload(); // Reload the page to see the changes
@@ -646,7 +719,7 @@ require_once 'includes/footer.php';
         xhr.open("POST", 'web-programming-assignment/update-about-me', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 alert('About Me updated successfully');
                 location.reload(); // Reload the page to see the changes
@@ -667,7 +740,7 @@ require_once 'includes/footer.php';
         xhr.open("POST", 'web-programming-assignment/create-address', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 alert('Address created successfully');
                 location.reload(); // Reload the page to see the changes
@@ -690,7 +763,7 @@ require_once 'includes/footer.php';
         xhr.open("POST", 'web-programming-assignment/update-address', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 alert('Address updated successfully');
                 location.reload(); // Reload the page to see the changes
@@ -708,7 +781,7 @@ require_once 'includes/footer.php';
         xhr.open("POST", 'web-programming-assignment/update-skills', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 alert('Skills updated successfully');
                 location.reload(); // Reload the page to see the changes
@@ -730,7 +803,7 @@ require_once 'includes/footer.php';
         xhr.open("POST", 'web-programming-assignment/add-education', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 alert('Education added successfully');
                 location.reload(); // Reload the page to see the changes
@@ -750,7 +823,7 @@ require_once 'includes/footer.php';
         xhr.open("POST", 'web-programming-assignment/delete-education', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 alert('Education deleted successfully');
                 location.reload(); // Reload the page to see the changes
@@ -772,7 +845,7 @@ require_once 'includes/footer.php';
         xhr.open("POST", 'web-programming-assignment/add-exp', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 alert('Experience added successfully');
                 location.reload(); // Reload the page to see the changes
@@ -793,7 +866,7 @@ require_once 'includes/footer.php';
         xhr.open("POST", 'web-programming-assignment/delete-exp', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 alert('Experience deleted successfully');
                 location.reload(); // Reload the page to see the changes
@@ -814,7 +887,7 @@ require_once 'includes/footer.php';
         xhr.open("POST", 'web-programming-assignment/add-certificate', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 alert('Certificate added successfully');
                 location.reload(); // Reload the page to see the changes
@@ -835,7 +908,7 @@ require_once 'includes/footer.php';
         xhr.open("POST", 'web-programming-assignment/delete-certificate', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 alert('Certificate deleted successfully');
                 location.reload(); // Reload the page to see the changes
