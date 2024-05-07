@@ -22,46 +22,46 @@ $request = explode('?', $request)[0];
 
 // Handle the request based on the URI
 switch ($request) {
-    case '/' :
-    case '/index' :
+    case '/':
+    case '/index':
         $controller->home();
         break;
-    case '/jobs' :
+    case '/jobs':
         $controller->jobs();
         break;
     case '/employer':
         $controller->employer();
-        break;    
-    case '/profile' :
+        break;
+    case '/profile':
         $controller->profile();
         break;
-    case '/admin' :
+    case '/admin':
         $controller->admin();
         break;
-    case '/signup' :
+    case '/signup':
         $controller->signup();
         break;
-    case '/signin' :
+    case '/signin':
         $controller->signin();
         break;
-    case '/job_details' :
+    case '/job_details':
         $controller->job_details();
         break;
-    case '/signin-action' :
+    case '/signin-action':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController->signinUser($_POST['email'], $_POST['password']);
         } else {
             $controller->page_not_found();
         }
         break;
-    case '/signup-action' :
+    case '/signup-action':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController->createUser($_POST['email'], $_POST['first_name'], $_POST['last_name'], $_POST['password']);
         } else {
             $controller->page_not_found();
         }
         break;
-    case '/create-address' :
+    case '/create-address':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $addressController = new AddressController();
             $address_id = $addressController->createAddress($_POST['streetNo'], $_POST['streetName'], $_POST['ward'], $_POST['district'], $_POST['province']);
@@ -73,7 +73,7 @@ switch ($request) {
             $controller->page_not_found();
         }
         break;
-    case '/update-address' :
+    case '/update-address':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $addressController = new AddressController();
             $address_id = $addressController->createAddress($_POST['streetNo'], $_POST['streetName'], $_POST['ward'], $_POST['district'], $_POST['province']);
@@ -83,42 +83,50 @@ switch ($request) {
             $controller->page_not_found();
         }
         break;
-    case '/update-title' :
+    case '/update-avatar':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userController->updateAvatar($_POST['user_id'], $_POST['avatar']);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
+
+    case '/update-title':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController->updateTitle($_POST['user_id'], $_POST['title']);
         } else {
             $controller->page_not_found();
         }
         break;
-    case '/update-phone-number' :
+    case '/update-phone-number':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController->updatePhoneNumber($_POST['user_id'], $_POST['phoneNo']);
         } else {
             $controller->page_not_found();
         }
         break;
-    case '/update-gender' :
+    case '/update-gender':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController->updateGender($_POST['user_id'], $_POST['gender']);
         } else {
             $controller->page_not_found();
         }
         break;
-    case '/update-dob' :
+    case '/update-dob':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController->updateDob($_POST['user_id'], $_POST['dob']);
         } else {
             $controller->page_not_found();
         }
         break;
-    case '/update-about-me' :
+    case '/update-about-me':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController->updateAboutMe($_POST['user_id'], $_POST['aboutMe']);
         } else {
             $controller->page_not_found();
         }
         break;
-    case '/add-education' :
+    case '/add-education':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $educationController = new EducationController();
             $educationController->createEducation($_POST['user_id'], $_POST['degreeName'], $_POST['institutionName'], $_POST['startYear'], $_POST['endYear']);
@@ -126,7 +134,7 @@ switch ($request) {
             $controller->page_not_found();
         }
         break;
-    case '/delete-education' :
+    case '/delete-education':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $educationController = new EducationController();
             $educationController->deleteEducation($_POST['education_id']);
@@ -134,7 +142,7 @@ switch ($request) {
             $controller->page_not_found();
         }
         break;
-    case '/add-exp' :
+    case '/add-exp':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $expController = new ExpController();
             $expController->createExp($_POST['expName'], $_POST['yearStart'], $_POST['yearEnd'], $_POST['expDescription'], $_POST['user_id']);
@@ -142,7 +150,7 @@ switch ($request) {
             $controller->page_not_found();
         }
         break;
-    case '/delete-exp' :
+    case '/delete-exp':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $expController = new ExpController();
             $expController->deleteExp($_POST['exp_id']);
@@ -150,7 +158,7 @@ switch ($request) {
             $controller->page_not_found();
         }
         break;
-    case '/add-certificate' :
+    case '/add-certificate':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $certificateController = new CertificateController();
             $certificateController->createCertificate($_POST['user_id'], $_POST['certificateName'], $_POST['issuer'], $_POST['yearIssued'], $_POST['link']);
@@ -158,7 +166,7 @@ switch ($request) {
             $controller->page_not_found();
         }
         break;
-    case '/delete-certificate' :
+    case '/delete-certificate':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $certificateController = new CertificateController();
             $certificateController->deleteCertificate($_POST['certificate_id']);
@@ -166,14 +174,14 @@ switch ($request) {
             $controller->page_not_found();
         }
         break;
-    case '/update-skills' :
+    case '/update-skills':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController->updateSkills($_POST['user_id'], $_POST['skills']);
         } else {
             $controller->page_not_found();
         }
         break;
-    case '/signout' :
+    case '/signout':
         $userController->signoutUser();
     default:
         // http_response_code(404);
