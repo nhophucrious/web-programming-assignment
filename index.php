@@ -1,3 +1,12 @@
+<meta property="og:title" content=Get employed with HiredCMUT! Find a job in an instant!>
+<meta property="og:site_name" content=HiredCMUT>
+<meta property="og:url" content=https://weblab.karis.cloud/>
+<meta property="og:description" content=Get employed with HiredCMUT! Find a job in an instant!>
+<meta property="og:type" content=website>
+<meta property="og:image" content=https://img.freepik.com/free-vector/flat-employment-agency-search-new-employees-hire_88138-802.jpg?w=1380&t=st=1715065977~exp=1715066577~hmac=caba74c9af811ecfb528c9d6a20b4e7359b67833078a2ad25ebcfa8db3819319>
+<link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/6214/6214076.png">
+
+
 <?php
 // index.php
 session_start();
