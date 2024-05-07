@@ -276,10 +276,14 @@ require_once 'includes/header.php';
                                 $result_employer_name = $employerController->getEmployerDetails($result_job['employer_id']);
                                 
 
-                                echo '<div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">'; // This creates a smaller div for each application
-                                echo '<p>' . 'Job Name: ' . $result_job['job_name'] . '</p>';
+                                echo '<div class="p-3 m-3" style="border: 2px solid #ffbf00; border-radius: 10px; text-align: left;">'; // This creates a smaller div for each application
+                                echo '<h3>' .  $result_job['job_name'] . '</h3>';
+                                echo '<hr>';
                                 echo '<p>' . 'Employer: ' . $result_employer_name['employer_name'] . '</p>';
                                 echo '<p> Date Applied: ' . $application['date_applied'] . '</p>';
+                                echo '<br>';
+                                echo '<a class="hiredcmut-button-light" href="/web-programming-assignment/job_details?id=' . $result_job['job_id'] . '">View Job</a>';
+                                
                                 echo '</div>';
                             }
                             echo '</div>';
