@@ -19,7 +19,7 @@ class JobApplicationController {
             $_SESSION['message'] = 'Job application created successfully.';
         } else {
             // Failed to create job application
-            $_SESSION['message'] = 'Failed to create job application. Please try again.';
+            $_SESSION['message'] = 'Failed to apply. Either you have already applied, or there was an error. Please try again.';
         }
 
         // Redirect to home
