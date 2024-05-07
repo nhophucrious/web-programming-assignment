@@ -43,7 +43,20 @@ require_once 'includes/header.php';
         <p> Did you forget to sign out? <a href="/web-programming-assignment/signout">Sign out</a></p>
     <?php elseif ($isEmployer): ?>
         <div>
-            <h1>Welcome employer LMAO</h1>
+            <h1>Welcome!</h1>
+            <hr>
+            <p>What would you like to do today?</p>
+            <a href="employer-profile" class="hiredcmut-button">View company profile</a>
+            <a href="job-post" class="hiredcmut-button-light">Post a job</a>
+            <hr>
+            <p>Or search for potential employees:</p>
+            <!-- search bar for finding useres -->
+            <div class="container-fluid ">
+                <form action="search-user" method="get">
+                    <input style="width: 100%; border: 2px solid #ffbf00; border-radius: 10px; height: 4rem; padding: 1rem 2rem" type="text" name="search" placeholder="Search for user, skills, location..." required>
+                    <button style="margin-top: 1rem" type="submit" class="hiredcmut-button-light">Search</button>
+                </form>
+            </div>
         </div>
     <?php else: ?>
         <div class="col">
@@ -80,16 +93,16 @@ require_once 'includes/header.php';
                         <input type="text" id="streetName" name="streetName" placeholder="Street Name" required>
                     </div>
                     <div>
-                        <input type="text" id="ward" name="ward" placeholder="Ward" required>
+                        <select id="province" name="province" required style="width: 100%"></select>
                     </div>
                     <div>
-                        <input type="text" id="district" name="district" placeholder="District" required>
+                        <select id="district" name="district" required style="width: 100%"></select>
                     </div>
                     <div>
-                        <input type="text" id="province" name="province" placeholder="Province" required>
+                        <select id="ward" name="ward" required style="width: 100%"></select>
                     </div>
                     <div>
-                        <input type="text" id="phoneNo" name="phoneNo" placeholder="Phone Number" required>
+                        <input type="number" id="phoneNo" name="phoneNo" placeholder="Phone Number" maxlength="10" required>
                     </div>
                     <div class="button-row">
                         <button type="button" class="hiredcmut-button" onclick="prevSlide()">Back</button>
@@ -160,4 +173,57 @@ $(document).ready(function() {
     window.nextSlide = nextSlide;
     window.prevSlide = prevSlide;
 });
+
+</script>
+<script>
+window.onload = function() {
+    fetch('address.json')
+        .then(response => response.json())
+        .then(data => {
+            const provinceSelect = document.getElementById('province');
+            const districtSelect = document.getElementById('district');
+            const wardSelect = document.getElementById('ward');
+
+            // Populate the province select field
+            for (const provinceId in data) {
+                const province = data[provinceId];
+                const option = document.createElement('option');
+                option.value = province.name_with_type; // Use the name_with_type as the value
+                option.text = province.name_with_type;
+                provinceSelect.append(option);
+            }
+
+            // Update the district select field when a province is selected
+            provinceSelect.addEventListener('change', function() {
+                const selectedProvinceName = this.value;
+                const selectedProvince = Object.values(data).find(province => province.name_with_type === selectedProvinceName);
+                districtSelect.innerHTML = '';
+                if (selectedProvince) {
+                    for (const district of selectedProvince.quan_huyen) {
+                        const option = document.createElement('option');
+                        option.value = district.name_with_type; // Use the name_with_type as the value
+                        option.text = district.name_with_type;
+                        districtSelect.append(option);
+                    }
+                }
+            });
+
+            // Update the ward select field when a district is selected
+            districtSelect.addEventListener('change', function() {
+                const selectedProvinceName = provinceSelect.value;
+                const selectedProvince = Object.values(data).find(province => province.name_with_type === selectedProvinceName);
+                const selectedDistrictName = this.value;
+                const selectedDistrict = selectedProvince ? selectedProvince.quan_huyen.find(district => district.name_with_type === selectedDistrictName) : null;
+                wardSelect.innerHTML = '';
+                if (selectedDistrict) {
+                    for (const ward of selectedDistrict.xa_phuong) {
+                        const option = document.createElement('option');
+                        option.value = ward.name_with_type; // Use the name_with_type as the value
+                        option.text = ward.name_with_type;
+                        wardSelect.append(option);
+                    }
+                }
+            });
+        });
+}
 </script>
