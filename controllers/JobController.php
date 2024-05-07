@@ -39,9 +39,9 @@ class JobController {
         return $result;
     }
 
-    public function updateJob($job_id, $job_name, $job_level, $job_type, $job_location, $salary, $job_description, $job_requirement, $job_benefit, $date_posted) {
+    public function updateJob($job_id, $employer_id, $job_name, $job_level, $job_type, $job_location, $salary, $job_description, $job_requirement, $job_benefit, $date_posted) {
         $job = new Job();
-        $result = $job->updateJob($job_id, $job_name, $job_level, $job_type, $job_location, $salary, $job_description, $job_requirement, $job_benefit, $date_posted);
+        $result = $job->updateJob($job_id, $employer_id, $job_name, $job_level, $job_type, $job_location, $salary, $job_description, $job_requirement, $job_benefit, $date_posted);
         return $result;
     }
 

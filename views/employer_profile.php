@@ -38,7 +38,9 @@ if ($address_id != '') {
 }
 
 require_once 'includes/header.php';
-$applications = array();
+require_once __DIR__ . '/../controllers/JobController.php';
+    $jobController = new JobController();
+    $jobs = $jobController->getJobsByEmployerId($employer_id);
 ?>
 
 <div class="container pt-5" style="min-height: 100vh">
@@ -51,7 +53,7 @@ $applications = array();
                 </a>
 
                 <a href="#my-application" class="list-group-item list-group-item-action" data-toggle="tab">
-                    Job Posts <span class="badge badge-primary badge-pill"><?php echo count($applications) ?></span>
+                    Job Posts <span class="badge badge-primary badge-pill"><?php echo count($jobs) ?></span>
                 </a>
             </div>
         </div>
@@ -109,12 +111,12 @@ $applications = array();
 
                 <div class="tab-pane" id="my-application">
                     <?php
-                    if (count($applications) > 0) {
-                        foreach ($applications as $application) {
-                            echo "<p>$application</p>";
+                    if (count($jobs) > 0) {
+                        foreach ($jobs as $jobs) {
+                            echo "<p>$jobs</p>";
                         }
                     } else {
-                        echo '<div class="alert alert-success" role="alert">No applications yet.</div>';
+                        echo '<div class="alert alert-success" role="alert">No job yet.</div>';
                     }
                     ?>
                 </div>

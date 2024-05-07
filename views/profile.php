@@ -26,7 +26,7 @@ if (isset($_SESSION['user'])) {
     $skills = $user_details['skills'];
 
     $job_application_controller = new Job_application_Controller();
-    $applications = $job_application_controller->getJobApplications($user_id);
+    $applications = $job_application_controller->getJobApplicationsByUID($user_id);
 }
 
 // if address_id is not empty, get address details
@@ -65,7 +65,6 @@ $certificateController = new CertificateController();
 $certificates = $certificateController->getCertificatesByUserId($user_id);
 
 require_once 'includes/header.php';
-$applications = array();
 ?>
 
 <div class="container pt-5" style="min-height: 100vh">
@@ -268,13 +267,25 @@ $applications = array();
 
                 <div class="tab-pane" id="my-application">
                     <?php
-                    if (count($applications) > 0) {
-                        foreach ($applications as $application) {
-                            echo "<p>$application</p>";
+                        if (count($applications) > 0) {
+                            $jobController = new JobController();
+                            $employerController = new EmployerController();
+                            echo '<div style="overflow-y: scroll; height: 800px;">'; // This creates a scrollable div
+                            foreach ($applications as $application) {
+                                $result_job = $jobController->getJobById($application['job_id']);
+                                $result_employer_name = $employerController->getEmployerDetails($result_job['employer_id']);
+                                
+
+                                echo '<div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">'; // This creates a smaller div for each application
+                                echo '<p>' . 'Job Name: ' . $result_job['job_name'] . '</p>';
+                                echo '<p>' . 'Employer: ' . $result_employer_name['employer_name'] . '</p>';
+                                echo '<p> Date Applied: ' . $application['date_applied'] . '</p>';
+                                echo '</div>';
+                            }
+                            echo '</div>';
+                        } else {
+                            echo '<div class="alert alert-success" role="alert">No applications yet.</div>';
                         }
-                    } else {
-                        echo '<div class="alert alert-success" role="alert">No applications yet.</div>';
-                    }
                     ?>
                 </div>
             </div>

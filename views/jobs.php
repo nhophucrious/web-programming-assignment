@@ -7,6 +7,7 @@ $jobs = json_decode($json, true);
 */
 
 require_once __DIR__ . '/../controllers/JobController.php';
+require_once __DIR__ . '/../controllers/EmployerController.php';
 $jobController = new JobController();
 
 // search query
@@ -116,7 +117,16 @@ $jobsForCurrentPage = array_slice($jobs, $startIndex, $jobsPerPage);
                     <div class="card" onclick="highlightCard(this)" style="margin-bottom: 20px; border-radius: 10px;">
                         <div class="card-body">
                             <h5 class="card-title"><?= $job['job_name'] ?></h5>
-                            <p class="card-text"><?= $job['employer_id'] ?></p> <!-- Uncomment this line to include the company name -->
+                            <?php
+                                $query = "SELECT employers.employer_name, employers.address 
+                                          FROM employers
+                                          WHERE employers.employer_id = ?";
+                                $stmt = $pdo->prepare($query);
+                                $stmt->execute([$job['employer_id']]);
+                                $employer = $stmt->fetch();
+                            ?>
+                            <p class="card-text"><?= $employer['employer_name'] ?></p>
+                            <p class="card-text"><?= $employer['address'] ?></p>
                             <p class="card-text">
                                 <span class="badge badge-primary"><?= $job['job_level'] ?></span>
                                 <span class="badge badge-secondary"><?= $job['job_type'] ?></span>

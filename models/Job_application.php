@@ -1,15 +1,5 @@
 <?php
 
-// -- job_application
-// CREATE TABLE `job_applications` (
-//   `application_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-//   `user_id` INTEGER,
-//   `job_id` INTEGER,
-//   `date_applied` DATETIME,
-//   FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
-//   FOREIGN KEY (`job_id`) REFERENCES `jobs` (`job_id`)
-// );
-
 class Job_application{
     private $db;
     private $application_id;
@@ -56,6 +46,23 @@ class Job_application{
     public function createJobApplication() {
         $conn = $this->db->getConnection();
 
+        // Prepare the SELECT query
+        $sql = "SELECT * FROM job_applications WHERE user_id = :user_id AND job_id = :job_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':user_id', $this->user_id);
+        $stmt->bindParam(':job_id', $this->job_id);
+        $stmt->execute();
+
+        // Fetch the result
+        $result = $stmt->fetch();
+
+        // If the result is not false, it means the combination already exists
+        if ($result) {
+            $this->db->closeConnection();
+            return false;
+        }
+
+        // If the combination does not exist, proceed with the INSERT query
         $sql = "INSERT INTO job_applications (user_id, job_id, date_applied) VALUES (:user_id, :job_id, :date_applied)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':user_id', $this->user_id);
@@ -89,7 +96,7 @@ class Job_application{
         $stmt->bindParam(':user_id', $user_id);
         $stmt->execute();
 
-        $result = $stmt->fetch();
+        $result = $stmt->fetchAll();
 
         $this->db->closeConnection();
         return $result;
