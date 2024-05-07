@@ -637,7 +637,7 @@ require_once 'includes/footer.php';
             }
         }
 
-        xhr.send('user_id=' + encodeURIComponent(userId) + '&avatar=' + encodeURIComponent(avatarUrl==));
+        xhr.send('user_id=' + encodeURIComponent(userId) + '&avatar=' + encodeURIComponent(avatarUrl));
     }
 
     function updateTitle() {
