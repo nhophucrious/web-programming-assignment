@@ -118,12 +118,8 @@ $jobsForCurrentPage = array_slice($jobs, $startIndex, $jobsPerPage);
                         <div class="card-body">
                             <h5 class="card-title"><?= $job['job_name'] ?></h5>
                             <?php
-                                $query = "SELECT employers.employer_name, employers.address 
-                                          FROM employers
-                                          WHERE employers.employer_id = ?";
-                                $stmt = $pdo->prepare($query);
-                                $stmt->execute([$job['employer_id']]);
-                                $employer = $stmt->fetch();
+                                $employerController = new EmployerController();
+                                $employer = $employerController->getEmployerDetails($job['employer_id']);
                             ?>
                             <p class="card-text"><?= $employer['employer_name'] ?></p>
                             <p class="card-text"><?= $employer['address'] ?></p>
