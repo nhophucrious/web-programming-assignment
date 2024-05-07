@@ -49,6 +49,10 @@ $applications = array();
                 <a href="#profile-overview" class="list-group-item list-group-item-action active" data-toggle="tab">
                     Profile Overview 
                 </a>
+
+                <a href="#my-application" class="list-group-item list-group-item-action" data-toggle="tab">
+                    Job Posts <span class="badge badge-primary badge-pill"><?php echo count($applications) ?></span>
+                </a>
             </div>
         </div>
         <div class="col-md-9">

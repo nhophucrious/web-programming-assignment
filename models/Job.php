@@ -1,24 +1,5 @@
 <?php
 
-/*
--- jobs
-CREATE TABLE `jobs` (
-  `job_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-  `employer_id` INTEGER,
-  `job_name` TEXT,
-  `job_level` TEXT,
-  `job_type` TEXT,
-  `job_location` TEXT COMMENT 'on-site or remote',
-  `salary` INTEGER,
-  `job_description` TEXT,
-  `job_requirement` TEXT,
-  `job_benefit` TEXT,
-  `date_posted` DATETIME,
-  FOREIGN KEY (`employer_id`) REFERENCES `employers` (`employer_id`)
-);
-
-*/
-
 class Job {
     private $db;
     private $job_id;

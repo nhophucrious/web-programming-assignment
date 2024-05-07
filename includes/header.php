@@ -98,6 +98,9 @@ $uri = $_SERVER['REQUEST_URI'];
                     <li class="nav-item <?= $uri === '/web-programming-assignment/employer-profile' ? 'active' : '' ?>">
                         <a class="nav-link" href="/web-programming-assignment/employer-profile">Profile</a>
                     </li>
+                    <li class="nav-item <?= $uri === '/web-programming-assignment/job-post' ? 'active' : '' ?>">
+                        <a class="nav-link" href="/web-programming-assignment/job-post">Job Post</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/web-programming-assignment/signout">Sign Out</a>
                     </li>

@@ -5,6 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 // get user details
 require_once __DIR__ . '/../controllers/UserController.php';
+require_once __DIR__ . '/../controllers/JobApplicationController.php';
 if (isset($_SESSION['user'])) {
     $user_id = $_SESSION['user']['user_id'];
     $userController = new UserController();
@@ -23,6 +24,9 @@ if (isset($_SESSION['user'])) {
     $about_me = $user_details['about_me'];
     $address_id = $user_details['address_id'];
     $skills = $user_details['skills'];
+
+    $job_application_controller = new Job_application_Controller();
+    $applications = $job_application_controller->getJobApplications($user_id);
 }
 
 // if address_id is not empty, get address details
@@ -43,6 +47,7 @@ if ($address_id != '') {
 } else {
     $address = '';
 }
+
 
 // education details
 require_once __DIR__ . '/../controllers/EducationController.php';

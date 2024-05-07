@@ -51,6 +51,9 @@ switch ($request) {
     case '/job_details' :
         $controller->job_details();
         break;
+    case '/job-post' :
+        $controller->job_post();
+        break;
     case '/signin-action' :
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController->signinUser($_POST['email'], $_POST['password']);
@@ -219,6 +222,24 @@ switch ($request) {
             $address_id = $_POST['address_id'];
             $addressController = new AddressController();
             $addressController->updateAddress($address_id, $streetNo, $streetName, $ward, $district, $province);
+        } else {
+            $controller->page_not_found();
+        }
+        break;
+    case '/add-job-action':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $jobController = new JobController();
+            $employer_id = $_POST['employer_id'];
+            $job_name = $_POST['job_name'];
+            $job_level = $_POST['job_level'];
+            $job_type = $_POST['job_type'];
+            $job_location = $_POST['job_location'];
+            $salary = $_POST['salary'];
+            $job_description = $_POST['job_description'];
+            $job_requirement = $_POST['job_requirement'];
+            $job_benefit = $_POST['job_benefit'];
+            $date_posted = $_POST['date_posted'];
+            $jobController->addJob($employer_id, $job_name, $job_level, $job_type, $job_location, $salary, $job_description, $job_requirement, $job_benefit, $date_posted);
         } else {
             $controller->page_not_found();
         }
