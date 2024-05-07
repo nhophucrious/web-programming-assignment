@@ -93,7 +93,7 @@ $applications = array();
                                         style="transform: translate(-50%, -50%);" data-toggle="modal"
                                         data-target="#avatarModal">
                                         <i class="fas fa-edit"
-                                            style="color: #fff; background-color: #007bff; border-radius: 50%; padding: 8px;"></i>
+                                            style="color: #fff; background-color: #ffbf00; border-radius: 50%; padding: 4px;"></i>
                                     </a>
                                 </div>
                             </div>
