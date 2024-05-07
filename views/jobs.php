@@ -22,7 +22,7 @@ if (isset($_SESSION['message'])) {
 }
 ?>
 <script>
-    var userId = '<?php echo $_SESSION['user']['user_id']; ?>';
+    var userId = '<?php echo $_SESSION['user']['user_id'] ?? ''; ?>'; // if no user is logged in, set userId to empty string
 </script>
 
 <?php
@@ -190,6 +190,27 @@ $jobsForCurrentPage = array_slice($jobs, $startIndex, $jobsPerPage);
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">Sign In Required</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Please sign in to apply for a job.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="hiredcmut-button" data-dismiss="modal">Close</button>
+        <a href="/web-programming-assignment/signin" class="hiredcmut-button-light">Sign In</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script>
 window.onload = function() {
@@ -222,7 +243,7 @@ function highlightCard(card) {
     
     jobDetails.innerHTML = `
         <h2>${card.getElementsByClassName('card-title')[0].innerText}</h2>
-        <form action="/web-programming-assignment/add-job-application" method="post">
+        <form action="/web-programming-assignment/add-job-application" method="post" onsubmit="return checkUserId()">
             <input type="hidden" name="user_id" value="${userId}">
             <input type="hidden" name="job_id" value="${card.getElementsByClassName('card-text')[0].innerText}">
             <input type="hidden" name="date_applied" value="<?php echo date('Y-m-d H:i:s'); ?>">
@@ -247,6 +268,14 @@ function highlightCard(card) {
         <p>${card.getElementsByClassName('card-text')[7].innerText}</p>
         <hr>
     `;
+}
+function checkUserId() {
+    if (userId === '') {
+        $('#loginModal').modal('show');
+        return false;
+    }
+    return true;
+
 }
 </script>
 
