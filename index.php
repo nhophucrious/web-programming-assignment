@@ -76,9 +76,8 @@ switch ($request) {
     case '/update-address':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $addressController = new AddressController();
-            $address_id = $addressController->createAddress($_POST['streetNo'], $_POST['streetName'], $_POST['ward'], $_POST['district'], $_POST['province']);
-            $user_id = $_POST['user_id'];
-            $userController->updateAddressId($user_id, $address_id);
+            // js:         xhr.send('addressId=' + encodeURIComponent(addressId) + '&streetNo=' + encodeURIComponent(streetNumber) + '&streetName=' + encodeURIComponent(streetName) + '&ward=' + encodeURIComponent(ward) + '&district=' + encodeURIComponent(district) + '&province=' + encodeURIComponent(province) + '&user_id=' + encodeURIComponent(userId));
+            $addressController->updateAddress($_POST['addressId'], $_POST['streetNo'], $_POST['streetName'], $_POST['ward'], $_POST['district'], $_POST['province']);
         } else {
             $controller->page_not_found();
         }

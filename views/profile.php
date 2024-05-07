@@ -452,16 +452,16 @@ $applications = array();
                         <input type="text" class="form-control" id="streetName">
                     </div>
                     <div class="form-group">
-                        <label for="ward">Ward</label>
-                        <input type="text" class="form-control" id="ward">
+                        <label for="province">Province</label>
+                        <select class="form-control" id="province"></select>
                     </div>
                     <div class="form-group">
                         <label for="district">District</label>
-                        <input type="text" class="form-control" id="district">
+                        <select class="form-control" id="district"></select>
                     </div>
                     <div class="form-group">
-                        <label for="province">Province</label>
-                        <input type="text" class="form-control" id="province">
+                        <label for="ward">Ward</label>
+                        <select class="form-control" id="ward"></select>
                     </div>
                 </form>
             </div>
@@ -491,16 +491,16 @@ $applications = array();
                     <input type="text" class="form-control" id="updateStreetName" value="<?= $streetName ?>">
                 </div>
                 <div class="form-group">
-                    <label for="updateWard">Ward</label>
-                    <input type="text" class="form-control" id="updateWard" value="<?= $ward ?>">
+                    <label for="updateProvince">Province</label>
+                    <select class="form-control" id="updateProvince"></select>
                 </div>
                 <div class="form-group">
                     <label for="updateDistrict">District</label>
-                    <input type="text" class="form-control" id="updateDistrict" value="<?= $district ?>">
+                    <select class="form-control" id="updateDistrict"></select>
                 </div>
                 <div class="form-group">
-                    <label for="updateProvince">Province</label>
-                    <input type="text" class="form-control" id="updateProvince" value="<?= $province ?>">
+                    <label for="updateWard">Ward</label>
+                    <select class="form-control" id="updateWard"></select>
                 </div>
             </div>
             <div class="modal-footer">
@@ -917,4 +917,116 @@ require_once 'includes/footer.php';
 
         xhr.send('certificate_id=' + encodeURIComponent(certificateId));
     }
+
+    window.onload = function() {
+    fetch('address.json')
+        .then(response => response.json())
+        .then(data => {
+            const provinceSelect = document.getElementById('province');
+            const districtSelect = document.getElementById('district');
+            const wardSelect = document.getElementById('ward');
+
+            // Populate the province select field
+            for (const provinceId in data) {
+                const province = data[provinceId];
+                const option = document.createElement('option');
+                option.value = province.name; // Use the name as the value
+                option.text = province.name_with_type;
+                provinceSelect.append(option);
+            }
+
+            // Update the district select field when a province is selected
+            provinceSelect.addEventListener('change', function() {
+                const selectedProvinceName = this.value;
+                const selectedProvince = Object.values(data).find(province => province.name === selectedProvinceName);
+                districtSelect.innerHTML = '';
+                for (const district of selectedProvince.quan_huyen) {
+                    const option = document.createElement('option');
+                    option.value = district.name; // Use the name as the value
+                    option.text = district.name_with_type;
+                    districtSelect.append(option);
+                }
+            });
+
+            // Update the ward select field when a district is selected
+            districtSelect.addEventListener('change', function() {
+                const selectedProvinceName = provinceSelect.value;
+                const selectedProvince = Object.values(data).find(province => province.name === selectedProvinceName);
+                const selectedDistrictName = this.value;
+                const selectedDistrict = selectedProvince.quan_huyen.find(district => district.name === selectedDistrictName);
+                wardSelect.innerHTML = '';
+                for (const ward of selectedDistrict.xa_phuong) {
+                    const option = document.createElement('option');
+                    option.value = ward.name; // Use the name as the value
+                    option.text = ward.name_with_type;
+                    wardSelect.append(option);
+                }
+            });
+        });
+    }
+    
+</script>
+<script>
+    $(document).ready(function() {
+    // Fetch the data from address.json
+    $.getJSON('address.json', function(data) {
+        // Get the select elements
+        var currentProvince = <?= json_encode($province) ?>;
+        var currentDistrict = <?= json_encode($district) ?>;
+        var currentWard = <?= json_encode($ward) ?>;
+
+        const updateProvinceSelect = $('#updateProvince');
+        const updateDistrictSelect = $('#updateDistrict');
+        const updateWardSelect = $('#updateWard');
+
+        // Populate the province select field
+        for (const provinceId in data) {
+            const province = data[provinceId];
+            const option = $('<option>', {
+                value: province.name_with_type,
+                text: province.name_with_type
+            });
+            if (province.name_with_type === currentProvince) {
+                option.prop('selected', true);
+            }
+            updateProvinceSelect.append(option);
+        }
+
+        // Update the district select field when a province is selected
+        updateProvinceSelect.change(function() {
+            const selectedProvinceName = this.value;
+            const selectedProvince = Object.values(data).find(province => province.name_with_type === selectedProvinceName);
+            updateDistrictSelect.empty();
+            for (const district of selectedProvince.quan_huyen) {
+                const option = $('<option>', {
+                    value: district.name_with_type,
+                    text: district.name_with_type
+                });
+                if (district.name_with_type === currentDistrict) {
+                    option.prop('selected', true);
+                }
+                updateDistrictSelect.append(option);
+            }
+        }).change(); // Trigger the change event immediately
+
+        // Update the ward select field when a district is selected
+        updateDistrictSelect.change(function() {
+            const selectedProvinceName = updateProvinceSelect.val();
+            const selectedProvince = Object.values(data).find(province => province.name_with_type === selectedProvinceName);
+            const selectedDistrictName = this.value;
+            const selectedDistrict = selectedProvince.quan_huyen.find(district => district.name_with_type === selectedDistrictName);
+            updateWardSelect.empty();
+            for (const ward of selectedDistrict.xa_phuong) {
+                const option = $('<option>', {
+                    value: ward.name_with_type,
+                    text: ward.name_with_type
+                });
+                if (ward.name_with_type === currentWard) {
+                    option.prop('selected', true);
+                }
+                updateWardSelect.append(option);
+            }
+        }).change(); // Trigger the change event immediately
+    });
+});
 </script>
