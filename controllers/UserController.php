@@ -2,8 +2,10 @@
 require_once __DIR__ . '/../database/Database.php';
 require_once __DIR__ . '/../models/User.php';
 
-class UserController {
-    public function createUser($email, $first_name, $last_name, $password) {
+class UserController
+{
+    public function createUser($email, $first_name, $last_name, $password)
+    {
         $user = new User();
         $user->setEmail($email);
         $user->setFirstName($first_name);
@@ -27,21 +29,22 @@ class UserController {
         // Redirect to sign-in page
         header('Location: /web-programming-assignment/signin');
         exit();
-    }           
+    }
 
     // sign in
-    public function signinUser($email, $password) {
+    public function signinUser($email, $password)
+    {
         $user = new User();
         $user->setEmail($email);
         $user->setPassword($password);
         $result = $user->signinUser($email, $password);
-    
+
         if ($result) {
             // Start the session if it's not already started
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
-    
+
             // Store user data in session
             $_SESSION['user'] = [
                 'user_id' => $result['user_id'],
@@ -51,7 +54,7 @@ class UserController {
                 'full_name' => $result['first_name'] . ' ' . $result['last_name'],
                 // Add other user data as needed
             ];
-    
+
             // Redirect to home
             header('Location: /web-programming-assignment/');
             exit();
@@ -64,81 +67,99 @@ class UserController {
     }
 
     // sign out
-    public function signoutUser() {
+    public function signoutUser()
+    {
         // Start the session if it's not already started
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-    
+
         // Unset all session data
         $_SESSION = [];
-    
+
         // Destroy the session
         session_destroy();
-    
+
         // Redirect to home
         header('Location: /web-programming-assignment/');
         exit();
     }
 
     // get user detail by id
-    public function getUserDetails($user_id) {
+    public function getUserDetails($user_id)
+    {
         $user = new User();
         $result = $user->getUserDetails($user_id);
         return $result;
     }
 
     // update user
-    public function updateUser($user_id, $email, $first_name, $last_name, $password, $title, $phoneNo, $avatar, $gender, $dob, $aboutMe, $addressId, $skills) {
+    public function updateUser($user_id, $email, $first_name, $last_name, $password, $title, $phoneNo, $avatar, $gender, $dob, $aboutMe, $addressId, $skills)
+    {
         $user = new User();
         $result = $user->updateUser($user_id, $email, $first_name, $last_name, $password, $title, $phoneNo, $avatar, $gender, $dob, $aboutMe, $addressId, $skills);
         return $result;
-    } 
+    }
+
+    // Update avatar
+    public function updateAvatar($user_id, $avatar)
+    {
+        $user = new User();
+        $result = $user->updateAvatar($user_id, $avatar);
+        return $result;
+    }
 
     // update title 
-    public function updateTitle($user_id, $title) {
+    public function updateTitle($user_id, $title)
+    {
         $user = new User();
         $result = $user->updateTitle($user_id, $title);
         return $result;
     }
 
     // update phone number
-    public function updatePhoneNumber($user_id, $phoneNo) {
+    public function updatePhoneNumber($user_id, $phoneNo)
+    {
         $user = new User();
         $result = $user->updatePhoneNumber($user_id, $phoneNo);
         return $result;
     }
 
     // update gender
-    public function updateGender($user_id, $gender) {
+    public function updateGender($user_id, $gender)
+    {
         $user = new User();
         $result = $user->updateGender($user_id, $gender);
         return $result;
     }
 
     // update dob
-    public function updateDob($user_id, $dob) {
+    public function updateDob($user_id, $dob)
+    {
         $user = new User();
         $result = $user->updateDob($user_id, $dob);
         return $result;
     }
 
     // update address id
-    public function updateAddressId($user_id, $addressId) {
+    public function updateAddressId($user_id, $addressId)
+    {
         $user = new User();
         $result = $user->updateAddressId($user_id, $addressId);
         return $result;
     }
 
     // update about me
-    public function updateAboutMe($user_id, $aboutMe) {
+    public function updateAboutMe($user_id, $aboutMe)
+    {
         $user = new User();
         $result = $user->updateAboutMe($user_id, $aboutMe);
         return $result;
     }
 
     // update skills
-    public function updateSkills($user_id, $skills) {
+    public function updateSkills($user_id, $skills)
+    {
         $user = new User();
         $result = $user->updateSkills($user_id, $skills);
         return $result;
