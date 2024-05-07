@@ -6,8 +6,29 @@ $jobs = json_decode($json, true);
 });
 */
 
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (isset($_SESSION['message'])) {
+    $message = $_SESSION['message'];
+    if ($message === 'Job application created successfully.') {
+        echo '<div class="alert alert-success" role="alert">' . $message . '</div>';
+    } else {
+        echo '<div class="alert alert-danger" role="alert">' . $message . '</div>';
+    }
+    unset($_SESSION['message']); // Remove the message from the session
+}
+?>
+<script>
+    var userId = '<?php echo $_SESSION['user']['user_id']; ?>';
+</script>
+
+<?php
 require_once __DIR__ . '/../controllers/JobController.php';
 require_once __DIR__ . '/../controllers/EmployerController.php';
+require_once __DIR__ . '/../controllers/AddressController.php';
 $jobController = new JobController();
 
 // search query
@@ -120,9 +141,21 @@ $jobsForCurrentPage = array_slice($jobs, $startIndex, $jobsPerPage);
                             <?php
                                 $employerController = new EmployerController();
                                 $employer = $employerController->getEmployerDetails($job['employer_id']);
+
+                                $addressController = new AddressController();
+                                $address = $addressController->getAddress($employer['address_id']);
+                                $streetNo = $address->getStreetNo();
+                                $streetName = $address->getStreetName();
+                                $ward = $address->getWard();
+                                $district = $address->getDistrict();
+                                $province = $address->getProvince();
+
+                                // Combine them into a single string
+                                $address_string = $streetNo . ' ' . $streetName . ', Ward ' . $ward . ', District ' . $district . ', ' . $province . ' Province';
                             ?>
+                            <p class="card-text" style="display: none;"><?= $job['job_id']?></p>
                             <p class="card-text"><?= $employer['employer_name'] ?></p>
-                            <p class="card-text"><?= $employer['address'] ?></p>
+                            <p class="card-text"><?= $address_string ?></p>
                             <p class="card-text">
                                 <span class="badge badge-primary"><?= $job['job_level'] ?></span>
                                 <span class="badge badge-secondary"><?= $job['job_type'] ?></span>
@@ -180,21 +213,39 @@ function highlightCard(card) {
 
     // Populate the job details
     var jobDetails = document.getElementById('jobDetails');
+    
+    var cardTexts = card.getElementsByClassName('card-text');
+    var cardData = '';
+    for (var i = 0; i < cardTexts.length; i++) {
+        cardData += `<p>${cardTexts[i].innerText}</p>`;
+    }
+    
     jobDetails.innerHTML = `
         <h2>${card.getElementsByClassName('card-title')[0].innerText}</h2>
-        <p>${card.getElementsByClassName('card-text')[0].innerText}</p>
-        <div class="d-flex">
-        <a href="" class="text-center py-2" style="width: 100%; color: white; font-weight: bold; background-color: #ffbf00; border-radius: 10px">Apply now</a>
-        </div>
+        <form action="/web-programming-assignment/add-job-application" method="post">
+            <input type="hidden" name="user_id" value="${userId}">
+            <input type="hidden" name="job_id" value="${card.getElementsByClassName('card-text')[0].innerText}">
+            <input type="hidden" name="date_applied" value="<?php echo date('Y-m-d H:i:s'); ?>">
+            <div class="d-flex">
+                <button type="submit" class="text-center py-2" style="width: 100%; color: white; font-weight: bold; background-color: #ffbf00; border-radius: 10px">Apply now</button>
+            </div>
+        </form>
+        <hr>
+        <h3 style="font-weight:bold">Job Requirements, Type, and Location</h3>
+        <p>${card.getElementsByClassName('card-text')[3].innerText}</p>
         <hr>
         <h3 style="font-weight:bold">Job Description</h3>
-        <p>${card.getElementsByClassName('card-text')[2].innerText}</p>
-        <hr>
-        <h3 style="font-weight:bold">Job Requirements</h3>
         <p>${card.getElementsByClassName('card-text')[4].innerText}</p>
         <hr>
-        <h3 style="font-weight:bold">Job Benefits</h3>
+        <h3 style="font-weight:bold">Job Salary</h3>
         <p>${card.getElementsByClassName('card-text')[5].innerText}</p>
+        <hr>
+        <h3 style="font-weight:bold">Job Requirements</h3>
+        <p>${card.getElementsByClassName('card-text')[6].innerText}</p>
+        <hr>
+        <h3 style="font-weight:bold">Job Benefits</h3>
+        <p>${card.getElementsByClassName('card-text')[7].innerText}</p>
+        <hr>
     `;
 }
 </script>

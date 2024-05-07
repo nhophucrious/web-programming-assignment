@@ -25,7 +25,7 @@ if (isset($_SESSION['user'])) {
     $address_id = $user_details['address_id'];
     $skills = $user_details['skills'];
 
-    $job_application_controller = new Job_application_Controller();
+    $job_application_controller = new JobApplicationController();
     $applications = $job_application_controller->getJobApplicationsByUID($user_id);
 }
 

@@ -92,9 +92,7 @@ class Address {
         $stmt->bindParam(':address_id', $address_id);
         $stmt->execute();
         $address = $stmt->fetch();
-    
-        $this->db->closeConnection();
-    
+
         // Set the properties of the Address object
         $this->address_id = $address['address_id'];
         $this->streetNo = $address['street_number'];
@@ -102,6 +100,10 @@ class Address {
         $this->ward = $address['ward'];
         $this->district = $address['district'];
         $this->province = $address['province'];
+
+        $this->db->closeConnection();
+
+        return $this;
     }
 
     // update address

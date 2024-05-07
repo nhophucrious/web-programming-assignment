@@ -14,6 +14,7 @@ if (isset($_SESSION['message'])) {
     } else {
         echo '<div class="alert alert-danger" role="alert">' . $message . '</div>';
     }
+    unset($_SESSION['message']); // Remove the message from the session
 }
 
 require_once __DIR__ . '/../controllers/EmployerController.php';

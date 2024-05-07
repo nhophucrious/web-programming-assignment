@@ -15,8 +15,8 @@ class AddressController {
 
     public function getAddress($addressId) {
         $address = new Address();
-        $address->getAddress($addressId);
-        return $address;
+        $result = $address->getAddress($addressId);
+        return $result;
     }
 
     // update address
@@ -28,7 +28,7 @@ class AddressController {
         $address->setWard($ward);
         $address->setDistrict($district);
         $address->setProvince($province);
-        $address->updateAddress(
+        $result = $address->updateAddress(
             $address_id,
             $streetNo,
             $streetName,
@@ -36,5 +36,6 @@ class AddressController {
             $district,
             $province
         );
+        return $result;
     }
 }

@@ -1,10 +1,10 @@
 <?php
 require_once __DIR__ . '/../database/Database.php';
-require_once __DIR__ . '/../models/Job_application.php';
+require_once __DIR__ . '/../models/JobApplication.php';
 
-class Job_application_Controller {
+class JobApplicationController {
     public function createJobApplication($user_id, $job_id, $date_applied) {
-        $job_application = new Job_application();
+        $job_application = new JobApplication();
         $job_application->setUserId($user_id);
         $job_application->setJobId($job_id);
         $job_application->setDateApplied($date_applied);
@@ -23,12 +23,12 @@ class Job_application_Controller {
         }
 
         // Redirect to home
-        header('Location: /web-programming-assignment/');
+        header('Location: /web-programming-assignment/jobs');
         exit();
     }
 
     public function getJobApplicationsByUID($user_id) {
-        $job_application = new Job_application();
+        $job_application = new JobApplication();
         $result = $job_application->getJobApplicationsByUserId($user_id);
         return $result;
     }

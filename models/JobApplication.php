@@ -1,6 +1,6 @@
 <?php
 
-class Job_application{
+class JobApplication{
     private $db;
     private $application_id;
     private $user_id;

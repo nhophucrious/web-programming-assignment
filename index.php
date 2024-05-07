@@ -14,6 +14,7 @@ spl_autoload_register(function ($class_name) {
 $controller = new Controller();
 $userController = new UserController();
 $addressController = new AddressController();
+$jobApplicationController = new JobApplicationController();
 
 // Get the current URI
 $request = str_replace('/web-programming-assignment', '', $_SERVER['REQUEST_URI']);
@@ -243,6 +244,18 @@ switch ($request) {
         } else {
             $controller->page_not_found();
         }
+        break;
+    case '/add-job-application':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $jobApplicationController = new JobApplicationController();
+            $user_id = $_POST['user_id'];
+            $job_id = $_POST['job_id'];
+            $date_applied = $_POST['date_applied'];
+            $jobApplicationController->createJobApplication($user_id, $job_id, $date_applied);
+        } else {
+            $controller->page_not_found();
+        }
+        
         break;
     case '/signout' :
         $userController->signoutUser();
