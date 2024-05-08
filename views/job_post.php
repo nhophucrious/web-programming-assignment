@@ -18,8 +18,11 @@ if (isset($_SESSION['message'])) {
 }
 
 require_once __DIR__ . '/../controllers/EmployerController.php';
+require_once __DIR__ . '/../controllers/JobController.php';
 if (isset($_SESSION['employer'])) {
     $employer_id = $_SESSION['employer']['employer_id'];
+    $jobController = new JobController();
+    $jobs = $jobController->getJobsByEmployerId($employer_id);
 }
 ?>
 
@@ -116,6 +119,20 @@ if (isset($_SESSION['employer'])) {
                 </div>
             </div>
         </form>
+
+        <form id="removeJob" action="/web-programming-assignment/add-job-action" method="post" style="display: none;">
+            <div>
+                <label for="job_id">Select job to remove:</label>
+                <select id="job_id" name="job_id" class="form-control">
+                    <?php foreach ($jobs as $job): ?>
+                        <option value="<?= htmlspecialchars($job['job_id']) ?>"><?= htmlspecialchars($job['job_title']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div>
+                <button type="submit" class="hiredcmut-button">Remove</button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -153,6 +170,13 @@ require_once __DIR__ . '/../includes/footer.php';
             showSlide(0);
         });
         $('#removeJobButton').fadeOut(400); // Add this line
+    });
+
+    $('#removeJobButton').click(function() {
+        $(this).fadeOut(400, function() {
+            $('#removeJob').fadeIn(400);
+        });
+        $('#addJobButton').fadeOut(400); // Add this line
     });
 
     window.nextSlide = nextSlide;
