@@ -11,7 +11,11 @@ if (isset($_SESSION['message'])) {
     $message = $_SESSION['message'];
     if ($message === 'Job created successfully') {
         echo '<div class="alert alert-success" role="alert">' . $message . '</div>';
-    } else {
+    }
+    else if ($message === 'Job deleted successfully.') {
+        echo '<div class="alert alert-success" role="alert">' . $message . '</div>';
+    }
+    else {
         echo '<div class="alert alert-danger" role="alert">' . $message . '</div>';
     }
     unset($_SESSION['message']); // Remove the message from the session
@@ -120,7 +124,7 @@ if (isset($_SESSION['employer'])) {
             </div>
         </form>
 
-        <form id="removeJob" action="/web-programming-assignment/add-job-action" method="post" style="display: none;">
+        <form id="removeJob" action="/web-programming-assignment/remove-job-action" method="post" style="display: none;">
             <div>
                 <label for="job_id">Select job to remove:</label>
                 <select id="job_id" name="job_id" class="form-control">

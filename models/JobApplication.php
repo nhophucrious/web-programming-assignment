@@ -88,6 +88,18 @@ class JobApplication{
         return true;
     }
 
+    public function deleteJobApplicationByJobID($job_id){
+        $conn = $this->db->getConnection();
+
+        $sql = "DELETE FROM job_applications WHERE job_id = :job_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(":job_id", $job_id);
+        $stmt->execute();
+
+        $this->db->closeConnection();
+        return true;
+    }
+
     public function getJobApplicationsByUserId($user_id) {
         $conn = $this->db->getConnection();
 

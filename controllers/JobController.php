@@ -48,7 +48,22 @@ class JobController {
     public function deleteJob($job_id) {
         $job = new Job();
         $result = $job->deleteJob($job_id);
-        return $result;
+
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if ($result) {
+            // Job application created successfully
+            $_SESSION['message'] = 'Job deleted successfully.';
+        } else {
+            // Failed to create job application
+            $_SESSION['message'] = 'Failed to delete job. Please try again.';
+        }
+
+        // Redirect to home
+        header('Location: /web-programming-assignment/job-post');
+        exit();
     }
 
 }

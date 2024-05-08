@@ -255,7 +255,17 @@ switch ($request) {
         } else {
             $controller->page_not_found();
         }
-        
+        break;
+    case '/remove-job-action':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $jobApplicationController = new JobApplicationController();
+            $jobController = new JobController();
+            $job_id = $_POST['job_id'];
+            $jobApplicationController->deleteJobApplicationByJobID($job_id);
+            $jobController->deleteJob($job_id);
+        } else {
+            $controller->page_not_found();
+        }
         break;
     case '/signout' :
         $userController->signoutUser();

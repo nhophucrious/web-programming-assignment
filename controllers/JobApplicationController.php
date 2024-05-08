@@ -38,4 +38,10 @@ class JobApplicationController {
         $result = $job_application->getJobApplicationByJobId($job_id);
         return $result;
     }
+
+    public function deleteJobApplicationByJobID($job_id) {
+        $job_application = new JobApplication();
+        $result = $job_application->deleteJobApplicationByJobID($job_id);
+        return $result;
+    }
 }
