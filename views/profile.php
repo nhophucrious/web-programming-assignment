@@ -23,6 +23,7 @@ if (isset($_SESSION['user'])) {
     $about_me = $user_details['about_me'];
     $address_id = $user_details['address_id'];
     $skills = $user_details['skills'];
+    $cv_file = $user_details['cv_file'];
 }
 
 // if address_id is not empty, get address details
@@ -98,7 +99,20 @@ $applications = array();
                                 </div>
                             </div>
 
-
+                            <div class="box">
+                                <h3>CV</h3>
+                                <div class="cv-content">
+                                    <?php if ($cv_file): ?>
+                                        <a href="<?= $cv_file ?>" target="_blank"><?= basename($cv_file) ?></a>
+                                    <?php else: ?>
+                                        <p>No CV uploaded yet.</p>
+                                    <?php endif; ?>
+                                </div>
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#cvModal">
+                                    Edit CV
+                                </button>
+                            </div>
 
                             <div class="col-md-8">
                                 <h2><?= $full_name ?></h2>
@@ -343,7 +357,28 @@ $applications = array();
         </div>
     </div>
 </div>
-
+<!-- Cv Modal -->
+<div class="modal" id="cvModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit CV</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="cvFile">Upload CV:</label>
+                        <input type="file" id="cvFile" name="cvFile" accept=".pdf,.doc,.docx">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="updateCvFile()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Gender Modal -->
 <div class="modal" id="genderModal">
     <div class="modal-dialog">
@@ -639,7 +674,21 @@ require_once 'includes/footer.php';
 
         xhr.send('user_id=' + encodeURIComponent(userId) + '&avatar=' + encodeURIComponent(avatarUrl));
     }
+    function updateCvFile() {
+        var formData = new FormData();
+        var file = document.getElementById('cvFile').files[0];
+        formData.append('cvFile', file);
 
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'update_cv_file.php', true);
+        xhr.onload = function () {
+            if (this.status === 200) {
+                alert('CV file updated successfully');
+                $('#cvModal').modal('hide');
+            }
+        }
+        xhr.send(formData);
+    }
     function updateTitle() {
         var title = document.getElementById('titleText').value;
         var userId = <?= json_encode($user_id) ?>;

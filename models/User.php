@@ -15,11 +15,23 @@ class User
     private $aboutMe;
     private $addressId;
     private $skills;
+    private $cvFile; // New variable for CV file (PDF)
+
     public function __construct()
     {
         $this->db = new Database();
     }
+    // New method to set CV file
+    public function setCvFile($cvFile)
+    {
+        $this->cvFile = $cvFile;
+    }
 
+    // New method to get CV file
+    public function getCvFile()
+    {
+        return $this->cvFile;
+    }
     public function getEmail()
     {
         return $this->email;
@@ -202,16 +214,31 @@ class User
     }
 
     // update user detail
-    public function updateUser($user_id, $email, $first_name, $last_name, $password, $title, $phoneNo, $avatar, $gender, $dob, $aboutMe, $addressId, $skills)
+    public function updateUser($userId, $email, $firstName, $lastName, $password, $title, $phoneNo, $avatar, $gender, $dob, $aboutMe, $addressId, $skills, $cvFile)
     {
         $conn = $this->db->getConnection();
 
-        $sql = "UPDATE users SET email_address = :email, first_name = :first_name, last_name = :last_name, password = :password, title = :title, phone_no = :phoneNo, avatar = :avatar, gender = :gender, dob = :dob, about_me = :aboutMe, address_id = :addressId, skills = :skills WHERE user_id = :user_id";
+        $sql = "UPDATE users SET 
+            email_address = :email, 
+            first_name = :first_name, 
+            last_name = :last_name, 
+            password = :password, 
+            title = :title, 
+            phone_no = :phoneNo, 
+            avatar = :avatar, 
+            gender = :gender, 
+            dob = :dob, 
+            about_me = :aboutMe, 
+            address_id = :addressId, 
+            skills = :skills, 
+            cv_file = :cvFile 
+        WHERE user_id = :userId";
+
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':userId', $userId);
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':first_name', $first_name);
-        $stmt->bindParam(':last_name', $last_name);
+        $stmt->bindParam(':first_name', $firstName);
+        $stmt->bindParam(':last_name', $lastName);
         $stmt->bindParam(':password', $password);
         $stmt->bindParam(':title', $title);
         $stmt->bindParam(':phoneNo', $phoneNo);
@@ -221,12 +248,32 @@ class User
         $stmt->bindParam(':aboutMe', $aboutMe);
         $stmt->bindParam(':addressId', $addressId);
         $stmt->bindParam(':skills', $skills);
+        $stmt->bindParam(':cvFile', $cvFile);
         $stmt->execute();
 
         $this->db->closeConnection();
         return true;
     }
+    // Update CV file
+    public function updateCvFile($user_id, $cvFile)
+    {
+        $conn = $this->db->getConnection();
 
+        // Save the uploaded CV file
+        $targetDir = "uploads/cv/";
+        $targetFile = $targetDir . basename($cvFile["name"]);
+        move_uploaded_file($cvFile["tmp_name"], $targetFile);
+
+        // Update the user's CV file in the database
+        $sql = "UPDATE users SET cv_file = :cvFile WHERE user_id = :userId";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':userId', $user_id);
+        $stmt->bindParam(':cvFile', $targetFile);
+        $stmt->execute();
+
+        $this->db->closeConnection();
+        return true;
+    }
     // update title 
     public function updateTitle($user_id, $title)
     {

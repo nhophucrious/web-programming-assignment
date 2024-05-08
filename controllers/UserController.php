@@ -93,11 +93,26 @@ class UserController
         return $result;
     }
 
-    // update user
-    public function updateUser($user_id, $email, $first_name, $last_name, $password, $title, $phoneNo, $avatar, $gender, $dob, $aboutMe, $addressId, $skills)
+    // Update user
+    public function updateUser($user_id, $email, $first_name, $last_name, $password, $title, $phoneNo, $avatar, $gender, $dob, $aboutMe, $addressId, $skills, $cvFile)
     {
         $user = new User();
-        $result = $user->updateUser($user_id, $email, $first_name, $last_name, $password, $title, $phoneNo, $avatar, $gender, $dob, $aboutMe, $addressId, $skills);
+
+        // Update user details without CV file
+        $result = $user->updateUser($user_id, $email, $first_name, $last_name, $password, $title, $phoneNo, $avatar, $gender, $dob, $aboutMe, $addressId, $skills, $cvFile);
+
+        // If CV file is provided, update it
+        if ($cvFile) {
+            $result = $user->updateCvFile($user_id, $cvFile);
+        }
+
+        return $result;
+    }
+    // Update CV file
+    public function updateCvFile($user_id, $cvFile)
+    {
+        $user = new User();
+        $result = $user->updateCvFile($user_id, $cvFile);
         return $result;
     }
 
