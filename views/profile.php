@@ -26,7 +26,7 @@ if (isset($_SESSION['user'])) {
     $skills = $user_details['skills'];
 
     $job_application_controller = new JobApplicationController();
-    $applications = $job_application_controller->getJobApplicationsByUID($user_id);
+    $applications = $job_application_controller->getJobApplicationsByUserID($user_id);
 }
 
 // if address_id is not empty, get address details
