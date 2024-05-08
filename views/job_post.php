@@ -125,14 +125,33 @@ if (isset($_SESSION['employer'])) {
                 <label for="job_id">Select job to remove:</label>
                 <select id="job_id" name="job_id" class="form-control">
                     <?php foreach ($jobs as $job): ?>
-                        <option value="<?= htmlspecialchars($job['job_id']) ?>"><?= htmlspecialchars($job['job_title']) ?></option>
+                        <option value="<?= htmlspecialchars($job['job_id']) ?>" data-job='<?= htmlentities(json_encode($job), ENT_QUOTES, 'UTF-8') ?>'>
+                            Job_ID: <?= htmlspecialchars($job['job_id']) ?> - Name: <?= htmlspecialchars($job['job_name']) ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
+            <div id="jobDetails"></div>
             <div>
                 <button type="submit" class="hiredcmut-button">Remove</button>
             </div>
         </form>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#job_id').change(function() {
+                    var selectedJob = $(this).find('option:selected').data('job');
+                    $('#jobDetails').html(
+                        'Job Name: ' + selectedJob.job_name + '<br>' +
+                        'Job Level: ' + selectedJob.job_level + '<br>' +
+                        'Job Type: ' + selectedJob.job_type + '<br>' +
+                        'Job Location: ' + selectedJob.job_location + '<br>' +
+                        'Salary: ' + selectedJob.salary
+                    );
+                });
+            });
+        </script>
     </div>
 </div>
 
