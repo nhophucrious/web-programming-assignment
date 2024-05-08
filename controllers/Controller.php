@@ -18,6 +18,10 @@ class Controller {
         $this->showProfilePage();
     }
 
+    public function employerProfile(){
+        $this->showEmployerProfilePage();
+    }
+
     public function signup() {
         $this->showSignupPage();
     }
@@ -42,6 +46,10 @@ class Controller {
         $this->showPageNotFound();
     }
 
+    public function job_post() {
+        $this->showJobPostPage();
+    }
+
     private function showHomePage() {
         include 'views/home.php';
     }
@@ -56,6 +64,10 @@ class Controller {
 
     private function showProfilePage() {
         include 'views/profile.php';
+    }
+
+    private function showEmployerProfilePage() {
+        include 'views/employer_profile.php';
     }
 
     private function showSignupPage() {
@@ -78,6 +90,9 @@ class Controller {
         include 'views/job_detail.php';
     }
 
+    private function showJobPostPage() {
+        include 'views/job_post.php';
+    }
     public function showPageNotFound() {
         include 'views/error.php';
     }

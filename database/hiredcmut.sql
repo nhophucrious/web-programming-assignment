@@ -8,18 +8,6 @@ CREATE TABLE `address` (
   `province` TEXT
 );
 
--- certificate
-CREATE TABLE `certificate` (
-  `certificate_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-  `user_id` INTEGER,
-  `certificate_name` TEXT,
-  `issuer` TEXT,
-  `year_issued` VARCHAR(4),
-  `link` TEXT,
-
-  FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-);
-
 -- users
 CREATE TABLE `users` (
   `user_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -38,7 +26,6 @@ CREATE TABLE `users` (
   FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`)
 );
 
--- employers
 CREATE TABLE `employers` (
   `employer_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
   `email_address` TEXT NOT NULL,
@@ -46,6 +33,8 @@ CREATE TABLE `employers` (
   `employer_name` TEXT NOT NULL,
   `address_id` INTEGER,
   `status` BOOL NOT NULL,
+  `phoneNo` VARCHAR(255) NOT NULL,
+  `about_us` TEXT,
   FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`)
 );
 
@@ -73,6 +62,18 @@ CREATE TABLE `education` (
   `institution_name` TEXT,
   `start_year` VARCHAR(4),
   `end_year` VARCHAR(4),
+  FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+);
+
+-- certificate
+CREATE TABLE `certificate` (
+  `certificate_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+  `user_id` INTEGER,
+  `certificate_name` TEXT,
+  `issuer` TEXT,
+  `year_issued` VARCHAR(4),
+  `link` TEXT,
+
   FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 );
 

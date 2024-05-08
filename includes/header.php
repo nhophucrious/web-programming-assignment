@@ -6,6 +6,8 @@ if (session_status() == PHP_SESSION_NONE) {
 if (isset($_SESSION['user'])) {
     $isSignedIn = true;
     $full_name = $_SESSION['user']['full_name'];
+} else if (isset($_SESSION['employer'])) {
+    $isSignedIn = true;
 } else {
     $isSignedIn = false;
 }
@@ -91,6 +93,17 @@ $uri = $_SERVER['REQUEST_URI'];
                     <li class="nav-item">
                         <a class="nav-link" href="/web-programming-assignment/signout">Sign Out</a>
                     </li>
+                <?php elseif (isset($_SESSION['employer'])): ?>
+                    <li class="nav-item <?= $uri === '/web-programming-assignment/employer-profile' ? 'active' : '' ?>">
+                        <a class="nav-link" href="/web-programming-assignment/employer-profile">Profile</a>
+                    </li>
+                    <li class="nav-item <?= $uri === '/web-programming-assignment/job-post' ? 'active' : '' ?>">
+                        <a class="nav-link" href="/web-programming-assignment/job-post">Job Post</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/web-programming-assignment/signout">Sign Out</a>
+                    </li>
+
                 <?php else: ?>
                     <li class="nav-item <?= $uri === '/web-programming-assignment/signup' ? 'active' : '' ?>">
                         <a class="nav-link" href="/web-programming-assignment/signup">Sign Up</a>

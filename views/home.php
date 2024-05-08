@@ -18,6 +18,7 @@ $jobController = new JobController();
 $jobs = $jobController->getAllJobs();
 // limit home page to 6 jobs
 $jobs = array_slice($jobs, 0, 6);
+require_once __DIR__ . '/../controllers/EmployerController.php';
 ?>
 
 <div class="hero py-5 container-fluid text-center d-flex flex-column justify-content-center align-items-center">
@@ -25,7 +26,11 @@ $jobs = array_slice($jobs, 0, 6);
         <h1 class="mb-4"><span style="color: black; background-color: #FFBF00; padding: 0 5px; border-radius: 10px;">Get employed</span> with HiredCMUT!</h1>        
         <?php
             if ($isSignedIn) {
-                echo '<p>Welcome back, ' . $full_name . '!</p>';
+                if (isset($full_name)) {
+                    echo '<p>Welcome back, ' . $full_name . '!</p>';
+                } else {
+                    echo '<p>Welcome back!</p>';
+                }
             } else {
                 echo '<p>Find a job in an instant!</p>';
             }
@@ -55,8 +60,12 @@ $jobs = array_slice($jobs, 0, 6);
                     <div class="card-body">
                         <h5 class="card-title">
                             <a href="job_details?id=<?= $job['job_id'] ?>" style="color: black"><?= $job['job_name'] ?></a>
-                        </h5>                        
-                        <p class="card-text"><?= $job['employer_id'] ?></p>
+                        </h5>
+                        <?php
+                            $employerController = new EmployerController();
+                            $employer = $employerController->getEmployerDetails($job['employer_id']);
+                        ?>                        
+                        <p class="card-text"><?= $employer['employer_name'] ?></p>
                         <p class="card-text">
                             <span class="badge badge-primary"><?= $job['job_level'] ?></span>
                             <span class="badge badge-secondary"><?= $job['job_type'] ?></span>

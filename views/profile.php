@@ -5,6 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 // get user details
 require_once __DIR__ . '/../controllers/UserController.php';
+require_once __DIR__ . '/../controllers/JobApplicationController.php';
 if (isset($_SESSION['user'])) {
     $user_id = $_SESSION['user']['user_id'];
     $userController = new UserController();
@@ -23,6 +24,9 @@ if (isset($_SESSION['user'])) {
     $about_me = $user_details['about_me'];
     $address_id = $user_details['address_id'];
     $skills = $user_details['skills'];
+
+    $job_application_controller = new JobApplicationController();
+    $applications = $job_application_controller->getJobApplicationsByUID($user_id);
 }
 
 // if address_id is not empty, get address details
@@ -44,6 +48,7 @@ if ($address_id != '') {
     $address = '';
 }
 
+
 // education details
 require_once __DIR__ . '/../controllers/EducationController.php';
 $educationController = new EducationController();
@@ -60,7 +65,6 @@ $certificateController = new CertificateController();
 $certificates = $certificateController->getCertificatesByUserId($user_id);
 
 require_once 'includes/header.php';
-$applications = array();
 ?>
 
 <div class="container pt-5" style="min-height: 100vh">
@@ -263,13 +267,29 @@ $applications = array();
 
                 <div class="tab-pane" id="my-application">
                     <?php
-                    if (count($applications) > 0) {
-                        foreach ($applications as $application) {
-                            echo "<p>$application</p>";
+                        if (count($applications) > 0) {
+                            $jobController = new JobController();
+                            $employerController = new EmployerController();
+                            echo '<div style="overflow-y: scroll; height: 800px;">'; // This creates a scrollable div
+                            foreach ($applications as $application) {
+                                $result_job = $jobController->getJobById($application['job_id']);
+                                $result_employer_name = $employerController->getEmployerDetails($result_job['employer_id']);
+                                
+
+                                echo '<div class="p-3 m-3" style="border: 2px solid #ffbf00; border-radius: 10px; text-align: left;">'; // This creates a smaller div for each application
+                                echo '<h3>' .  $result_job['job_name'] . '</h3>';
+                                echo '<hr>';
+                                echo '<p>' . 'Employer: ' . $result_employer_name['employer_name'] . '</p>';
+                                echo '<p> Date Applied: ' . $application['date_applied'] . '</p>';
+                                echo '<br>';
+                                echo '<a class="hiredcmut-button-light" href="/web-programming-assignment/job_details?id=' . $result_job['job_id'] . '">View Job</a>';
+                                
+                                echo '</div>';
+                            }
+                            echo '</div>';
+                        } else {
+                            echo '<div class="alert alert-success" role="alert">No applications yet.</div>';
                         }
-                    } else {
-                        echo '<div class="alert alert-success" role="alert">No applications yet.</div>';
-                    }
                     ?>
                 </div>
             </div>
