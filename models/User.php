@@ -201,6 +201,20 @@ class User
         return $user;
     }
 
+    // search user with a query string
+    public function searchUser($searchQuery)
+    {
+        $conn = $this->db->getConnection();
+
+        $sql = "SELECT * FROM users WHERE first_name LIKE :searchQuery OR last_name LIKE :searchQuery OR email_address LIKE :searchQuery OR skills LIKE :searchQuery OR title LIKE :searchQuery";        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':searchQuery', '%' . $searchQuery . '%');
+        $stmt->execute();
+        $users = $stmt->fetchAll();
+
+        $this->db->closeConnection();
+        return $users;
+    }
+
     // update user detail
     public function updateUser($user_id, $email, $first_name, $last_name, $password, $title, $phoneNo, $avatar, $gender, $dob, $aboutMe, $addressId, $skills)
     {

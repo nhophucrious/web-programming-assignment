@@ -52,8 +52,8 @@ require_once 'includes/header.php';
             <p>Or search for potential employees:</p>
             <!-- search bar for finding useres -->
             <div class="container-fluid ">
-                <form action="search-user" method="get">
-                    <input style="width: 100%; border: 2px solid #ffbf00; border-radius: 10px; height: 4rem; padding: 1rem 2rem" type="text" name="search" placeholder="Search for user, skills, location..." required>
+                <form action="/web-programming-assignment/user" method="get">
+                    <input style="width: 100%; border: 2px solid #ffbf00; border-radius: 10px; height: 4rem; padding: 1rem 2rem" type="text" name="q" placeholder="Search for candidates..." required>
                     <button style="margin-top: 1rem" type="submit" class="hiredcmut-button-light">Search</button>
                 </form>
             </div>
