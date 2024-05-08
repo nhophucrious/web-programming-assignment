@@ -27,6 +27,9 @@ if (isset($_SESSION['user'])) {
 
     $job_application_controller = new JobApplicationController();
     $applications = $job_application_controller->getJobApplicationsByUserID($user_id);
+} else {
+    header('Location: /web-programming-assignment/signin');
+    exit();
 }
 
 // if address_id is not empty, get address details
