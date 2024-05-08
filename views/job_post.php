@@ -11,7 +11,11 @@ if (isset($_SESSION['message'])) {
     $message = $_SESSION['message'];
     if ($message === 'Job created successfully') {
         echo '<div class="alert alert-success" role="alert">' . $message . '</div>';
-    } else {
+    }
+    else if ($message === 'Job deleted successfully.') {
+        echo '<div class="alert alert-success" role="alert">' . $message . '</div>';
+    }
+    else {
         echo '<div class="alert alert-danger" role="alert">' . $message . '</div>';
     }
     unset($_SESSION['message']); // Remove the message from the session
@@ -120,19 +124,40 @@ if (isset($_SESSION['employer'])) {
             </div>
         </form>
 
-        <form id="removeJob" action="/web-programming-assignment/add-job-action" method="post" style="display: none;">
+        <form id="removeJob" action="/web-programming-assignment/remove-job-action" method="post" style="display: none;">
             <div>
                 <label for="job_id">Select job to remove:</label>
                 <select id="job_id" name="job_id" class="form-control">
+                    <option value="" disabled selected>Select a job</option>
                     <?php foreach ($jobs as $job): ?>
-                        <option value="<?= htmlspecialchars($job['job_id']) ?>"><?= htmlspecialchars($job['job_title']) ?></option>
+                        <option value="<?= htmlspecialchars($job['job_id']) ?>" data-job='<?= htmlentities(json_encode($job), ENT_QUOTES, 'UTF-8') ?>'>
+                            Job_ID: <?= htmlspecialchars($job['job_id']) ?> - Name: <?= htmlspecialchars($job['job_name']) ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
+            <br>
+            <div id="jobDetails"></div>
             <div>
                 <button type="submit" class="hiredcmut-button">Remove</button>
             </div>
         </form>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#job_id').change(function() {
+                    var selectedJob = $(this).find('option:selected').data('job');
+                    $('#jobDetails').html(
+                        'Job Name: ' + selectedJob.job_name + '<br>' +
+                        'Job Level: ' + selectedJob.job_level + '<br>' +
+                        'Job Type: ' + selectedJob.job_type + '<br>' +
+                        'Job Location: ' + selectedJob.job_location + '<br>' +
+                        'Salary: ' + selectedJob.salary
+                    );
+                });
+            });
+        </script>
     </div>
 </div>
 
