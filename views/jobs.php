@@ -151,7 +151,7 @@ $jobsForCurrentPage = array_slice($jobs, $startIndex, $jobsPerPage);
                                 $province = $address->getProvince();
 
                                 // Combine them into a single string
-                                $address_string = $streetNo . ' ' . $streetName . ', Ward ' . $ward . ', District ' . $district . ', ' . $province . ' Province';
+                                $address_string = $streetNo . ' ' . $streetName . ', ' . $ward . ', ' . $district . ', ' . $province;
                             ?>
                             <p class="card-text" style="display: none;"><?= $job['job_id']?></p>
                             <p class="card-text"><?= $employer['employer_name'] ?></p>
