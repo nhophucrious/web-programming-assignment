@@ -54,7 +54,7 @@ $jobs = array_filter($jobs, function($job) use ($location, $level, $minSalary, $
 });
 
 $totalJobCount = count($jobs);
-$jobsPerPage = 2;
+$jobsPerPage = 5;
 $totalPages = ceil($totalJobCount / $jobsPerPage);
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $startIndex = ($page - 1) * $jobsPerPage;
