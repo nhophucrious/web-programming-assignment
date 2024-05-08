@@ -55,6 +55,10 @@ if (isset($_GET['id'])) {
         $certificateController = new CertificateController();
         $certificates = $certificateController->getCertificatesByUserId($user['user_id']);
     }
+} else if (isset($_GET['q'])) {
+    $user = null;
+} else {
+    $user = null;
 }
 ?>
 
