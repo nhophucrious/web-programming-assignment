@@ -262,10 +262,10 @@ function highlightCard(card) {
         <p>${card.getElementsByClassName('card-text')[5].innerText}</p>
         <hr>
         <h3 style="font-weight:bold">Job Requirements</h3>
-        <p>${card.getElementsByClassName('card-text')[6].innerText}</p>
+        <p>${decodeUnicodeEscapes(card.getElementsByClassName('card-text')[6].innerText.replace(/\\r\\n/g, '<br>')).replace(/^"|"$/g, '')}</p>
         <hr>
         <h3 style="font-weight:bold">Job Benefits</h3>
-        <p>${card.getElementsByClassName('card-text')[7].innerText}</p>
+        <p>${decodeUnicodeEscapes(card.getElementsByClassName('card-text')[7].innerText.replace(/\\r\\n/g, '<br>')).replace(/^"|"$/g, '')}</p>
         <hr>
     `;
 }
@@ -277,6 +277,15 @@ function checkUserId() {
     return true;
 
 }
+
+function decodeUnicodeEscapes(input) {
+    input = input.replace(/\\u(\w{4,4})/g,function(a,b) {
+        var charcode = parseInt(b, 16);
+        return String.fromCharCode(charcode);
+    });
+    return input;
+}
+
 </script>
 
 <?php

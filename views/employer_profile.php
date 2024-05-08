@@ -115,6 +115,7 @@ require_once __DIR__ . '/../controllers/JobController.php';
                         foreach ($jobs as $job) {
                             $jobApplicationController = new JobApplicationController();
                             $applications = $jobApplicationController->getJobApplicationByJobID($job['job_id']);
+                            var_dump($applications);
                             echo '<div class="p-3 m-3" style="border: 2px solid #ffbf00; border-radius: 10px; text-align: left;">'; // This creates a smaller div for each application
                             echo '<h3>' . $job['job_name'] . '</h3>';
                             echo '<hr>';
