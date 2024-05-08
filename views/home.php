@@ -26,7 +26,11 @@ require_once __DIR__ . '/../controllers/EmployerController.php';
         <h1 class="mb-4"><span style="color: black; background-color: #FFBF00; padding: 0 5px; border-radius: 10px;">Get employed</span> with HiredCMUT!</h1>        
         <?php
             if ($isSignedIn) {
-                echo '<p>Welcome back, ' . $full_name . '!</p>';
+                if (isset($full_name)) {
+                    echo '<p>Welcome back, ' . $full_name . '!</p>';
+                } else {
+                    echo '<p>Welcome back!</p>';
+                }
             } else {
                 echo '<p>Find a job in an instant!</p>';
             }
