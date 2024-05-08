@@ -112,8 +112,21 @@ require_once __DIR__ . '/../controllers/JobController.php';
                 <div class="tab-pane" id="my-application">
                     <?php
                     if (count($jobs) > 0) {
-                        foreach ($jobs as $jobs) {
-                            echo "<p>$jobs</p>";
+                        foreach ($jobs as $job) {
+                            $jobApplicationController = new JobApplicationController();
+                            $applications = $jobApplicationController->getJobApplicationByJobID($job['job_id']);
+                            echo '<div class="p-3 m-3" style="border: 2px solid #ffbf00; border-radius: 10px; text-align: left;">'; // This creates a smaller div for each application
+                            echo '<h3>' . $job['job_name'] . '</h3>';
+                            echo '<hr>';
+                            echo '<p>' . 'Description: ' . $job['job_description'] . '</p>';
+                            echo '<br>';
+                            echo '<p>' . 'Date posted: ' . $job['date_posted'] . '</p>';
+                            echo '<br>';
+                            echo '<p>' . 'Number of applicants: ' . count($applications) . '</p>';
+                            
+                            echo '<a class="hiredcmut-button-light" href="/web-programming-assignment/job_details?id=' . $job['job_id'] . '">View Job</a>';
+
+                            echo '</div>';
                         }
                     } else {
                         echo '<div class="alert alert-success" role="alert">No job yet.</div>';

@@ -27,9 +27,15 @@ class JobApplicationController {
         exit();
     }
 
-    public function getJobApplicationsByUID($user_id) {
+    public function getJobApplicationsByUserID($user_id) {
         $job_application = new JobApplication();
         $result = $job_application->getJobApplicationsByUserId($user_id);
+        return $result;
+    }
+
+    public function getJobApplicationByJobID($job_id) {
+        $job_application = new JobApplication();
+        $result = $job_application->getJobApplicationByJobId($job_id);
         return $result;
     }
 }

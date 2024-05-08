@@ -101,4 +101,18 @@ class JobApplication{
         $this->db->closeConnection();
         return $result;
     }
+
+    public function getJobApplicationByJobID($job_id){
+        $conn = $this->db->getConnection();
+
+        $sql = 'SELECT * FROM job_applications WHERE job_id = :job_id';
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':job_id', $job_id);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+
+        $this->db->closeConnection();
+        return $result;
+    }
 }
