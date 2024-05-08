@@ -128,6 +128,7 @@ if (isset($_SESSION['employer'])) {
             <div>
                 <label for="job_id">Select job to remove:</label>
                 <select id="job_id" name="job_id" class="form-control">
+                    <option value="" disabled selected>Select a job</option>
                     <?php foreach ($jobs as $job): ?>
                         <option value="<?= htmlspecialchars($job['job_id']) ?>" data-job='<?= htmlentities(json_encode($job), ENT_QUOTES, 'UTF-8') ?>'>
                             Job_ID: <?= htmlspecialchars($job['job_id']) ?> - Name: <?= htmlspecialchars($job['job_name']) ?>
@@ -135,6 +136,7 @@ if (isset($_SESSION['employer'])) {
                     <?php endforeach; ?>
                 </select>
             </div>
+            <br>
             <div id="jobDetails"></div>
             <div>
                 <button type="submit" class="hiredcmut-button">Remove</button>
