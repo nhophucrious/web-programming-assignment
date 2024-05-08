@@ -37,7 +37,7 @@ unset($_SESSION['message']);
             </form>
             <!-- already have an account? -->
             <hr>
-            <p>Do not have an account yet? <a href="signin">Sign up</a></p>
+            <p>Do not have an account yet? <a href="signup">Sign up</a></p>
         </div>
         <div class="col-md-6 col-sm-12">
             <div class="signup-info-panel p-3">

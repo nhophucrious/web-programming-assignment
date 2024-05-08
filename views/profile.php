@@ -27,6 +27,9 @@ if (isset($_SESSION['user'])) {
 
     $job_application_controller = new JobApplicationController();
     $applications = $job_application_controller->getJobApplicationsByUserID($user_id);
+} else {
+    header('Location: /web-programming-assignment/signin');
+    exit();
 }
 
 // if address_id is not empty, get address details
@@ -128,7 +131,19 @@ require_once 'includes/header.php';
                             <div class="col-md-6">
                                 <p>
                                     <i class="fas fa-map-marker-alt"></i>
-                                    <?= ($address_id != '') ? $address : 'No address yet' ?>
+                                    <?php 
+                                        if ($address_id != '') {
+                                            // explode the address string to get the individual parts
+                                            $address_parts = explode(', ', $address);
+                                            $streetNo = $address_parts[0];
+                                            $streetName = $address_parts[1];
+                                            $ward = $address_parts[2];
+                                            $district = $address_parts[3];
+                                            $province = $address_parts[4];
+
+                                        }
+                                    ?>
+                                    <?= ($address != '') ? $streetNo . ' ' . $streetName . ', ' . $ward . ', ' . $district . ', ' . $province : 'No address yet' ?>
                                     <?php if ($address_id != ''): ?>
                                         <button class="icon-button" data-toggle="modal" data-target="#updateAddressModal">
                                             <i class="fa fa-pen"></i>

@@ -55,8 +55,61 @@ if (isset($_GET['id'])) {
         $certificateController = new CertificateController();
         $certificates = $certificateController->getCertificatesByUserId($user['user_id']);
     }
+} else if (isset($_GET['q'])) {
+    $searchQuery = $_GET['q'];
+    require_once __DIR__ . '/../controllers/UserController.php';
+    $userController = new UserController();
+    $userResult = $userController->searchUser($searchQuery);
+} else {
+    $userResult = null;
 }
 ?>
+
+<?php if (isset($_GET['q'])): ?>
+    <div class="p-4">
+        <a href="/web-programming-assignment/employer" class="hiredcmut-button m-3">Back to dashboard</a>
+    </div>
+    <div class="container" style="min-height: 100vh">
+        <div class="text-center">
+            <h1 class='text-center'>Search results</h1>
+            <p>Search results for: <?= $_GET['q'] ?></p>
+        </div>
+        <?php if ($userResult): ?>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Name</th>
+                        <th>Title</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Gender</th>
+                        <th>Skills</th>
+                        <th>Profile</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($userResult as $user): ?>
+                        <tr>
+                            <td><?= $user['user_id'] ?></td>
+                            <td><?= $user['first_name'] . ' ' . $user['last_name'] ?></td>
+                            <td><?= $user['title'] ?></td>
+                            <td><a href="mailto:<?= $user['email_address'] ?>"><?= $user['email_address'] ?></a></td>                            <td><?= $user['phone_no'] ?></td>
+                            <td><?= ($user['gender'] === "1") ? "Female" : "Male" ?></td>
+                            <td><?= $user['skills'] ?></td>
+                            <td><a href="user?id=<?= $user['user_id'] ?>">View profile</a></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p>No users found.</p>
+        <?php endif; ?>
+    </div>
+    
+<?php else: ?>
+
+
 
 <div class="container" style="min-height: 100vh">
     <?php if (!$user): ?>
@@ -89,7 +142,7 @@ if (isset($_GET['id'])) {
         <hr>
         <div class="row">
             <div class="col-md-6">
-                <p><i class="fas fa-envelope"></i> <?= $email_address ?></p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:<?= $email_address ?>"><?= $email_address ?></a></p>
                 <p><i class="fas fa-phone"></i>
                     <?= ($phone_no != '') ? $phone_no : 'No phone number yet' ?></p>
                 <p><i class="fas fa-user"></i>
@@ -194,6 +247,7 @@ if (isset($_GET['id'])) {
     <?php endif; ?>
 </div>
 
+<?php endif; ?>
 
 <?php
 require_once 'includes/footer.php';

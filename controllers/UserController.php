@@ -66,6 +66,14 @@ class UserController
         }
     }
 
+    // search user by query string
+    public function searchUser($query)
+    {
+        $user = new User();
+        $result = $user->searchUser($query);
+        return $result;
+    }
+
     // sign out
     public function signoutUser()
     {

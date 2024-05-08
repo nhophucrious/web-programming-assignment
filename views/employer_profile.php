@@ -5,6 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 
 require_once __DIR__ . '/../controllers/EmployerController.php';
+require_once __DIR__ . '/../controllers/UserController.php';
 if (isset($_SESSION['employer'])) {
     $employer_id = $_SESSION['employer']['employer_id'];
     $employerController = new EmployerController();
@@ -112,22 +113,28 @@ require_once __DIR__ . '/../controllers/JobController.php';
                 <div class="tab-pane" id="my-application">
                     <?php
                     if (count($jobs) > 0) {
+                        echo '<table class="table-striped">';
+                        echo '<tr><th>Job Name</th><th>Date Posted</th><th>Number of Applicants</th><th>Applicants</th><th>Actions</th></tr>';
                         foreach ($jobs as $job) {
                             $jobApplicationController = new JobApplicationController();
                             $applications = $jobApplicationController->getJobApplicationByJobID($job['job_id']);
-                            echo '<div class="p-3 m-3" style="border: 2px solid #ffbf00; border-radius: 10px; text-align: left;">'; // This creates a smaller div for each application
-                            echo '<h3>' . $job['job_name'] . '</h3>';
-                            echo '<hr>';
-                            echo '<p>' . 'Description: ' . $job['job_description'] . '</p>';
-                            echo '<br>';
-                            echo '<p>' . 'Date posted: ' . $job['date_posted'] . '</p>';
-                            echo '<br>';
-                            echo '<p>' . 'Number of applicants: ' . count($applications) . '</p>';
-                            
-                            echo '<a class="hiredcmut-button-light" href="/web-programming-assignment/job_details?id=' . $job['job_id'] . '">View Job</a>';
 
-                            echo '</div>';
+                            $userController = new UserController();
+                            
+                            echo '<tr>';
+                            echo '<td class="p-3">' . $job['job_name'] . '</td>';
+                            echo '<td class="p-3">' . $job['date_posted'] . '</td>';
+                            echo '<td class="p-3">' . count($applications) . '</td>';
+                            echo '<td class="p-3">';
+                            foreach ($applications as $application) {
+                                $user = $userController->getUserDetails($application['user_id']);
+                                echo '<a href="/web-programming-assignment/user?id=' . $user['user_id'] . '">' . $user['first_name'] . ' ' . $user['last_name'] . '</a><br>';
+                            }
+                            echo '</td>';
+                            echo '<td class="p-3"><a href="/web-programming-assignment/job_details?id=' . $job['job_id'] . '">View Job</a></td>';
+                            echo '</tr>';
                         }
+                        echo '</table>';
                     } else {
                         echo '<div class="alert alert-success" role="alert">No job yet.</div>';
                     }

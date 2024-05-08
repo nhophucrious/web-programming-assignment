@@ -54,7 +54,7 @@ $jobs = array_filter($jobs, function($job) use ($location, $level, $minSalary, $
 });
 
 $totalJobCount = count($jobs);
-$jobsPerPage = 2;
+$jobsPerPage = 5;
 $totalPages = ceil($totalJobCount / $jobsPerPage);
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $startIndex = ($page - 1) * $jobsPerPage;
@@ -151,7 +151,7 @@ $jobsForCurrentPage = array_slice($jobs, $startIndex, $jobsPerPage);
                                 $province = $address->getProvince();
 
                                 // Combine them into a single string
-                                $address_string = $streetNo . ' ' . $streetName . ', Ward ' . $ward . ', District ' . $district . ', ' . $province . ' Province';
+                                $address_string = $streetNo . ' ' . $streetName . ', ' . $ward . ', ' . $district . ', ' . $province;
                             ?>
                             <p class="card-text" style="display: none;"><?= $job['job_id']?></p>
                             <p class="card-text"><?= $employer['employer_name'] ?></p>
@@ -262,10 +262,10 @@ function highlightCard(card) {
         <p>${card.getElementsByClassName('card-text')[5].innerText}</p>
         <hr>
         <h3 style="font-weight:bold">Job Requirements</h3>
-        <p>${card.getElementsByClassName('card-text')[6].innerText}</p>
+        <p>${decodeUnicodeEscapes(card.getElementsByClassName('card-text')[6].innerText.replace(/\\r\\n/g, '<br>')).replace(/^"|"$/g, '')}</p>
         <hr>
         <h3 style="font-weight:bold">Job Benefits</h3>
-        <p>${card.getElementsByClassName('card-text')[7].innerText}</p>
+        <p>${decodeUnicodeEscapes(card.getElementsByClassName('card-text')[7].innerText.replace(/\\r\\n/g, '<br>')).replace(/^"|"$/g, '')}</p>
         <hr>
     `;
 }
@@ -277,6 +277,15 @@ function checkUserId() {
     return true;
 
 }
+
+function decodeUnicodeEscapes(input) {
+    input = input.replace(/\\u(\w{4,4})/g,function(a,b) {
+        var charcode = parseInt(b, 16);
+        return String.fromCharCode(charcode);
+    });
+    return input;
+}
+
 </script>
 
 <?php
